@@ -17,3 +17,5 @@ The C4 site and example diagrams are by Simon Brown and licensed under [CC BY 4.
 `assets/offline/mermaid.min.js` is the official Mermaid 12.3.0 npm distribution from [mermaid-js/mermaid](https://github.com/mermaid-js/mermaid). Its MIT license is included as `LICENSE.mermaid`. The local viewer and vector generator have no network dependency. Engine upgrades are deliberate maintenance followed by template validation, not automatic downloads during skill execution.
 
 The required compact block layout and no-overlap acceptance gates are user requirements. They supplement the official C4 checklist and do not claim that C4 prescribes a unique layout algorithm or universal color palette.
+
+Harness discovery and invocation references for Codex, Claude Code, Kimi Code CLI, and DeepSeek Harness are linked in [harnesses.md](harnesses.md). The portable bundle keeps the common Agent Skills frontmatter and resolves resources relative to its own directory.

@@ -7,6 +7,12 @@ description: "Use when C4 architecture diagrams in Mermaid are needed from a rep
 
 Build an evidence-based architecture model first, then render it in Mermaid. Follow [C4 abstractions](https://c4model.com/abstractions) and [diagram examples](https://c4model.com/diagrams), rather than treating a repository tree as an architecture. This skill and its bundled instructions, templates, graphics, and viewer are in English. Use the user's requested language for project deliverables when specified.
 
+## Run in your harness
+
+Use this same skill in Codex, Claude Code, Kimi Code CLI, or DeepSeek Harness. Read the relevant entry in [harnesses.md](references/harnesses.md) for installation, invocation, and capability limits. Resolve supporting paths relative to the directory containing this `SKILL.md`, not the application's working directory. Keep repository input, skill resources, and generated output paths distinct.
+
+Use the host's available file search, file reading, shell, browser, and image inspection tools; no particular tool name, MCP server, model provider, or desktop app is required. The Python shape generator is optional and uses the standard library. Read references selectively; do not load the bundled JavaScript engine or all SVG examples into model context. If shell or visual inspection is unavailable, continue the supported modeling work and report the corresponding checklist items as `NOT VERIFIED`. A rendered SVG without visual inspection is not a visually reviewed diagram.
+
 ## Establish the model
 
 1. Identify the system, audience, question, and available evidence. Normally start with L1 System Context and L2 Container. Add L3 for a selected container only when useful and supported. Do not automatically generate every view.

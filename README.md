@@ -1,6 +1,6 @@
 # C4 Mermaid
 
-A Codex skill for analyzing an application repository or description and producing evidence-based C4 architecture diagrams in Mermaid.
+A portable Agent Skill for **Codex, Claude Code, Kimi Code CLI, and DeepSeek Harness**, analyzing an application repository or description and producing evidence-based C4 architecture diagrams in Mermaid.
 
 - Correct mapping of software systems, containers, components, and code.
 - Compact layouts inside boundaries, with readable text, labels, and arrows.
@@ -14,21 +14,39 @@ All skill instructions, references, templates, and viewer controls are in Englis
 
 ## Install
 
-Clone this repository into your Codex skills directory:
+Clone the repository, then install the same bundle for the chosen harness. Python 3.9 or newer is needed only for this optional installer and the vector generator:
 
 ```sh
-git clone https://github.com/eccodolf/c4-mermaid.git ~/.codex/skills/c4-mermaid
+git clone https://github.com/eccodolf/c4-mermaid.git
+cd c4-mermaid
+python scripts/install_skill.py --target codex
 ```
 
-If `CODEX_HOME` is configured, use its `skills/c4-mermaid` directory instead. The skill will be available on the next turn.
+Choose one target, or repeat for the harnesses you use:
+
+| Target | User destination | Invoke |
+| --- | --- | --- |
+| `codex` | `~/.agents/skills/c4-mermaid` | `$c4-mermaid` |
+| `claude` | `~/.claude/skills/c4-mermaid` | `/c4-mermaid` |
+| `kimi` | `~/.kimi/skills/c4-mermaid` | `/skill:c4-mermaid` |
+| `deepseek` | `~/.dsh/skills/c4-mermaid` | Ask to load `c4-mermaid` |
+
+For example, `python scripts/install_skill.py --target claude` installs for Claude Code. Add `--scope project --project-root /path/to/application` for a project installation, or `--dest /configured/skills/c4-mermaid` for an exact custom destination. The installer refuses to overwrite an existing folder and does not change harness settings. Start a new session if discovery has not refreshed.
+
+Without Python, clone directly into the desired destination from the table. Keep the complete directory together. For updates, run `git pull --ff-only` in a direct installation; for copied installations, copy reviewed changes into the existing skill directory. Do not install duplicate copies into overlapping discovery roots.
+
+See [harness compatibility](references/harnesses.md) for primary documentation links, legacy Codex paths, Kimi discovery options, and DeepSeek Harness profile requirements. DeepSeek support targets the official DSH application, not the standalone model API or chat website.
 
 Example request:
 
-> Use $c4-mermaid to inspect this repository and create System Context and Container diagrams. Include the evidence, assumptions, rendered previews, and checklist verdicts.
+> Load the c4-mermaid skill. Inspect this repository and create System Context and Container diagrams. Include the evidence, assumptions, rendered previews, and checklist verdicts.
+
+The modeling workflow is identical across harnesses. Rendering and visual review depend on available host tools; missing capabilities are reported as `NOT VERIFIED`, and unrendered diagrams remain drafts.
 
 ## Resources
 
 - [Skill instructions](SKILL.md)
+- [Harness compatibility and invocation](references/harnesses.md)
 - [Abstraction mapping](references/c4-model.md)
 - [Mandatory review checklist](references/review-checklist.md)
 - [Mermaid guidance](references/mermaid.md)
@@ -47,6 +65,10 @@ python scripts/render_shape.py --help
 ```
 
 Native Mermaid C4 cannot import the bundled SVG shapes as custom symbols. The skill documents faithful notation where supported and explicit adaptations where needed.
+
+## Validation
+
+Run `python -m unittest discover -s tests` to check isolated installation paths for all four harnesses, copied-resource integrity, and overwrite protection. Packaging checks do not establish runtime/model behavior on every platform. The bundled SVG previews were reviewed with Mermaid 12.3.0; use the mandatory checklist on new diagrams in your actual renderer.
 
 ## Attribution
 
