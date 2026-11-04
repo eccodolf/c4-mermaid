@@ -1,0 +1,45 @@
+---
+config:
+  c4:
+    c4ShapeMargin: 45
+    c4ShapePadding: 10
+    diagramMarginX: 15
+    diagramMarginY: 15
+---
+C4Container
+title Container - Orders (fictional example)
+Person(customer, "Customer", "Places orders")
+System_Ext(payments, "Payments", "Authorizes payments")
+System_Boundary(orders, "Orders") {
+  Container(worker, "Order worker", "Node.js", "Starts order fulfillment")
+  Container(web, "Web UI", "React SPA", "Order form in<br/>the browser")
+  Container(api, "Orders API", "Node.js", "Accepts orders<br/>and requests payment")
+  ContainerQueue(topic, "orders.created", "Kafka topic", "Stores OrderCreated<br/>events")
+  ContainerDb(db, "Orders store", "PostgreSQL schema", "Stores orders<br/>and payment status")
+}
+Rel(customer, web, "Places orders using")
+Rel(web, api, "Submits orders", "JSON/HTTPS")
+Rel(api, db, "Writes orders", "PostgreSQL/TLS")
+Rel(api, payments, "Authorizes payments", "JSON/HTTPS")
+Rel(api, topic, "Publishes OrderCreated", "Kafka/TLS")
+Rel(worker, topic, "Subscribes to OrderCreated", "Kafka/TLS")
+UpdateElementStyle(customer, $bgColor="#FFFFFF", $fontColor="#297E06", $borderColor="#297E06")
+UpdateElementStyle(payments, $bgColor="#FFFFFF", $fontColor="#BF101D", $borderColor="#BF101D")
+UpdateElementStyle(web, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(api, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(worker, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(db, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(topic, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateRelStyle(customer, web, $offsetX="-50", $offsetY="-35")
+UpdateRelStyle(web, api, $offsetX="-60", $offsetY="-70")
+UpdateRelStyle(api, payments, $offsetX="-50", $offsetY="-20")
+UpdateRelStyle(api, db, $offsetX="-90", $offsetY="5")
+UpdateRelStyle(api, topic, $offsetX="-65", $offsetY="-30")
+UpdateRelStyle(worker, topic, $offsetX="15", $offsetY="5")
+UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+
+%% legend: White fill. Green = Customer, blue = Orders elements, red = external Payments system.
+%% legend: Person = actor. Rectangle = application/system with an explicit type. Vertical cylinder = database. Horizontal cylinder = named Kafka topic.
+%% legend: Frame = logical system boundary. Native C4 uses a neutral dashed frame here, adapting the reference solid blue frame.
+%% legend: Arrows describe dependencies through their action/protocol labels. A dashed line does not itself mean async.
+%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.

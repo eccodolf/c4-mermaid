@@ -3,7 +3,7 @@
   "mermaid_version": "12.3.0",
   "files": {
     ".gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
-    "README.md": "0f84865485830fdf91b8739e65c8e72ee8911a0dccef7ec93b00c2e0b69df792",
+    "README.md": "a7a7b22ad52e4ff9e72378a26bb915abb55baa7dcbeac156d15bfa5c2fced2f1",
     "SKILL.md": "4ebab1d0dd1c1305bc948bfd01aeb1ffec64f1f2b1dbbeb619579358b0d5c67c",
     "agents/openai.yaml": "4ab16a494a2c3e417f8cf971103454afc81b0c187d8e672daacc0d179315bbe6",
     "assets/c4-theme.json": "5c8cb8cf32cfa894f10591ff72c4bee251002477709bc39a89a81d03b95dad88",
@@ -52,11 +52,13 @@
     "references/official-examples.md": "ac8784c0323e68cd70f9e91e886ecf83450e37bd1f75cbbb2112c7a990e6ea34",
     "references/review-checklist.md": "925c442e9ce8f29cb2b55aaa87664c859787b36591de0838d0132fc8673c1b74",
     "references/sources.md": "42c6666651d89542b11de27162d7c3b02ac420aca76b0216313f6c2931859069",
+    "scripts/build_plugin.py": "cfe82a6de8b7f3aa4706d6a6077cd1be8a28e292587969871b84bd7287a9d57e",
     "scripts/install_skill.py": "b230a6731f003d4716e9d58d367e56857dbad8a6beb115c6eff9311417528722",
     "scripts/render_shape.py": "d47af4c7937c7e0693a6ed7835d30faa6af02fd8d35e9636344301e7906b63a9",
     "scripts/verify_bundle.py": "2b11195aeefb06e9071d6cac95627bdce9357fae0e6b40f328a4363546b5837e",
     "tests/test_airgap.py": "44f415e5a97fb41cd625fd667a111c31f6a00b54d882e68fb479b1b6de36cf22",
     "tests/test_airgap_guard.cjs": "88af220d4f0349f83cd5cdb8950f32e702d8187eff04833f1f1fc640d8907160",
-    "tests/test_install_skill.py": "563412616cc4f7b53b9c1cc43dd1ec08be49277124826aa1c4a8c208a83722c3"
+    "tests/test_install_skill.py": "563412616cc4f7b53b9c1cc43dd1ec08be49277124826aa1c4a8c208a83722c3",
+    "tests/test_plugin_distribution.py": "22bae7a32c13e86536153b21c3c886aeaede4fb7af155356b5183826dc199119"
   }
 }

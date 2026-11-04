@@ -1,0 +1,38 @@
+---
+title: Container - Orders (compact C4 flowchart adaptation)
+config:
+  flowchart:
+    nodeSpacing: 25
+    rankSpacing: 40
+    padding: 12
+    htmlLabels: false
+---
+flowchart LR
+  customer(["Customer<br/>[Person]<br/>Places orders"])
+  payments["Payments<br/>[Software System - external]<br/>Authorizes payments"]
+  subgraph orders["Orders [Software System]"]
+    web["Web UI<br/>[Container: React SPA]<br/>Order form"]
+    api["Orders API<br/>[Container: Node.js]<br/>Accepts orders"]
+    db[("Orders store<br/>[Container: PostgreSQL]<br/>Stores orders")]
+    topic[("orders.created<br/>[Container: Kafka topic]<br/>Stores OrderCreated")]
+    worker["Order worker<br/>[Container: Node.js]<br/>Starts fulfillment"]
+  end
+  customer -->|"Places orders using"| web
+  web -->|"Submits order - JSON/HTTPS"| api
+  api -->|"Writes orders - PostgreSQL/TLS"| db
+  api -->|"Authorizes payment - JSON/HTTPS"| payments
+  api -->|"Publishes OrderCreated - Kafka/TLS"| topic
+  worker -->|"Subscribes to OrderCreated - Kafka/TLS"| topic
+  classDef person fill:#FFFFFF,stroke:#297E06,color:#297E06
+  classDef internal fill:#FFFFFF,stroke:#1168BD,color:#1168BD
+  classDef external fill:#FFFFFF,stroke:#BF101D,color:#BF101D
+  class customer person
+  class web,api,db,topic,worker internal
+  class payments external
+  style orders fill:#FFFFFF,stroke:#1168BD,stroke-width:2px,color:#1168BD
+  linkStyle default stroke:#666666,color:#333333
+
+%% legend: White fill with identity-colored outlines. Green = person, blue = Orders elements, red = external Payments.
+%% legend: Capsule adapts the person glyph. Plain rectangles adapt application glyphs. Cylinders are typed logical stores, including a Kafka topic.
+%% legend: Blue solid frame = software-system boundary. Arrows = named dependencies with protocols. The compact companion legend must remain visible with the diagram/export.
+%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.

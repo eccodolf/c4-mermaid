@@ -13,6 +13,8 @@ A self-contained, air-gap-ready Agent Skill for **Codex, Claude Code, Kimi Code 
 
 All authored material is in English. Project deliverables can use the user's requested language. No external page, package registry, CDN, icon service, or remote renderer is required. The agent application and inference backend must already be available inside the isolated environment; model weights and host runtimes are not included.
 
+For connected installation through ChatGPT Desktop / Codex, the repository includes a marketplace and a ready-to-install plugin. Repository-only setup instructions are in `DESKTOP-INSTALL.md`; they are separate from this offline skill bundle. The plugin contains the same complete skill and uses a local source within its checkout.
+
 ## Install from a transferred bundle
 
 Extract the complete `c4-mermaid` directory from approved local media. From that directory, optionally verify and install using an already-installed Python 3.9 or newer:

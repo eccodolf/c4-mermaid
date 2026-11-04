@@ -1,0 +1,20 @@
+{
+  "name": "eccodolf-c4-mermaid",
+  "interface": {
+    "displayName": "C4 Mermaid"
+  },
+  "plugins": [
+    {
+      "name": "c4-mermaid",
+      "source": {
+        "source": "local",
+        "path": "./plugins/c4-mermaid"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_USE"
+      },
+      "category": "Developer Tools"
+    }
+  ]
+}

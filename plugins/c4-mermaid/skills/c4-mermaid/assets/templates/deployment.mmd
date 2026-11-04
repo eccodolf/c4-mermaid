@@ -1,0 +1,28 @@
+---
+config:
+  c4:
+    c4ShapeMargin: 45
+    c4ShapePadding: 10
+    diagramMarginX: 15
+    diagramMarginY: 15
+---
+C4Deployment
+title Deployment - Development
+Deployment_Node(dev, "Developer machine", "Development environment", "Local development") {
+  Deployment_Node(runtime, "Node process", "Node.js runtime", "Runs the API") {
+    Container(api_dev, "Orders API - instance 1", "Node.js", "Orders API<br/>instance")
+  }
+  Deployment_Node(postgres, "PostgreSQL server", "Database runtime", "Hosts the logical store") {
+    ContainerDb(db_dev, "Orders store - instance 1", "PostgreSQL schema", "Orders store<br/>instance")
+  }
+}
+Rel(api_dev, db_dev, "Writes orders", "PostgreSQL protocol")
+UpdateElementStyle(api_dev, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(db_dev, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateRelStyle(api_dev, db_dev, $offsetX="-65", $offsetY="-80")
+UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="2")
+
+%% legend: Environment = Development. Nested neutral frames = hosting nodes/runtimes. Blue blocks = placed instances of logical containers.
+%% legend: Rectangle = application. Cylinder = logical store. Arrow = the API instance accessing the database instance.
+%% legend: This is a partial development deployment, not evidence of production topology.
+%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.

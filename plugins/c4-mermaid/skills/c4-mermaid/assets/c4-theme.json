@@ -1,0 +1,174 @@
+{
+  "default_profile": "example-light",
+  "reference": "../references/official-examples.md",
+  "profiles": {
+    "example-light": {
+      "background": "#FFFFFF",
+      "line": "#666666",
+      "boundary": "#444444",
+      "roles": {
+        "person": {
+          "fill": "#FFFFFF",
+          "stroke": "#297E06",
+          "text": "#297E06"
+        },
+        "system": {
+          "fill": "#FFFFFF",
+          "stroke": "#1168BD",
+          "text": "#1168BD"
+        },
+        "container": {
+          "fill": "#FFFFFF",
+          "stroke": "#1168BD",
+          "text": "#1168BD"
+        },
+        "component": {
+          "fill": "#FFFFFF",
+          "stroke": "#1168BD",
+          "text": "#1168BD"
+        },
+        "external": {
+          "fill": "#FFFFFF",
+          "stroke": "#BF101D",
+          "text": "#BF101D"
+        },
+        "external-secondary": {
+          "fill": "#FFFFFF",
+          "stroke": "#ED8609",
+          "text": "#ED8609"
+        },
+        "infrastructure": {
+          "fill": "#FFFFFF",
+          "stroke": "#444444",
+          "text": "#444444"
+        }
+      }
+    },
+    "example-dark": {
+      "background": "#111111",
+      "line": "#CCCCCC",
+      "boundary": "#AAAAAA",
+      "roles": {
+        "person": {
+          "fill": "#111111",
+          "stroke": "#297E06",
+          "text": "#F5F5F5"
+        },
+        "system": {
+          "fill": "#111111",
+          "stroke": "#1168BD",
+          "text": "#F5F5F5"
+        },
+        "container": {
+          "fill": "#111111",
+          "stroke": "#1168BD",
+          "text": "#F5F5F5"
+        },
+        "component": {
+          "fill": "#111111",
+          "stroke": "#1168BD",
+          "text": "#F5F5F5"
+        },
+        "external": {
+          "fill": "#111111",
+          "stroke": "#BF101D",
+          "text": "#F5F5F5"
+        },
+        "external-secondary": {
+          "fill": "#111111",
+          "stroke": "#ED8609",
+          "text": "#F5F5F5"
+        },
+        "infrastructure": {
+          "fill": "#111111",
+          "stroke": "#CCCCCC",
+          "text": "#CCCCCC"
+        }
+      }
+    },
+    "classic": {
+      "background": "#FFFFFF",
+      "line": "#666666",
+      "boundary": "#444444",
+      "roles": {
+        "person": {
+          "fill": "#08427B",
+          "stroke": "#052E56",
+          "text": "#FFFFFF"
+        },
+        "system": {
+          "fill": "#1168BD",
+          "stroke": "#0B4884",
+          "text": "#FFFFFF"
+        },
+        "container": {
+          "fill": "#438DD5",
+          "stroke": "#2E6295",
+          "text": "#111111"
+        },
+        "component": {
+          "fill": "#85BBF0",
+          "stroke": "#5D82A8",
+          "text": "#111111"
+        },
+        "external": {
+          "fill": "#999999",
+          "stroke": "#6B6B6B",
+          "text": "#111111"
+        },
+        "external-secondary": {
+          "fill": "#999999",
+          "stroke": "#6B6B6B",
+          "text": "#111111"
+        },
+        "infrastructure": {
+          "fill": "#FFFFFF",
+          "stroke": "#444444",
+          "text": "#444444"
+        }
+      }
+    },
+    "example-filled": {
+      "background": "#FFFFFF",
+      "line": "#666666",
+      "boundary": "#444444",
+      "roles": {
+        "person": {
+          "fill": "#297E06",
+          "stroke": "#1C5504",
+          "text": "#FFFFFF"
+        },
+        "system": {
+          "fill": "#1168BD",
+          "stroke": "#0B4884",
+          "text": "#FFFFFF"
+        },
+        "container": {
+          "fill": "#1168BD",
+          "stroke": "#0B4884",
+          "text": "#FFFFFF"
+        },
+        "component": {
+          "fill": "#1168BD",
+          "stroke": "#0B4884",
+          "text": "#FFFFFF"
+        },
+        "external": {
+          "fill": "#BF101D",
+          "stroke": "#850B14",
+          "text": "#FFFFFF"
+        },
+        "external-secondary": {
+          "fill": "#ED8609",
+          "stroke": "#A65D06",
+          "text": "#111111"
+        },
+        "infrastructure": {
+          "fill": "#FFFFFF",
+          "stroke": "#444444",
+          "text": "#444444"
+        }
+      }
+    }
+  }
+}

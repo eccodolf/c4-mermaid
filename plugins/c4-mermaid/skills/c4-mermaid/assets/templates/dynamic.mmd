@@ -1,0 +1,29 @@
+---
+config:
+  c4:
+    c4ShapeMargin: 45
+    c4ShapePadding: 10
+    diagramMarginX: 15
+    diagramMarginY: 15
+---
+C4Dynamic
+title Dynamic - Publishing an accepted order (fictional example)
+Container(web, "Web UI", "React SPA", "Submits orders")
+Container(api, "Orders API", "Node.js", "Accepts orders")
+ContainerDb(db, "Orders store", "PostgreSQL schema", "Stores orders")
+ContainerQueue(topic, "orders.created", "Kafka topic", "Stores OrderCreated<br/>events")
+Rel(web, api, "Submits order", "JSON/HTTPS")
+Rel(api, db, "Saves order", "PostgreSQL/TLS")
+Rel(api, topic, "Publishes OrderCreated", "Kafka/TLS")
+UpdateElementStyle(web, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(api, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(db, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(topic, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateRelStyle(web, api, $offsetX="-65", $offsetY="-70")
+UpdateRelStyle(api, db, $offsetX="-90", $offsetY="-10")
+UpdateRelStyle(api, topic, $offsetX="40", $offsetY="5")
+UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
+
+%% legend: Blue = participants belonging to Orders. Rectangles = applications. Cylinders = the explicitly typed database and topic.
+%% legend: Numbers identify interaction order in this scenario. Arrow wording and protocol identify each message. Replies are outside this focused fragment.
+%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.

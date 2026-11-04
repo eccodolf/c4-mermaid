@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "c4-mermaid",
+  "version": "1.0.0",
+  "description": "Self-contained C4 architecture diagrams from local evidence, with compact Mermaid layouts, offline SVG tools, and mandatory review.",
+  "author": {
+    "name": "eccodolf"
+  },
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "C4 Mermaid",
+        "shortDescription": "Air-gapped C4 diagrams from local evidence",
+        "longDescription": "Analyze repositories or descriptions, map C4 abstractions, render compact diagrams, and review every view using bundled references, examples, graphics, and an offline Mermaid engine.",
+        "developerName": "eccodolf",
+        "category": "Developer Tools",
+        "brandColor": "#1168BD",
+        "defaultPrompt": [
+          "Use c4-mermaid to create reviewed C4 diagrams from this local repository, using only bundled resources."
+        ]
+      }
+    }
+  }
+}
