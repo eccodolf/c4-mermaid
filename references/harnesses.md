@@ -13,23 +13,23 @@ Paths below are default local directories. `~` means the user's home directory; 
 | Kimi Code CLI | `~/.kimi/skills/c4-mermaid/` | `.kimi/skills/c4-mermaid/` | `/skill:c4-mermaid` followed by the task |
 | DeepSeek Harness (DSH) | `~/.dsh/skills/c4-mermaid/` | `.dsh/skills/c4-mermaid/` | Ask: `Load the c4-mermaid skill and analyze this application.` |
 
-The optional `scripts/install_skill.py` copies the complete portable bundle to one chosen location. It requires Python 3.9 or newer, performs no downloads, and refuses to overwrite an existing installation. `--dest` selects an exact skill directory for a configured or legacy discovery root. It does not infer platform settings. To update an existing installation, update its Git checkout or copy reviewed changes deliberately.
+The optional `scripts/install_skill.py` copies the complete portable bundle to one chosen location. It requires Python 3.9 or newer, performs no downloads, and refuses to overwrite an existing installation. `--dest` selects an exact skill directory for a configured or legacy discovery root. It does not infer platform settings. To update an existing installation, transfer another reviewed bundle and copy changes deliberately.
 
 ### Codex
 
-Use the discovered skill or explicitly invoke `$c4-mermaid`. Existing Codex setups may still expose skills from `~/.codex/skills` or a configured Codex home; use that already-discovered location rather than creating a duplicate. The table follows current documented `.agents/skills` discovery. Preserve `agents/openai.yaml` for the skill selector. If the update is not visible, restart the session. [Official documentation](https://learn.chatgpt.com/docs/build-skills).
+Use the discovered skill or explicitly invoke `$c4-mermaid`. Existing Codex setups may still expose skills from `~/.codex/skills` or a configured Codex home; use that already-discovered location rather than creating a duplicate. The table follows current documented `.agents/skills` discovery. Preserve `agents/openai.yaml` for the skill selector. If the update is not visible, restart the session.
 
 ### Claude Code
 
-Use `/c4-mermaid` or a natural-language request matching the description. This package needs no Claude plugin manifest, `CLAUDE.md`, dynamic shell injection, or `${CLAUDE_SKILL_DIR}` substitution. Resolve resource paths from the loaded skill's location. The local paths in the table apply to Claude Code; Claude account and cloud skill deployment is a separate installation surface. [Official documentation](https://code.claude.com/docs/en/skills).
+Use `/c4-mermaid` or a natural-language request matching the description. This package needs no Claude plugin manifest, `CLAUDE.md`, dynamic shell injection, or `${CLAUDE_SKILL_DIR}` substitution. Resolve resource paths from the loaded skill's location. The local paths in the table apply to Claude Code; Claude account and cloud skill deployment is a separate installation surface.
 
 ### Kimi Code CLI
 
-Install the directory form, not a flattened Markdown file: references and offline assets are required. `/skill:c4-mermaid` loads it as a standard skill. It is not a Kimi flow skill; Mermaid examples are architecture output, not executable agent control flow. `kimi --skills-dir /path/to/skills` can select a custom parent skills directory and replaces automatic discovery. Restart after installation if necessary. [Official documentation](https://github.com/MoonshotAI/kimi-cli/blob/main/docs/en/customization/skills.md).
+Install the directory form, not a flattened Markdown file: references and offline assets are required. `/skill:c4-mermaid` loads it as a standard skill. It is not a Kimi flow skill; Mermaid examples are architecture output, not executable agent control flow. `kimi --skills-dir /path/to/skills` can select a custom parent skills directory and replaces automatic discovery. Restart after installation if necessary.
 
 ### DeepSeek Harness
 
-This target means the official `deepseek-ai/deepseek-harness` application, not the DeepSeek chat website or a bare model API. Its skill subsystem provides discovery; its model-facing `skill` tool loads a named skill. Use that mechanism when exposed, or read the installed `SKILL.md` and its referenced files directly. The host profile must provide file tools and any desired shell/browser tools. The package does not install a DSH plugin or reconfigure a profile. Custom DSH homes require an explicit destination. Start a new session if a skill catalog is stale. [Official subsystem documentation](https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/subsystems/skills.md).
+This target means the official `deepseek-ai/deepseek-harness` application, not the DeepSeek chat website or a bare model API. Its skill subsystem provides discovery; its model-facing `skill` tool loads a named skill. Use that mechanism when exposed, or read the installed `SKILL.md` and its referenced files directly. The host profile must provide file tools and any desired shell/browser tools. The package does not install a DSH plugin or reconfigure a profile. Custom DSH homes require an explicit destination. Start a new session if a skill catalog is stale.
 
 ## Capability-based execution
 
@@ -46,8 +46,8 @@ A tool's presence does not imply it can open local HTML, inspect SVG, or export 
 
 ## Portability checks
 
-Run `python -m unittest discover -s tests` from the repository to check installation into isolated user/project directories for all four targets, bundled resources, and refusal to overwrite existing files. These are packaging checks, not evidence of model behavior in every runtime. Validate a real diagram through the intended harness and renderer before reporting runtime-specific success.
+Run `python -m unittest discover -s tests` from the repository to check installation into isolated user/project directories for all four targets, bundled resources, and refusal to overwrite existing files. These are packaging checks, not evidence of model behavior in every runtime. Apply the operating boundary and transfer procedure in [airgap.md](airgap.md). Validate a real diagram through the intended harness and renderer before reporting runtime-specific success.
 
-Compatibility documentation checked against the linked primary sources on 2026-11-05. Runtime versions and configured discovery roots may differ.
+Compatibility documentation checked against the locally summarized source documentation on 2026-11-05. Runtime versions and configured discovery roots may differ.
 
 This revision passed the Codex skill validator and all eight isolated user/project installation cases. The installed DSH filesystem provider (`0.2.1-rc.2`) discovered and loaded the bundle with its resource directory intact. Full model-driven sessions in Claude Code, Kimi Code CLI, and DSH were not run; documentation compatibility and loader checks are not end-to-end behavioral certification.

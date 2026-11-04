@@ -2,6 +2,7 @@
 """Copy this portable skill to a native harness discovery directory."""
 
 import argparse
+import importlib.util
 from pathlib import Path
 import shutil
 
@@ -12,7 +13,7 @@ ROOTS = {
     "kimi": ".kimi/skills",
     "deepseek": ".dsh/skills",
 }
-ENTRIES = ("SKILL.md", "agents", "references", "assets", "scripts")
+ENTRIES = ("SKILL.md", "README.md", ".gitattributes", "bundle-manifest.json", "agents", "references", "assets", "scripts", "tests")
 
 
 def destination_for(target, scope, project_root, home=None):
@@ -38,6 +39,12 @@ def install(source, destination):
     for name in ENTRIES:
         if not (source / name).exists():
             raise ValueError(f"Incomplete skill bundle: missing {name}")
+    spec = importlib.util.spec_from_file_location("c4_bundle_verifier", source / "scripts/verify_bundle.py")
+    verifier = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(verifier)
+    errors = verifier.verify(source)
+    if errors:
+        raise ValueError("Bundle verification failed: " + "; ".join(errors))
     destination.mkdir(parents=True)
     for name in ENTRIES:
         entry = source / name

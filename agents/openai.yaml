@@ -1,4 +1,4 @@
 interface:
   display_name: "C4 Mermaid"
-  short_description: "C4 diagrams from repositories or descriptions"
-  default_prompt: "Use $c4-mermaid to analyze this application and render evidence-based C4 Mermaid diagrams with compact layouts, explicit notation, and the mandatory review checklist."
+  short_description: "Air-gapped C4 diagrams from local evidence"
+  default_prompt: "Use $c4-mermaid to analyze this application using only local evidence and bundled resources, and render C4 Mermaid diagrams with compact layouts, explicit notation, and the mandatory review checklist. Keep processing inside the air gap."

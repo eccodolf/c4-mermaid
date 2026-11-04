@@ -1,6 +1,6 @@
 # Correct C4 abstraction mapping
 
-Use the hierarchy in the [official abstractions](https://c4model.com/abstractions): software system -> containers -> components -> code elements. People interact with systems; they are not an extra containment level.
+Use this C4 hierarchy: software system -> containers -> components -> code elements. People interact with systems; they are not an extra containment level. This guide contains the classification rules needed for the skill; no external reference is required.
 
 ## Classify before drawing
 

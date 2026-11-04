@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src data: blob:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src data: blob:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; worker-src 'none'; media-src 'none'; manifest-src 'none'">
 <title>C4 Mermaid - Offline</title>
 <style>body{font:16px Arial,sans-serif;margin:28px;background:#f6f7f8;color:#152332}main{max-width:1400px;margin:auto}h1{font-size:26px}p{max-width:1050px;line-height:1.5}label{display:block;margin:18px 0 7px;font-weight:600}textarea{box-sizing:border-box;width:100%;border:1px solid #9aa8b5;border-radius:6px;padding:12px;font:14px Consolas,monospace}#source{height:280px}#legend{height:100px;font:14px Arial,sans-serif}button,input{font:inherit;margin:12px 12px 12px 0}button{padding:10px 18px;background:#1168bd;color:white;border:0;border-radius:5px;cursor:pointer}button:disabled{opacity:.45;cursor:default}#status{white-space:pre-wrap;line-height:1.5}#preview{background:white;padding:20px;overflow:auto;border:1px solid #d5dde3;border-radius:6px;min-height:150px}#preview svg{max-width:none}#legend-preview{white-space:pre-line}details{margin:18px 0;line-height:1.5}footer{margin-top:24px;color:#586672;font-size:13px}</style>
 </head><body><main>
 <h1>C4 Mermaid - Offline</h1>
-<p>Mermaid 12.3.0 is included. Files are processed in this browser without uploading. Choose a source from the templates folder or paste your own. SVG export includes the visible legend.</p>
+<p>Air-gapped viewer. Mermaid 12.3.0 is included. Files are processed locally without uploading. Choose a bundled template or paste source without resource URLs, external images, or clickable links. SVG export includes the visible legend.</p>
 <input id="file" type="file" accept=".mmd,.txt,.md" aria-label="Open Mermaid file">
 <label for="source">Mermaid source</label><textarea id="source" spellcheck="false">---
 config:
@@ -41,7 +41,7 @@ Sizes accommodate content and carry no extra architectural meaning. Neutral rela
 <p id="legend-preview"></p>
 <details><summary>Mandatory review before delivery</summary><p>Complete the <a href="../../references/review-checklist.md">C4 review checklist</a> for every view. Also verify abstraction mapping, compact placement inside contours, internal text fit, arrow routing, and the final export size. The automatic external-label detector supplements this review and cannot certify the diagram.</p></details>
 <footer>C4 model and visual references: Simon Brown, c4model.com, CC BY 4.0. Independently drawn adaptations. Mermaid: MIT; license included beside the engine.</footer>
-</main><script src="mermaid.min.js"></script><script>
+</main><script src="airgap-guard.js"></script><script src="mermaid.min.js"></script><script>
 const source=document.getElementById('source'),legend=document.getElementById('legend'),preview=document.getElementById('preview'),status=document.getElementById('status'),download=document.getElementById('download');
 let serial=0,renderedSource='',renderedLegend='';
 mermaid.initialize({startOnLoad:false,securityLevel:'strict',secure:['securityLevel','startOnLoad','secure'],theme:'base',fontFamily:'Arial, sans-serif',htmlLabels:false,flowchart:{htmlLabels:false}});
@@ -84,6 +84,7 @@ document.getElementById('render').addEventListener('click',async()=>{
  download.disabled=true;status.textContent='Rendering...';preview.replaceChildren();
  const requestedSource=source.value,requestedLegend=legend.value;
  try{
+  assertAirGapSource(requestedSource);
   const result=await mermaid.render('diagram_'+(++serial),requestedSource);preview.innerHTML=result.svg;preview.querySelector('svg').setAttributeNS('http://www.w3.org/XML/1998/namespace','xml:space','preserve');await document.fonts.ready;
   renderedSource=requestedSource;renderedLegend=requestedLegend;
   document.getElementById('legend-preview').textContent=requestedLegend;

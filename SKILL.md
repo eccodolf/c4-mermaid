@@ -1,11 +1,17 @@
 ---
 name: c4-mermaid
-description: "Use when C4 architecture diagrams in Mermaid are needed from a repository or application description, with correct abstraction mapping, compact nested layouts, explicit notation, mandatory C4 review, and offline SVG graphics."
+description: "Use when C4 architecture diagrams in Mermaid are needed from a local repository or application description, including air-gapped use, correct abstraction mapping, compact layouts, mandatory C4 review, and bundled SVG graphics."
 ---
 
 # C4 Mermaid
 
-Build an evidence-based architecture model first, then render it in Mermaid. Follow [C4 abstractions](https://c4model.com/abstractions) and [diagram examples](https://c4model.com/diagrams), rather than treating a repository tree as an architecture. This skill and its bundled instructions, templates, graphics, and viewer are in English. Use the user's requested language for project deliverables when specified.
+Build an evidence-based architecture model first, then render it in Mermaid. Follow the bundled [C4 abstractions](references/c4-model.md) and [example analysis](references/official-examples.md), rather than treating a repository tree as an architecture. This skill and its bundled instructions, templates, graphics, and viewer are in English. Use the user's requested language for project deliverables when specified.
+
+## Air-gapped operation
+
+Use only transferred local repositories, supplied descriptions, and bundled resources. Read [airgap.md](references/airgap.md) for offline installation, verification, rendering, and host requirements. Do not browse, resolve citations, fetch Git remotes, use online editors, install packages, download models/fonts/icons, or call external services while using this skill. Missing local facts remain unknown. The complete method, checklist, notation guide, examples, engine, vector generator, and license texts are included; no external page is required.
+
+The agent harness and inference backend must already run inside the isolated environment. This bundle does not turn a hosted assistant or cloud model into a local runtime. Use available local tools; if a required capability is absent, report the corresponding verification limit instead of reaching outside the air gap.
 
 ## Run in your harness
 

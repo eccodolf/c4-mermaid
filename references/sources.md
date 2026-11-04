@@ -1,21 +1,27 @@
-# Sources and provenance
+# Sources, attribution, and provenance
 
-Researched 2026-11-05. This is a task-specific application guide, not a copied manual. The visual review covered ten original diagrams and eight separate keys; see [official-examples.md](official-examples.md).
+This bundle contains the complete task-specific guidance needed for offline use. All operational references below are local. Original source names identify authorship and research provenance; they are not instructions to retrieve pages.
 
-- [C4 model, Simon Brown](https://c4model.com/).
-- [Abstractions](https://c4model.com/abstractions): the hierarchy used for classification.
-- [Software System](https://c4model.com/abstractions/software-system), [Container](https://c4model.com/abstractions/container), [Component](https://c4model.com/abstractions/component), [Code](https://c4model.com/abstractions/code).
-- [Microservices](https://c4model.com/abstractions/microservices), [Queues and topics](https://c4model.com/abstractions/queues-and-topics), [Abstraction FAQ](https://c4model.com/abstractions/faq).
-- [Diagram examples](https://c4model.com/diagrams), [Notation](https://c4model.com/diagrams/notation), and the [mandatory review checklist](https://c4model.com/diagrams/checklist).
-- [System Context](https://c4model.com/diagrams/system-context), [Container view](https://c4model.com/diagrams/container), [Component view](https://c4model.com/diagrams/component), [Code view](https://c4model.com/diagrams/code).
-- [Landscape](https://c4model.com/diagrams/system-landscape), [Dynamic](https://c4model.com/diagrams/dynamic), [Deployment](https://c4model.com/diagrams/deployment).
-- [Interactive example](https://c4model.com/example/#SystemContext), including Containers and Components, inspected in the browser.
-- [Mermaid C4](https://mermaid.js.org/syntax/c4.html) and [Flowchart](https://mermaid.js.org/syntax/flowchart.html): supported syntax. Installed Mermaid configuration types were also checked for C4 spacing options.
+## C4 material
 
-The C4 site and example diagrams are by Simon Brown and licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Adaptations include independently constructed SVG primitives, optional alternate profiles, and fictional order-system examples. Preserve attribution when redistributing the adapted graphics. Structurizr viewer code, its original SVGs, the banking model, and vendor icons were not copied into this bundle.
+Original author: Simon Brown. Original publication: C4 model, source identifier `c4model.com`. Consulted 2026-11-05: Abstractions; Software System; Container; Component; Code; Microservices; Queues and topics; Abstraction FAQ; Diagram examples; Notation; Software architecture diagram review checklist; System Context; Container view; Component view; Code view; Landscape; Dynamic; Deployment; and the interactive banking example.
 
-`assets/offline/mermaid.min.js` is the official Mermaid 12.3.0 npm distribution from [mermaid-js/mermaid](https://github.com/mermaid-js/mermaid). Its MIT license is included as `LICENSE.mermaid`. The local viewer and vector generator have no network dependency. Engine upgrades are deliberate maintenance followed by template validation, not automatic downloads during skill execution.
+The original site and visual examples are licensed under Creative Commons Attribution 4.0 International. The [complete license text](../assets/offline/LICENSE.CC-BY-4.0) is included locally, including its warranty disclaimer. Preserve attribution and the indication of modifications when redistributing adaptations.
 
-The required compact block layout and no-overlap acceptance gates are user requirements. They supplement the official C4 checklist and do not claim that C4 prescribes a unique layout algorithm or universal color palette.
+The [mapping guide](c4-model.md) contains the classification rules. The [example analysis](official-examples.md) records observations from ten original diagrams and eight keys. The [review checklist](review-checklist.md) includes all 21 official criteria in condensed wording. Included graphics are independently drawn adaptations; application diagrams are fictional order-system examples. Optional alternate palettes and the user's compact-layout/no-overlap requirements are identified as adaptations. Original Structurizr viewer code, banking-model SVGs, and vendor icons are not included.
 
-Harness discovery and invocation references for Codex, Claude Code, Kimi Code CLI, and DeepSeek Harness are linked in [harnesses.md](harnesses.md). The portable bundle keeps the common Agent Skills frontmatter and resolves resources relative to its own directory.
+## Mermaid engine
+
+Bundled engine: Mermaid 12.3.0, the official npm browser distribution maintained by the Mermaid project (`mermaid-js/mermaid`). Its [MIT license](../assets/offline/LICENSE.mermaid) is included verbatim. The [notation guide](mermaid.md) and nine paired source/SVG examples document the supported use needed by this skill.
+
+The engine is frozen in this bundle. No installation script resolves packages, installs a CLI, downloads a renderer, registers remote icons, or fetches an update. Intentional upgrades require a reviewed replacement bundle, regenerated integrity manifest, and revalidation of examples outside the operational air gap.
+
+## Harness compatibility
+
+The [local harness guide](harnesses.md) summarizes installation and invocation from: OpenAI's Build skills documentation; Anthropic's Extend Claude with skills documentation; MoonshotAI Kimi Code CLI Agent Skills documentation; and DeepSeek Harness Skills subsystem documentation. Documentation was consulted on 2026-11-05. The installed DSH filesystem provider version used for the loader check was `0.2.1-rc.2`.
+
+These summaries are sufficient to use the bundle in a preconfigured compatible harness. They do not include the agent runtimes or model weights and do not promise that a hosted service runs without a network connection. See the [air-gap runbook](airgap.md).
+
+## Identifiers and integrity
+
+Full third-party license texts and the unchanged vendor engine may contain inert source identifiers. SVG/XML namespace identifiers identify formats; they do not fetch resources. All authored instruction links point within this bundle. The [local verifier](../scripts/verify_bundle.py) checks the transferred files against `bundle-manifest.json`; hashes establish integrity, not publisher authenticity.

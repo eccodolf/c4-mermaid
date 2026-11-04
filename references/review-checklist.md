@@ -4,7 +4,7 @@ Run this checklist for **each diagram before delivery**, including revisions and
 
 ## Official C4 criteria
 
-Adapted, in condensed wording, from Simon Brown's [software architecture diagram review checklist](https://c4model.com/diagrams/checklist), CC BY 4.0.
+Adapted, in condensed wording, from Simon Brown's software architecture diagram review checklist, CC BY 4.0. All 21 criteria are included below. Attribution and the full license text are provided [locally](sources.md).
 
 ### General
 
@@ -50,6 +50,8 @@ These extend the official checklist with the user's requirements; they are not c
 - [ ] L5. The legend is compact and readable without stretching the architecture into a long strip; visual grouping does not invent semantic containment.
 - [ ] V1. Every Mermaid source was rendered with a named version; actual output was inspected, not only parsed.
 - [ ] V2. The final exported artifact was checked at its intended size, including title, legend, fonts, bounds, and notation adaptations.
+- [ ] O1. All evidence, tools, inference, rendering, and review remained inside the air gap; no external resource was fetched.
+- [ ] O2. The transferred bundle passed its local integrity and resource checks, or the verification limit is explicitly reported.
 
 For missing technologies, assess whether the unknown is stated honestly and report the coverage limit. Do not substitute a guessed technology to satisfy E4/R3. Use `N/A` only when a criterion truly does not apply, not when it was skipped.
 

@@ -38,7 +38,7 @@ class InstallationTests(unittest.TestCase):
                                     hashlib.sha256(copied.read_bytes()).digest(),
                                 )
                         self.assertFalse((destination / ".git").exists())
-                        self.assertFalse((destination / "tests").exists())
+                        self.assertTrue((destination / "tests/test_install_skill.py").is_file())
 
     def test_existing_installation_is_preserved(self):
         with tempfile.TemporaryDirectory() as scratch:

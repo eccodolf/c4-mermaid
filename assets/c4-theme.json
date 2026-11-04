@@ -1,6 +1,6 @@
 {
   "default_profile": "example-light",
-  "reference": "https://c4model.com/diagrams",
+  "reference": "../references/official-examples.md",
   "profiles": {
     "example-light": {
       "background": "#FFFFFF",
