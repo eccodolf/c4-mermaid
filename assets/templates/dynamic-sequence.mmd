@@ -1,0 +1,25 @@
+---
+title: Dynamic - Order intake, sequence representation (fictional)
+config:
+  theme: base
+  themeVariables:
+    actorBkg: '#FFFFFF'
+    actorBorder: '#1168BD'
+    actorTextColor: '#1168BD'
+    signalColor: '#444444'
+    signalTextColor: '#444444'
+---
+sequenceDiagram
+  autonumber
+  participant web as Web UI [Container: React SPA]
+  participant api as Orders API [Container: Node.js]
+  participant db as Orders store [Container: PostgreSQL]
+  web->>api: Submits order - JSON/HTTPS
+  api->>db: Saves order - PostgreSQL protocol
+  db-->>api: Returns order identifier
+  api-->>web: Confirms acceptance - JSON/HTTPS
+
+%% legend: Participants are the collapsed Web UI, Orders API, and Orders store containers. Blue retains Orders identity.
+%% legend: Numbers = message order. Solid arrow = call. Dashed arrow = reply. Vertical line = participant lifeline.
+%% legend: This fictional scenario explicitly includes the displayed replies. Do not infer them in an evidence-based model without sources.
+%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.

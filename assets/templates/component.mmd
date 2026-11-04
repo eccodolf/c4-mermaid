@@ -1,0 +1,36 @@
+---
+config:
+  c4:
+    c4ShapeMargin: 45
+    c4ShapePadding: 10
+    diagramMarginX: 15
+    diagramMarginY: 15
+---
+C4Component
+title Component - Orders API: payment path (fictional example)
+Container(web, "Web UI", "React SPA", "Submits orders")
+System_Ext(payments, "Payments", "Authorizes payments")
+Container_Boundary(api, "Orders API - Node.js") {
+  Component(endpoint, "Order endpoint", "Node.js/HTTP", "Validates requests")
+  Component(service, "Order service", "Node.js module", "Coordinates order intake")
+  Component(adapter, "Payment adapter", "Node.js/HTTP", "Calls the payment<br/>provider")
+}
+Rel(web, endpoint, "Submits order", "JSON/HTTPS")
+Rel(endpoint, service, "Delegates order")
+Rel(service, adapter, "Requests payment")
+Rel(adapter, payments, "Authorizes payment", "JSON/HTTPS")
+UpdateElementStyle(web, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(payments, $bgColor="#FFFFFF", $fontColor="#BF101D", $borderColor="#BF101D")
+UpdateElementStyle(endpoint, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(service, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(adapter, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateRelStyle(web, endpoint, $offsetX="-65", $offsetY="-25")
+UpdateRelStyle(endpoint, service, $offsetX="-55", $offsetY="-55")
+UpdateRelStyle(service, adapter, $offsetX="-65", $offsetY="-55")
+UpdateRelStyle(adapter, payments, $offsetX="15", $offsetY="5")
+UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+
+%% legend: Blue = Orders elements. Red = external Payments. Only Orders API is expanded; surrounding containers remain collapsed.
+%% legend: Plain component rectangles adapt the original UML-tab glyph. Frame = the selected container. Unrelated persistence and event paths are outside this focused view.
+%% legend: Arrows = named dependencies. This focused payment-path view omits unrelated components, without asserting their absence.
+%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.

@@ -1,0 +1,25 @@
+---
+config:
+  c4:
+    c4ShapeMargin: 45
+    c4ShapePadding: 10
+    diagramMarginX: 15
+    diagramMarginY: 15
+---
+C4Context
+title System Context - Orders (fictional example)
+Person(customer, "Customer", "Places orders")
+System(orders, "Orders", "Accepts and processes<br/>orders")
+System_Ext(payments, "Payments", "Authorizes payments")
+Rel(customer, orders, "Places order")
+Rel(orders, payments, "Authorizes payments using")
+UpdateElementStyle(customer, $bgColor="#FFFFFF", $fontColor="#297E06", $borderColor="#297E06")
+UpdateElementStyle(orders, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(payments, $bgColor="#FFFFFF", $fontColor="#BF101D", $borderColor="#BF101D")
+UpdateRelStyle(customer, orders, $offsetX="-3", $offsetY="-35")
+UpdateRelStyle(orders, payments, $offsetX="-75", $offsetY="-45")
+UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
+
+%% legend: White fill with identity-colored outlines/text: green Customer, blue Orders, red Payments. Red does not mean failure.
+%% legend: Person glyph = actor. Rectangle = software system. Arrows = named, directed interactions. No internal applications are expanded.
+%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.

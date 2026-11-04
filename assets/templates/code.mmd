@@ -1,0 +1,25 @@
+---
+title: Code - Payment adapter in Orders API (fictional example)
+---
+classDiagram
+  direction TB
+  class PaymentProvider {
+    <<interface>>
+    +authorize(orderId) Authorization
+  }
+  class HttpPaymentProvider {
+    +authorize(orderId) Authorization
+  }
+  class HttpClient {
+    +request(payload) Response
+  }
+  PaymentProvider <|.. HttpPaymentProvider : implements
+  HttpPaymentProvider ..> HttpClient : calls request
+  style PaymentProvider fill:#FFFFFF,stroke:#1168BD,color:#1168BD
+  style HttpPaymentProvider fill:#FFFFFF,stroke:#1168BD,color:#1168BD
+  style HttpClient fill:#FFFFFF,stroke:#1168BD,color:#1168BD
+
+%% legend: Scope = the Payment adapter component in Orders API. Boxes show an interface, classes, and selected methods.
+%% legend: Hollow triangle with dashed line = interface realization. Dashed arrow = code dependency.
+%% legend: This is a UML Code view, not a set of new software systems or runtime containers.
+%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.

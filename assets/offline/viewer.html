@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src data: blob:; font-src 'none'; connect-src 'none'; object-src 'none'; base-uri 'none'">
+<title>C4 Mermaid - Offline</title>
+<style>body{font:16px Arial,sans-serif;margin:28px;background:#f6f7f8;color:#152332}main{max-width:1400px;margin:auto}h1{font-size:26px}p{max-width:1050px;line-height:1.5}label{display:block;margin:18px 0 7px;font-weight:600}textarea{box-sizing:border-box;width:100%;border:1px solid #9aa8b5;border-radius:6px;padding:12px;font:14px Consolas,monospace}#source{height:280px}#legend{height:100px;font:14px Arial,sans-serif}button,input{font:inherit;margin:12px 12px 12px 0}button{padding:10px 18px;background:#1168bd;color:white;border:0;border-radius:5px;cursor:pointer}button:disabled{opacity:.45;cursor:default}#status{white-space:pre-wrap;line-height:1.5}#preview{background:white;padding:20px;overflow:auto;border:1px solid #d5dde3;border-radius:6px;min-height:150px}#preview svg{max-width:none}#legend-preview{white-space:pre-line}details{margin:18px 0;line-height:1.5}footer{margin-top:24px;color:#586672;font-size:13px}</style>
+</head><body><main>
+<h1>C4 Mermaid - Offline</h1>
+<p>Mermaid 12.3.0 is included. Files are processed in this browser without uploading. Choose a source from the templates folder or paste your own. SVG export includes the visible legend.</p>
+<input id="file" type="file" accept=".mmd,.txt,.md" aria-label="Open Mermaid file">
+<label for="source">Mermaid source</label><textarea id="source" spellcheck="false">---
+config:
+  c4:
+    c4ShapeMargin: 45
+    c4ShapePadding: 10
+    diagramMarginX: 15
+    diagramMarginY: 15
+---
+C4Context
+title System Context - Orders (fictional example)
+Person(customer, &quot;Customer&quot;, &quot;Places orders&quot;)
+System(orders, &quot;Orders&quot;, &quot;Accepts and processes&lt;br/&gt;orders&quot;)
+System_Ext(payments, &quot;Payments&quot;, &quot;Authorizes payments&quot;)
+Rel(customer, orders, &quot;Places order&quot;)
+Rel(orders, payments, &quot;Authorizes payments using&quot;)
+UpdateElementStyle(customer, $bgColor=&quot;#FFFFFF&quot;, $fontColor=&quot;#297E06&quot;, $borderColor=&quot;#297E06&quot;)
+UpdateElementStyle(orders, $bgColor=&quot;#FFFFFF&quot;, $fontColor=&quot;#1168BD&quot;, $borderColor=&quot;#1168BD&quot;)
+UpdateElementStyle(payments, $bgColor=&quot;#FFFFFF&quot;, $fontColor=&quot;#BF101D&quot;, $borderColor=&quot;#BF101D&quot;)
+UpdateRelStyle(customer, orders, $offsetX=&quot;-3&quot;, $offsetY=&quot;-35&quot;)
+UpdateRelStyle(orders, payments, $offsetX=&quot;-75&quot;, $offsetY=&quot;-45&quot;)
+UpdateLayoutConfig($c4ShapeInRow=&quot;3&quot;, $c4BoundaryInRow=&quot;1&quot;)
+
+%% legend: White fill with identity-colored outlines/text: green Customer, blue Orders, red Payments. Red does not mean failure.
+%% legend: Person glyph = actor. Rectangle = software system. Arrows = named, directed interactions. No internal applications are expanded.
+%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
+</textarea>
+<label for="legend">Legend for preview and SVG export</label><textarea id="legend">White fill with identity-colored outlines/text: green Customer, blue Orders, red Payments. Red does not mean failure.
+Person glyph = actor. Rectangle = software system. Arrows = named, directed interactions. No internal applications are expanded.
+Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.</textarea>
+<button id="render">Render</button><button id="download" disabled>Save SVG with legend</button>
+<div id="status" role="status" aria-live="polite"></div><div id="preview" aria-label="Diagram preview"></div>
+<p id="legend-preview"></p>
+<details><summary>Mandatory review before delivery</summary><p>Complete the <a href="../../references/review-checklist.md">C4 review checklist</a> for every view. Also verify abstraction mapping, compact placement inside contours, internal text fit, arrow routing, and the final export size. The automatic external-label detector supplements this review and cannot certify the diagram.</p></details>
+<footer>C4 model and visual references: Simon Brown, c4model.com, CC BY 4.0. Independently drawn adaptations. Mermaid: MIT; license included beside the engine.</footer>
+</main><script src="mermaid.min.js"></script><script>
+const source=document.getElementById('source'),legend=document.getElementById('legend'),preview=document.getElementById('preview'),status=document.getElementById('status'),download=document.getElementById('download');
+let serial=0,renderedSource='',renderedLegend='';
+mermaid.initialize({startOnLoad:false,securityLevel:'strict',secure:['securityLevel','startOnLoad','secure'],theme:'base',fontFamily:'Arial, sans-serif',htmlLabels:false,flowchart:{htmlLabels:false}});
+document.getElementById('file').addEventListener('change',async event=>{
+ const file=event.target.files[0];if(!file)return;
+ source.value=await file.text();
+ const key=source.value.split('\n').filter(line=>line.trim().startsWith('%% legend:')).map(line=>line.slice(line.indexOf('%% legend:')+10).trim()).join('\n');
+ if(key)legend.value=key;
+ invalidate();status.textContent='Source loaded. Select Render.';
+});
+function invalidate(){download.disabled=true;}
+function checkLayout(svg){
+ const box=e=>e.getBoundingClientRect(),overlap=(a,b)=>Math.min(a.right,b.right)-Math.max(a.left,b.left)>1&&Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)>1;
+ const nodes=[...svg.querySelectorAll('.node')].map(e=>({element:e,box:box(e),name:e.querySelector('.c4-name')?.textContent||e.textContent.slice(0,50)}));
+ const labels=[...svg.querySelectorAll('text')].filter(e=>!e.closest('.node')&&!e.closest('defs')).map(e=>({box:box(e),name:e.textContent}));
+ const issues=[];
+ const canvas=box(svg);
+ for(const text of svg.querySelectorAll('text')){
+  if(text.closest('defs'))continue;
+  const bounds=box(text);
+  if(bounds.left<canvas.left-1||bounds.right>canvas.right+1||bounds.top<canvas.top-1||bounds.bottom>canvas.bottom+1)issues.push('Text exceeds diagram bounds: "'+text.textContent+'"');
+ }
+ for(const node of nodes){
+  const label=node.element.querySelector(':scope > .label'),shapes=[...node.element.querySelectorAll(':scope > .label-container')];
+  if(label&&shapes.length){
+   const bounds=shapes.map(box),frame={left:Math.min(...bounds.map(b=>b.left)),right:Math.max(...bounds.map(b=>b.right)),top:Math.min(...bounds.map(b=>b.top)),bottom:Math.max(...bounds.map(b=>b.bottom))},text=box(label);
+   if(text.left<frame.left-1||text.right>frame.right+1||text.top<frame.top-1||text.bottom>frame.bottom+1)issues.push('Internal text exceeds block "'+node.name+'"');
+  }
+  const internal=[...node.element.querySelectorAll('text')].map(e=>({box:box(e),name:e.textContent}));
+  for(let i=0;i<internal.length;i++)for(const other of internal.slice(i+1))if(overlap(internal[i].box,other.box))issues.push('Internal text overlap in "'+node.name+'"');
+ }
+ for(let i=0;i<labels.length;i++){
+  for(const other of labels.slice(i+1))if(overlap(labels[i].box,other.box))issues.push('Text overlap: "'+labels[i].name+'" / "'+other.name+'"');
+  for(const node of nodes)if(overlap(labels[i].box,node.box))issues.push('Label "'+labels[i].name+'" overlaps block "'+node.name+'"');
+ }
+ return issues;
+}
+source.addEventListener('input',invalidate);legend.addEventListener('input',invalidate);
+document.getElementById('render').addEventListener('click',async()=>{
+ download.disabled=true;status.textContent='Rendering...';preview.replaceChildren();
+ const requestedSource=source.value,requestedLegend=legend.value;
+ try{
+  const result=await mermaid.render('diagram_'+(++serial),requestedSource);preview.innerHTML=result.svg;preview.querySelector('svg').setAttributeNS('http://www.w3.org/XML/1998/namespace','xml:space','preserve');await document.fonts.ready;
+  renderedSource=requestedSource;renderedLegend=requestedLegend;
+  document.getElementById('legend-preview').textContent=requestedLegend;
+  const issues=checkLayout(preview.querySelector('svg'));
+  download.disabled=issues.length>0||source.value!==renderedSource||legend.value!==renderedLegend;
+  status.textContent=issues.length?'Text layout issues detected ('+issues.length+'). Fix the layout before export.\n'+issues.join('\n'):'Rendered locally. No detected text layout issues. Complete the mandatory review, including compactness, routing, and export size.';
+ }catch(error){preview.replaceChildren();status.textContent='Rendering failed: '+String(error.message||error);}
+});
+function wrapLegend(value,width){
+ const canvas=document.createElement('canvas'),context=canvas.getContext('2d');context.font='14px Arial';
+ const lines=[];
+ for(const paragraph of value.split('\n')){
+  let line='';
+  for(const word of paragraph.split(/\s+/).filter(Boolean)){
+   let chunks=[],chunk='';
+   for(const char of word){if(chunk&&context.measureText(chunk+char).width>width){chunks.push(chunk);chunk='';}chunk+=char;}chunks.push(chunk);
+   for(const part of chunks){const candidate=(line+' '+part).trim();if(line&&context.measureText(candidate).width>width){lines.push(line);line=part;}else line=candidate;}
+  }
+  lines.push(line);
+ }
+ return lines;
+}
+download.addEventListener('click',()=>{
+ if(source.value!==renderedSource||legend.value!==renderedLegend){invalidate();return;}
+ const original=preview.querySelector('svg');if(!original)return;
+ const NS='http://www.w3.org/2000/svg',outer=document.createElementNS(NS,'svg'),image=original.cloneNode(true);
+ const box=original.viewBox.baseVal,w=Math.max(760,Math.ceil(box.width)),h=Math.ceil(box.height),lines=wrapLegend(renderedLegend,w-40),total=h+110+lines.length*20;
+ outer.setAttribute('viewBox',`0 0 ${w} ${total}`);outer.setAttribute('width',w);outer.setAttribute('height',total);
+ const background=document.createElementNS(NS,'rect');background.setAttribute('width','100%');background.setAttribute('height','100%');background.setAttribute('fill','#FFFFFF');outer.append(background);
+ image.setAttribute('x',0);image.setAttribute('y',0);image.setAttribute('width',w);image.setAttribute('height',h);image.style.maxWidth='none';outer.append(image);
+ function text(value,y,bold=false){const t=document.createElementNS(NS,'text');t.setAttribute('x',20);t.setAttribute('y',y);t.setAttribute('font-family','Arial, sans-serif');t.setAttribute('font-size',14);t.setAttribute('fill','#152332');if(bold)t.setAttribute('font-weight','bold');t.textContent=value;outer.append(t);}
+ text('Legend',h+28,true);lines.forEach((line,index)=>text(line,h+52+index*20));
+ text('C4 visual reference: Simon Brown - c4model.com - CC BY 4.0 - Adapted',total-16);
+ const xml=new XMLSerializer().serializeToString(outer),url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml;charset=utf-8'}));
+ const a=document.createElement('a');a.href=url;a.download='c4-diagram.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+</script></body></html>
