@@ -46,6 +46,8 @@ Choose an explicit meaning for arrows. `worker -> topic: Subscribes to OrderCrea
 
 An internal L2 relationship does not become an external L1 relationship. Preserve aggregate external interactions when zooming out. If a system-level integration is known but its calling container is not, retain that uncertainty instead of arbitrarily assigning it to the API.
 
+For Landscape, System Context, and Container views, perform the mandatory [external-system coverage reconciliation](external-systems.md). Context and Container views of the same focal system/environment must retain the same relevant external systems. Landscape coverage is the union across its in-scope systems, with ownership interpreted at that larger scope. Missing caller details do not justify dropping a confirmed external system.
+
 Deployment maps instances back to logical element IDs. Three replicas are three instances of one container. Name the environment, actual placement, and evidenced multiplicity. Development compose files do not establish production topology. A development mock can stand in for a logical external dependency without changing the static model's meaning.
 
 React does not prove HTTPS, a database dependency does not identify its driver or ORM, and an installed payment SDK does not prove an active integration. State unknowns precisely and keep proposed behavior separate from observed behavior.

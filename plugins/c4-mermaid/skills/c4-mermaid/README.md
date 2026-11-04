@@ -3,6 +3,7 @@
 A self-contained, air-gap-ready Agent Skill for **Codex, Claude Code, Kimi Code CLI, and DeepSeek Harness**. Analyze a local application repository or supplied description and produce evidence-based C4 architecture diagrams in Mermaid.
 
 - Correct mapping of systems, containers, components, and code.
+- Mandatory external-system coverage across Landscape, System Context, and Container views.
 - Compact layouts inside boundaries, with readable text, labels, and arrows.
 - Consistent shapes and colors based on the C4 examples.
 - All 21 C4 review criteria plus evidence, layout, export, and air-gap gates.
@@ -45,6 +46,7 @@ Example request:
 - [Air-gap operation and prerequisites](references/airgap.md)
 - [Harness installation and invocation](references/harnesses.md)
 - [Abstraction mapping](references/c4-model.md)
+- [External-system coverage](references/external-systems.md)
 - [Mandatory checklist](references/review-checklist.md)
 - [Mermaid syntax and layout](references/mermaid.md)
 - [C4 example analysis](references/official-examples.md)

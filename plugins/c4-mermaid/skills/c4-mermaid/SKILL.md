@@ -26,6 +26,7 @@ Use the host's available file search, file reading, shell, browser, and image in
 3. **Description input:** work from supplied facts without requiring a repository. Mark unspecified technology, ownership, or protocols as unknown. State boundary assumptions. Distinguish an existing architecture from a proposed design.
 4. Before drawing, apply the mandatory mapping rules in [c4-model.md](references/c4-model.md). Build an element register: `id | name | abstraction | parent | responsibility | technology | classification rationale | evidence/status`. Build a relationship register: `source | target | action | protocol | evidence/status`. Evidence is a file and line, or a specific supplied statement. A package import or installed SDK alone does not prove an integration.
 5. Keep identities and names consistent across views. A child view expands a named parent. An organizational grouping, code folder, Docker image, or deployment node is not automatically a C4 system, container, or component. Do not invent users, runtimes, workers, protocols, or callbacks to complete a familiar pattern.
+6. For every delivered Landscape, System Context, and Container view, apply [external-systems.md](references/external-systems.md). Derive the complete in-scope external-system set from evidence and cross-boundary relationships, then reconcile it with actual nodes in each Mermaid source and rendered diagram. Keep a coverage matrix; a known relevant system missing from a view is a failure, even if another view shows it. Preserve a system with an unknown calling container and state that uncertainty instead of omitting it or inventing a caller.
 
 ## Select notation and layout
 
@@ -55,5 +56,7 @@ Complete **every item** in [review-checklist.md](references/review-checklist.md)
 Render every source with the target version when available, otherwise the bundled version, and inspect the actual result. Parsing alone is insufficient. Text must fit its own block, must not overlap other text or foreign blocks, and must remain visibly associated with its arrow. Check titles, boundaries, legends, arrowheads, crossings, and compact use of interior space. The viewer's external-label detector supplements manual inspection; it does not prove the whole layout correct. Do not send private repository contents to an online editor for validation.
 
 Deliver editable Mermaid, previews/exports when available, a visible legend, significant assumptions, evidence, and a short checklist verdict for each view. Keep `.mmd` alongside saved SVG. If rendering was unavailable, explicitly report that the result is an unrendered draft. Do not claim exhaustive repository coverage after a partial inspection.
+
+For Landscape, System Context, and Container diagrams, include or reference the external-system coverage matrix and report missing systems and evidence limits explicitly. A system mentioned only in prose, a legend, an arrow label, or another diagram is not a represented system node.
 
 Sources, attribution, and offline dependency provenance: [sources.md](references/sources.md).

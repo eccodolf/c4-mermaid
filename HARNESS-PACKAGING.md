@@ -1,6 +1,6 @@
 # Harness packaging audit
 
-Checked 2026-11-05. Repository plugin version: `1.0.1`. This audit concerns connected distribution and native package discovery; it is separate from the offline skill instructions. No model inference was needed for these checks.
+Checked 2026-11-05. Current plugin version: `1.0.2`. Native installation checks below establish the `1.0.1` packaging baseline; `1.0.2` adds external-system modeling and review rules with unchanged packaging contracts. This audit concerns connected distribution and native package discovery; it is separate from the offline skill instructions. No model inference was needed for these checks.
 
 | Harness | Required package contract | Result and evidence |
 | --- | --- | --- |
