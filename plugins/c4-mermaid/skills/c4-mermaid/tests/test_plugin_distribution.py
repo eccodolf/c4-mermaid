@@ -30,6 +30,20 @@ class PluginDistributionTests(unittest.TestCase):
         self.assertNotIn("apps", portable["extensions"]["com.openai"])
         self.assertNotIn("hooks", portable["extensions"]["com.openai"])
 
+    def test_claude_marketplace_and_manifest(self):
+        marketplace = json.loads((ROOT / ".claude-plugin/marketplace.json").read_text(encoding="utf-8"))
+        self.assertEqual(marketplace["name"], "eccodolf-c4-mermaid")
+        self.assertEqual(marketplace["owner"]["name"], "eccodolf")
+        self.assertEqual(marketplace["plugins"][0]["source"], "./plugins/c4-mermaid")
+        plugin = ROOT / marketplace["plugins"][0]["source"]
+        claude = json.loads((plugin / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
+        portable = json.loads((plugin / "plugin.json").read_text(encoding="utf-8"))
+        for key in ("name", "version", "description", "author"):
+            self.assertEqual(claude[key], portable[key])
+        self.assertTrue((plugin / "skills/c4-mermaid/SKILL.md").is_file())
+        self.assertNotIn("hooks", claude)
+        self.assertNotIn("mcpServers", claude)
+
     def test_packaged_skill_is_complete_and_matches_source(self):
         packaged = ROOT / "plugins/c4-mermaid/skills/c4-mermaid"
         self.assertEqual(VERIFIER.verify(packaged), [])

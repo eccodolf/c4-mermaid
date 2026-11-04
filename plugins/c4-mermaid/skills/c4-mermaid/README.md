@@ -13,7 +13,7 @@ A self-contained, air-gap-ready Agent Skill for **Codex, Claude Code, Kimi Code 
 
 All authored material is in English. Project deliverables can use the user's requested language. No external page, package registry, CDN, icon service, or remote renderer is required. The agent application and inference backend must already be available inside the isolated environment; model weights and host runtimes are not included.
 
-For connected installation through ChatGPT Desktop / Codex, the repository includes a marketplace and a ready-to-install plugin. Repository-only setup instructions are in `DESKTOP-INSTALL.md`; they are separate from this offline skill bundle. The plugin contains the same complete skill and uses a local source within its checkout.
+For connected installation through ChatGPT Desktop / Codex or Claude Code, the repository includes native marketplaces and a ready-to-install plugin. Repository-only setup instructions are in `DESKTOP-INSTALL.md`; the packaging audit is in `HARNESS-PACKAGING.md`. Both are separate from this offline skill bundle. The plugin contains the same complete skill and uses a local source within its checkout. Kimi and DSH use the standalone skill directory.
 
 ## Install from a transferred bundle
 

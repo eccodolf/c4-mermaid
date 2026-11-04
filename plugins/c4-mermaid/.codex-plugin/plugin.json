@@ -1,6 +1,6 @@
 {
   "name": "c4-mermaid",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Self-contained C4 architecture diagrams from local evidence, with compact Mermaid layouts, offline SVG tools, and mandatory review.",
   "author": {
     "name": "eccodolf"

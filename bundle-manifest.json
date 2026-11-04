@@ -3,7 +3,7 @@
   "mermaid_version": "12.3.0",
   "files": {
     ".gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
-    "README.md": "a7a7b22ad52e4ff9e72378a26bb915abb55baa7dcbeac156d15bfa5c2fced2f1",
+    "README.md": "b7e910d6accc8decf6409ffd10761cfc824cc3a601b3266509c0c0e250219ac2",
     "SKILL.md": "4ebab1d0dd1c1305bc948bfd01aeb1ffec64f1f2b1dbbeb619579358b0d5c67c",
     "agents/openai.yaml": "4ab16a494a2c3e417f8cf971103454afc81b0c187d8e672daacc0d179315bbe6",
     "assets/c4-theme.json": "5c8cb8cf32cfa894f10591ff72c4bee251002477709bc39a89a81d03b95dad88",
@@ -47,11 +47,11 @@
     "assets/templates/landscape.svg": "a673212f74dc4f1ae2b8f0566e0422df8c49826df96ebdf5436660d51827df50",
     "references/airgap.md": "506cda586120a1521b3220b26f9b9dec5e9447f3a03858040980b0bc29c1e98e",
     "references/c4-model.md": "2233762e3e55b5cefa47df9ea5c56a1a5ebd10949997dcb89d93fcea15a5ed11",
-    "references/harnesses.md": "caac3d64e8b5d2e7813ab5371155fa114a59c3ccfee666887d128e597e893a42",
+    "references/harnesses.md": "aeab213932fbfcb53979177e4fe32e485bab49ca2ee8740e0464acdd101c2265",
     "references/mermaid.md": "d1c4d79e32a2deae1abfd9532e97f18041640fe699a8702962c3d48388ecb131",
     "references/official-examples.md": "ac8784c0323e68cd70f9e91e886ecf83450e37bd1f75cbbb2112c7a990e6ea34",
     "references/review-checklist.md": "925c442e9ce8f29cb2b55aaa87664c859787b36591de0838d0132fc8673c1b74",
-    "references/sources.md": "42c6666651d89542b11de27162d7c3b02ac420aca76b0216313f6c2931859069",
+    "references/sources.md": "a257ea38b4726cf7cc6df7323b0091f8507dfc07d7c80f39e835d5754b3db72c",
     "scripts/build_plugin.py": "cfe82a6de8b7f3aa4706d6a6077cd1be8a28e292587969871b84bd7287a9d57e",
     "scripts/install_skill.py": "b230a6731f003d4716e9d58d367e56857dbad8a6beb115c6eff9311417528722",
     "scripts/render_shape.py": "d47af4c7937c7e0693a6ed7835d30faa6af02fd8d35e9636344301e7906b63a9",
@@ -59,6 +59,6 @@
     "tests/test_airgap.py": "44f415e5a97fb41cd625fd667a111c31f6a00b54d882e68fb479b1b6de36cf22",
     "tests/test_airgap_guard.cjs": "88af220d4f0349f83cd5cdb8950f32e702d8187eff04833f1f1fc640d8907160",
     "tests/test_install_skill.py": "563412616cc4f7b53b9c1cc43dd1ec08be49277124826aa1c4a8c208a83722c3",
-    "tests/test_plugin_distribution.py": "22bae7a32c13e86536153b21c3c886aeaede4fb7af155356b5183826dc199119"
+    "tests/test_plugin_distribution.py": "b90d1a150b9a195ee46a2e88a5f8fb4901cc0a06634857269764f185ef85be58"
   }
 }

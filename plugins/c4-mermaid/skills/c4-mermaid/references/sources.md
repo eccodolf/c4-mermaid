@@ -18,7 +18,7 @@ The engine is frozen in this bundle. No installation script resolves packages, i
 
 ## Harness compatibility
 
-The [local harness guide](harnesses.md) summarizes installation and invocation from: OpenAI's Build skills documentation; Anthropic's Extend Claude with skills documentation; MoonshotAI Kimi Code CLI Agent Skills documentation; and DeepSeek Harness Skills subsystem documentation. Documentation was consulted on 2026-11-05. The installed DSH filesystem provider version used for the loader check was `0.2.1-rc.2`.
+The [local harness guide](harnesses.md) summarizes installation and invocation from: OpenAI's Build skills and Package your plugin documentation; Anthropic's Extend Claude with skills, Plugin manifest reference, and Marketplace reference; MoonshotAI Kimi Code CLI Agent Skills and Plugins documentation; and DeepSeek Harness Skills subsystem documentation. Documentation was consulted on 2026-11-05. The installed DSH filesystem provider version used for the loader check was `0.2.1-rc.2`.
 
 These summaries are sufficient to use the bundle in a preconfigured compatible harness. They do not include the agent runtimes or model weights and do not promise that a hosted service runs without a network connection. See the [air-gap runbook](airgap.md).
 

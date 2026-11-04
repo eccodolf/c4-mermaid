@@ -27,7 +27,24 @@ An error mentioning `git@github.com:eccodolf/c4-mermaid.git` and `Host key verif
 
 Retry with the complete HTTPS URL above. If the application reuses a previously saved SSH source, remove that failed marketplace entry and add the HTTPS URL again. If Git still rewrites HTTPS into SSH, inspect the client's Git URL rewrite configuration; that is a local setting, not a repository setting. Do not disable host-key verification or accept an unverified SSH host key to install a public repository over HTTPS.
 
-## Local / air-gapped distribution
+## Other harnesses and local distribution
+
+### Claude Code repository plugin
+
+The same repository also includes a native Claude marketplace and a manifest at `plugins/c4-mermaid/.claude-plugin/plugin.json`:
+
+```sh
+claude plugin marketplace add https://github.com/eccodolf/c4-mermaid.git
+claude plugin install c4-mermaid@eccodolf-c4-mermaid
+```
+
+Invoke the installed plugin's skill as `/c4-mermaid:c4-mermaid`. A standalone installation under `.claude/skills/c4-mermaid` instead uses `/c4-mermaid`.
+
+### Kimi Code CLI and DeepSeek Harness
+
+Install the complete standalone directory using `python scripts/install_skill.py --target kimi` or `--target deepseek`. Kimi also accepts the generated parent skill directory with `kimi --skills-dir /path/to/repository/plugins/c4-mermaid/skills`. DSH discovers native skill roots or configured custom directories. Neither host consumes the OpenAI marketplace as its native skill format; Kimi's tool-plugin `plugin.json` is a different contract.
+
+### Transfer a repository marketplace
 
 Transfer a complete reviewed repository checkout, then add it as a local marketplace:
 
@@ -48,4 +65,4 @@ python scripts/build_plugin.py
 python -m unittest discover -s tests
 ```
 
-Commit the generated `plugins/c4-mermaid/skills/c4-mermaid` directory. Clients install checked-in files and never need to run the maintainer build. Update both plugin manifest versions together when publishing a new plugin revision.
+Commit the generated `plugins/c4-mermaid/skills/c4-mermaid` directory. Clients install checked-in files and never need to run the maintainer build. Update the portable, Codex compatibility, and Claude manifest versions together when publishing a new plugin revision. Native validation commands are `claude plugin validate . --strict` and `claude plugin validate plugins/c4-mermaid --strict`.

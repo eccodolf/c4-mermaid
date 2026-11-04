@@ -1,0 +1,17 @@
+{
+  "name": "eccodolf-c4-mermaid",
+  "owner": {
+    "name": "eccodolf"
+  },
+  "metadata": {
+    "description": "Self-contained C4 architecture diagrams with offline Mermaid tools.",
+    "version": "1.0.1"
+  },
+  "plugins": [
+    {
+      "name": "c4-mermaid",
+      "source": "./plugins/c4-mermaid",
+      "description": "C4 diagrams from local evidence, with compact layouts and mandatory review."
+    }
+  ]
+}

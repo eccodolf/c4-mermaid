@@ -4,6 +4,17 @@ This is one portable Agent Skills directory, not four diverging prompts. Keep `S
 
 ## Install and invoke
 
+### Packaging contracts
+
+| Host | Native instruction package | Optional repository distribution | What not to substitute |
+| --- | --- | --- | --- |
+| Codex / ChatGPT Desktop | A complete skill directory | A marketplace at `.agents/plugins/marketplace.json` and a plugin with `skills/c4-mermaid/` | A bare repository URL without a marketplace is not a desktop plugin catalog |
+| Claude Code | A complete skill directory | A marketplace at `.claude-plugin/marketplace.json`, plugin metadata at `.claude-plugin/plugin.json`, and `skills/c4-mermaid/` under the plugin root | The Codex marketplace JSON shape is not the Claude marketplace format |
+| Kimi Code CLI | A complete `<name>/SKILL.md` directory in a skill root | A custom parent directory passed with `--skills-dir` | Kimi `plugin.json` declares executable tools; the OpenAI plugin manifest is not a Kimi skill loader |
+| DeepSeek Harness | A skill directory read by the filesystem skill provider | Project/user skill roots or configured `customSkillDirs` | A Codex or Claude marketplace is not a DSH filesystem discovery configuration |
+
+The repository's generated plugin contains the same portable skill directory and native manifests for Codex and Claude. Kimi and DSH consume the standalone skill; neither needs the repository marketplace. The generated `plugins/c4-mermaid/skills` directory is also a valid parent skill root where a host accepts an explicit directory. Do not point a host at the repository root when it expects a parent containing named skill folders.
+
 Paths below are default local directories. `~` means the user's home directory; project paths are relative to the intended application repository. Installation does not configure credentials, models, plugins, or permissions.
 
 | Harness | User installation | Project installation | Explicit invocation |
@@ -21,11 +32,13 @@ Use the discovered skill or explicitly invoke `$c4-mermaid`. Existing Codex setu
 
 ### Claude Code
 
-Use `/c4-mermaid` or a natural-language request matching the description. This package needs no Claude plugin manifest, `CLAUDE.md`, dynamic shell injection, or `${CLAUDE_SKILL_DIR}` substitution. Resolve resource paths from the loaded skill's location. The local paths in the table apply to Claude Code; Claude account and cloud skill deployment is a separate installation surface.
+Use `/c4-mermaid` for a standalone installation, or `/c4-mermaid:c4-mermaid` for the repository plugin. The standalone directory needs no plugin manifest, `CLAUDE.md`, dynamic shell injection, or `${CLAUDE_SKILL_DIR}` substitution. The repository additionally ships native Claude marketplace/plugin manifests for plugin-based installation. Resolve resource paths from the loaded skill's location. The local paths in the table apply to Claude Code; Claude account and cloud skill deployment is a separate installation surface.
 
 ### Kimi Code CLI
 
 Install the directory form, not a flattened Markdown file: references and offline assets are required. `/skill:c4-mermaid` loads it as a standard skill. It is not a Kimi flow skill; Mermaid examples are architecture output, not executable agent control flow. `kimi --skills-dir /path/to/skills` can select a custom parent skills directory and replaces automatic discovery. Restart after installation if necessary.
+
+For example, `kimi --skills-dir /path/to/repository/plugins/c4-mermaid/skills` selects the packaged parent directory. Do not register `plugins/c4-mermaid/plugin.json` as a Kimi executable-tool plugin. Additional Kimi plugin tooling is unnecessary for this instruction-and-assets package.
 
 ### DeepSeek Harness
 
