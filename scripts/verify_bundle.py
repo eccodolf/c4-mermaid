@@ -123,9 +123,14 @@ def verify(root):
     for source in templates.glob("*.mmd"):
         if not source.with_suffix(".svg").is_file():
             errors.append(f"Missing SVG preview: {source.name}")
-    for name in ("library.json", "mxC4.js", "Sidebar-C4.js", "Shapes.js", "provenance.json", "LICENSE.drawio", "NOTICE.txt"):
+    for name in ("library.json", "native-templates.json", "reference-palette.drawio", "native-c4.mxlibrary", "mxC4.js", "Sidebar-C4.js", "Shapes.js", "provenance.json", "LICENSE.drawio", "NOTICE.txt"):
         if not (root / "assets/drawio-c4" / name).is_file():
             errors.append(f"Missing draw.io C4 resource: {name}")
+    supplied = root / 'assets/drawio-c4/reference-palette.drawio'
+    snapshot = root / 'assets/drawio-c4/native-templates.json'
+    if supplied.is_file() and snapshot.is_file():
+        if hashlib.sha256(supplied.read_bytes()).hexdigest() != json.loads(snapshot.read_text(encoding='utf-8')).get('source_sha256'):
+            errors.append('Canonical template snapshot does not match the supplied palette.')
     for name in ("container", "shapes"):
         directory = root / "assets/drawio"
         for suffix in (".json", ".drawio", ".svg"):

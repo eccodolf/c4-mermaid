@@ -4,23 +4,23 @@
     {
       "view": "container",
       "title": "Container - Orders (fictional example)",
-      "legend": "draw.io C4 palette: dark blue = Person, blue = Software System, cyan = Container, light cyan = Component, muted violet = external system. General applications/components are rounded blocks; data, object, and file stores share the data-container cylinder; message buses use a horizontal cylinder; browser uses the C4 window. Solid blue/neutral frames = logical/placement scope; dotted frames = organization. Arrows show named directed interactions. Font contrast is adapted; sizes fit text, not quantity.",
+      "legend": "Person and system colors are shown in the key. Data, object, and file stores use the C4 data cylinder; the horizontal cylinder is a message bus. Gray dashed rounded frames delimit logical scopes, with the scope label at the bottom. Solid thin arrows indicate the named directed interaction. Text colors are adapted for contrast; sizes fit text.",
       "elements": [
         {
           "id": "orders_scope",
           "name": "Orders",
           "type": "system-boundary",
           "x": 320,
-          "y": 110,
+          "y": 100,
           "width": 1000,
-          "height": 540
+          "height": 520
         },
         {
           "id": "customer",
           "name": "Customer",
           "type": "person",
           "x": 20,
-          "y": 200,
+          "y": 130,
           "width": 200,
           "height": 180,
           "description": "Places orders"
@@ -30,7 +30,7 @@
           "name": "Web UI",
           "type": "container",
           "x": 30,
-          "y": 90,
+          "y": 30,
           "width": 240,
           "height": 180,
           "parent": "orders_scope",
@@ -43,7 +43,7 @@
           "name": "Orders API",
           "type": "container",
           "x": 390,
-          "y": 90,
+          "y": 30,
           "width": 240,
           "height": 180,
           "parent": "orders_scope",
@@ -56,7 +56,7 @@
           "name": "Orders store",
           "type": "container",
           "x": 390,
-          "y": 330,
+          "y": 270,
           "width": 240,
           "height": 180,
           "parent": "orders_scope",
@@ -69,7 +69,7 @@
           "name": "Attachments",
           "type": "container",
           "x": 30,
-          "y": 330,
+          "y": 270,
           "width": 240,
           "height": 180,
           "parent": "orders_scope",
@@ -82,7 +82,7 @@
           "name": "orders.created",
           "type": "container",
           "x": 710,
-          "y": 330,
+          "y": 270,
           "width": 260,
           "height": 180,
           "parent": "orders_scope",
@@ -95,7 +95,7 @@
           "name": "Payments",
           "type": "software-system",
           "x": 1380,
-          "y": 200,
+          "y": 130,
           "width": 260,
           "height": 180,
           "external": true,
@@ -203,11 +203,11 @@
           "points": [
             [
               1010,
-              290
+              220
             ],
             [
               1010,
-              530
+              460
             ]
           ],
           "label_offset": [

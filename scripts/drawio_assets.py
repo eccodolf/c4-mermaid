@@ -5,17 +5,18 @@ import xml.etree.ElementTree as ET
 
 ASSETS = Path(__file__).resolve().parents[1] / "assets/drawio-c4"
 LIBRARY = json.loads((ASSETS / "library.json").read_text(encoding="utf-8"))
-ENTRIES = {entry["name"]: entry for entry in LIBRARY["entries"]}
-SHAPES = ("person", "system", "application", "browser", "directory", "component", "database", "bucket", "queue")
+TEMPLATES = json.loads((ASSETS / "native-templates.json").read_text(encoding="utf-8"))
+ENTRIES = {entry["name"]: entry for entry in TEMPLATES["entries"]}
+SHAPES = ("person", "system", "application", "browser", "directory", "component", "database", "bucket", "queue", "microservice")
 
 
 def style_for(name):
-    return dict(part.split("=", 1) for part in ENTRIES[name]["cells"][0]["style"].split(";") if "=" in part)
+    return dict(part.split("=", 1) for part in ENTRIES[name]["style"].split(";") if "=" in part)
 
 
 def default_profile():
     roles = {}
-    for role, name in (("person", "Person"), ("system", "Software System"), ("container", "Container"), ("component", "Component"), ("external", "External Software System")):
+    for role, name in (("person", "Person"), ("external-person", "External Person"), ("system", "Software System"), ("container", "Container"), ("component", "Component"), ("external", "External Software System")):
         style = style_for(name)
         roles[role] = {"fill": style["fillColor"].upper(), "stroke": style["strokeColor"].upper(), "text": style["fontColor"].upper()}
         if role in ("container", "component", "external"):
@@ -25,6 +26,35 @@ def default_profile():
     roles["external-secondary"] = roles["external"].copy()
     roles["infrastructure"] = {"fill":"#FFFFFF", "stroke":"#444444", "text":"#444444"}
     return {"background":"#FFFFFF", "line":"#404040", "boundary":"#666666", "roles":roles}
+
+
+def entry_for(element_type, subtype=None, external=False):
+    if element_type == "person":
+        return "External Person" if external else "Person"
+    if element_type == "software-system":
+        return "External Software System" if external else "Software System"
+    if element_type == "container":
+        return {"application":"Container", "browser":"Web Browser Container", "database":"Data Container", "bucket":"Data Container", "directory":"Data Container", "queue":"Message Bus Container", "microservice":"Microservice Container"}[subtype]
+    return {"component":"Component", "system-boundary":"System scope boundary", "container-boundary":"Container scope boundary"}.get(element_type)
+
+
+def native_geometry(element_type, subtype=None, external=False):
+    entry = entry_for(element_type, subtype, external)
+    if entry:
+        return style_for(entry)
+    return {"shape":"ellipse"} if element_type == "infrastructure-node" else {"shape":"rectangle", "rounded":"0", "fillColor":"none", "dashed":"1" if element_type == "group" else "0", "dashPattern":"2 5"}
+
+
+def geometry_matches(fields, element_type, subtype=None):
+    expected = native_geometry(element_type, subtype)
+    for key in ("shape", "rounded", "direction", "arcSize", "absoluteArcSize", "size", "fixedSize", "dashed", "dashPattern"):
+        default = "rectangle" if key == "shape" else "east" if key == "direction" else "0" if key in ("rounded", "dashed", "absoluteArcSize", "fixedSize") else None
+        actual, value = fields.get(key, default), expected.get(key, default)
+        if actual != value:
+            return False
+    if element_type in ('system-boundary', 'container-boundary') and fields.get('verticalAlign') != 'bottom':
+        return False
+    return True
 
 
 def append_geometry(parent, shape, left, top, right, bottom, colours, namespace):
@@ -41,6 +71,10 @@ def append_geometry(parent, shape, left, top, right, bottom, colours, namespace)
         add("rect", {"x":left,"y":body_top,"width":width,"height":bottom-body_top,"rx":radius})
         add("circle", {"cx":left+width/2,"cy":top+radius,"r":radius})
         return left+12, right-12, top+size+10, bottom
+    if shape == "microservice":
+        cut = min(50, width/2)
+        add("path", {"d":f"M {left+cut} {top} L {right-cut} {top} L {right} {top+height/2} L {right-cut} {bottom} L {left+cut} {bottom} L {left} {top+height/2} Z"})
+        return left+cut, right-cut, top+14, bottom-8
     if shape == "browser":
         # Replay a frozen paint snapshot of the actual draw.io C4 WebBrowserContainer2.
         source = LIBRARY["geometry"]["browser"]

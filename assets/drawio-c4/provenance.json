@@ -26,9 +26,17 @@
     }
   ],
   "modifications": [
-    "C4 palette entries and paint operations frozen as library.json; original JS retained unchanged for provenance, never executed by the Python runtime.",
-    "Browser geometry parameterized; person2 head/body formulas preserve a circular head.",
-    "Data-store roles use C4 cylinder3, message bus uses its horizontal orientation.",
-    "Container/component/external text darkened for contrast; frame labels moved to reserved header; legend mandatory."
-  ]
+    "Canonical native styles are read from the user-supplied reference-palette.drawio snapshot.",
+    "Native C4 identifiers, rounded/dashed scope geometry and bottom captions are preserved.",
+    "Text wrapping, dimensions, font contrast, editable graph hierarchy, real endpoints and compact native color-key legends are adapted for architecture output.",
+    "SVG glyph samples and Mermaid are disclosed approximations; exact native draw.io architecture is mandatory."
+  ],
+  "canonical_palette": {
+    "file": "reference-palette.drawio",
+    "origin": "User-supplied native C4 palette export",
+    "sha256": "3a416781d2ed6ff014364e147d348f4ac471f636895a882c4160b78246b08e16",
+    "templates": "native-templates.json",
+    "importable_library": "native-c4.mxlibrary",
+    "mandatory": true
+  }
 }

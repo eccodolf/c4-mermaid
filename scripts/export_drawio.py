@@ -12,19 +12,16 @@ from urllib.parse import quote, unquote
 import xml.etree.ElementTree as ET
 import zlib
 
-from render_shape import render_shape, wrap_label, THEME, SVG
+from render_shape import wrap_label, THEME, SVG
+from drawio_assets import native_geometry, geometry_matches, style_for
+from drawio_legend import add_legend
 from shape_policy import FRAMES, contrast_ratio, kind_for, normalize, shape_for
 
 VIEWS = ("landscape", "context", "container", "component", "dynamic", "deployment", "shape-catalog")
 
 
-def signature(element):
-    def normalized(value):
-        try:
-            return float(value)
-        except ValueError:
-            return value
-    return (element.tag, sorted((key, normalized(value)) for key, value in element.attrib.items()), [signature(child) for child in element])
+def visible_kind(element_type):
+    return {"system-boundary":"Software System", "container-boundary":"Container"}.get(element_type, kind_for(element_type))
 
 
 def encode_xml(value):
@@ -35,90 +32,6 @@ def encode_xml(value):
 
 def decode_xml(value):
     return unquote(zlib.decompress(base64.b64decode(value), -15).decode("utf-8"))
-
-
-def svg_path(parent, value, ox, oy):
-    tokens = re.findall(r"[A-Za-z]|[-+]?(?:\d*\.\d+|\d+\.?)(?:[eE][-+]?\d+)?", value)
-    path = ET.SubElement(parent, "path")
-    x = y = sx = sy = 0
-    index, command = 0, None
-    counts = {"M": 2, "L": 2, "H": 1, "V": 1, "Q": 4, "C": 6, "A": 7}
-    while index < len(tokens):
-        if tokens[index].isalpha():
-            command = tokens[index]
-            index += 1
-        upper = command.upper()
-        if upper == "Z":
-            ET.SubElement(path, "close")
-            x, y = sx, sy
-            command = None
-            continue
-        if upper not in counts:
-            raise ValueError("Unsupported vector path command: " + str(command))
-        count = counts[upper]
-        values = [float(number) for number in tokens[index:index + count]]
-        index += count
-        relative = command.islower()
-        if upper in ("M", "L", "Q", "C"):
-            coordinates = [(values[i] + (x if relative else 0), values[i+1] + (y if relative else 0)) for i in range(0, count, 2)]
-            tag = {"M": "move", "L": "line", "Q": "quad", "C": "curve"}[upper]
-            attrs = {}
-            for i, (px, py) in enumerate(coordinates):
-                suffix = "" if count == 2 else str(i + 1)
-                attrs["x" + suffix], attrs["y" + suffix] = str(px - ox), str(py - oy)
-            ET.SubElement(path, tag, attrs)
-            x, y = coordinates[-1]
-            if upper == "M":
-                sx, sy = x, y
-                command = "l" if relative else "L"
-        elif upper in ("H", "V"):
-            if upper == "H":
-                x = values[0] + (x if relative else 0)
-            else:
-                y = values[0] + (y if relative else 0)
-            ET.SubElement(path, "line", x=str(x - ox), y=str(y - oy))
-        else:
-            rx, ry, rotation, large, sweep, px, py = values
-            x, y = px + (x if relative else 0), py + (y if relative else 0)
-            ET.SubElement(path, "arc", {"rx": str(rx), "ry": str(ry), "x-axis-rotation": str(rotation), "large-arc-flag": str(int(large)), "sweep-flag": str(int(sweep)), "x": str(x-ox), "y": str(y-oy)})
-
-
-def stencil_for(shape, width, height, stroke="#1168BD", text="#1168BD"):
-    # SVG and draw.io share the pinned draw.io C4 vector adapters.
-    sw, sh = int(width + 40), int(height + 44)
-    document = ET.fromstring(render_shape(shape, width=sw, height=sh))
-    ox, oy = 20, 24
-    stencil = ET.Element("shape", name="c4-" + shape, w=str(sw-40), h=str(sh-44), aspect="fixed" if shape == "person" else "variable", strokewidth="inherit")
-    foreground = ET.SubElement(stencil, "foreground")
-    for primitive in document.find("{" + SVG + "}g"):
-        tag = primitive.tag.rsplit("}", 1)[-1]
-        a = primitive.attrib
-        override = a.get("data-fill-role") == "stroke" or a.get("data-stroke-role") == "text"
-        if override:
-            ET.SubElement(foreground, "save")
-        if a.get("data-fill-role") == "stroke":
-            ET.SubElement(foreground, "fillcolor", color=stroke)
-        if a.get("data-stroke-role") == "text":
-            ET.SubElement(foreground, "strokecolor", color=text)
-        if tag in ("rect", "ellipse", "circle"):
-            if tag == "rect":
-                attrs = {"x": str(float(a["x"])-ox), "y": str(float(a["y"])-oy), "w": a["width"], "h": a["height"]}
-                target = "roundrect" if "rx" in a else "rect"
-                if "rx" in a:
-                    attrs["arcsize"] = str(100*float(a["rx"])/min(float(a["width"]), float(a["height"])))
-            else:
-                rx, ry = float(a.get("rx", a.get("r"))), float(a.get("ry", a.get("r")))
-                attrs = {"x": str(float(a["cx"])-rx-ox), "y": str(float(a["cy"])-ry-oy), "w": str(2*rx), "h": str(2*ry)}
-                target = "ellipse"
-            ET.SubElement(foreground, target, attrs)
-        elif tag == "path":
-            svg_path(foreground, a["d"], ox, oy)
-        else:
-            raise ValueError("Unsupported vector primitive: " + tag)
-        ET.SubElement(foreground, "stroke" if a.get("fill") == "none" else "fill" if a.get("stroke") == "none" else "fillstroke")
-        if override:
-            ET.SubElement(foreground, "restore")
-    return ET.tostring(stencil, encoding="unicode")
 
 
 def rectangle(node):
@@ -181,10 +94,10 @@ def edge_layout(edge, boxes):
 def label_lines(node):
     shape = shape_for(node["type"], node.get("subtype"))
     width, height = node["width"], node["height"]
-    left = 30 if shape == "queue" else width*.17 if shape == "infrastructure" else 14
+    left = 58 if shape == "microservice" else 30 if shape == "queue" else width*.17 if shape == "infrastructure" else 14
     top = min(width,height)*.45+10 if shape == "person" else height*.1+16 if shape == "browser" else 40 if shape in ("database","bucket","directory") else height*.16 if shape == "infrastructure" else 14
     bottom = height*.16 if shape == "infrastructure" else 25 if shape in ("database","bucket","directory") else 14
-    kind = kind_for(node["type"])
+    kind = visible_kind(node["type"])
     if node.get("technology"):
         kind += ": " + node["technology"]
     fields = [(node["name"], True), ("[" + kind + "]", False)]
@@ -229,8 +142,9 @@ def validate_page(page):
             if parent not in nodes or nodes[parent]["type"] not in FRAMES:
                 raise ValueError("Missing or non-frame parent: " + identifier)
             px, py, pw, ph = absolute(parent, chain + (identifier,))
-            if x < 20 or y < 64 or x+w > pw-20 or y+h > ph-20:
-                raise ValueError("Child exceeds parent or its header/padding: " + identifier)
+            footer = 64 if nodes[parent]["type"] in ("system-boundary", "container-boundary") else 20
+            if x < 20 or y < 20 or x+w > pw-20 or y+h > ph-footer:
+                raise ValueError("Child exceeds parent or its footer/padding: " + identifier)
             x, y = x+px, y+py
         return x, y, w, h
     boxes = {identifier: absolute(identifier) for identifier in nodes}
@@ -291,7 +205,7 @@ def validate_page(page):
             if node["type"] in FRAMES:
                 # Label boxes must not mask the frame title or contour.
                 x, y, w, h = boxes[node["id"]]
-                borders = [(x, y, w, 3), (x, y+h-3, w, 3), (x, y, 3, h), (x+w-3, y, 3, h), (x, y, w, 54)]
+                borders = [(x, y, w, 3), (x, y+h-3, w, 3), (x, y, 3, h), (x+w-3, y, 3, h), (x, y+h-54, w, 54) if node["type"] in ("system-boundary", "container-boundary") else (x, y, w, 54)]
                 if any(intersects(label, border) for border in borders):
                     raise ValueError("Relationship label overlaps a frame/header: " + edge["id"])
                 continue
@@ -317,7 +231,9 @@ def add_object(root, identifier, label, *, style, parent="1", vertex=True, **met
 
 
 def export_model(model):
-    profile = model.get("profile", "example-light")
+    profile = model.get("profile", "drawio-c4")
+    if profile != "drawio-c4":
+        raise ValueError("Native architecture output must use the supplied draw.io C4 palette.")
     palette = THEME["profiles"][profile]
     file = ET.Element("mxfile", host="c4-mermaid-offline", agent="c4-mermaid", compressed="false")
     pages = model["pages"]
@@ -332,34 +248,48 @@ def export_model(model):
         ET.SubElement(root, "mxCell", id="1", parent="0")
         full_width = max(box[0]+box[2] for box in boxes.values()) + 20
         bottom = max(box[1]+box[3] for box in boxes.values())
+        used_roles = []
         for node in nodes.values():
             shape = shape_for(node["type"], node.get("subtype"))
             default_role = "infrastructure" if node["type"] in ("deployment-node", "infrastructure-node", "group") else "system" if node["type"] in FRAMES else "person" if shape == "person" else "component" if shape == "component" else "system" if shape == "system" else "container"
-            role = node.get("role", "external" if node.get("external") else default_role)
+            role = node.get("role", ("external-person" if node["type"] == "person" else "external") if node.get("external") else default_role)
             colour = palette["roles"][role]
+            if node["type"] not in FRAMES:
+                used_roles.append(role)
             lines, left, top, padding_bottom = label_lines(node)
             label = '<div style="line-height:18px">' + '<br>'.join('<b>'+html.escape(line)+'</b>' if bold else html.escape(line) for line, bold in lines) + '</div>'
-            style = f"html=1;whiteSpace=wrap;overflow=hidden;fontFamily=Arial;fontSize=14;fontColor={colour['text']};strokeColor={colour['stroke']};fillColor={colour['fill']};strokeWidth=2;spacing=0;spacingLeft={left};spacingRight={left};spacingTop={top};spacingBottom={padding_bottom};align=center;verticalAlign=middle;"
+            fields = native_geometry(node["type"], node.get("subtype"), bool(node.get("external"))).copy()
+            fields.update(html="1", whiteSpace="wrap", overflow="hidden", fontFamily="Arial", fontSize="14", fontColor=colour["text"], spacing="0", spacingLeft=str(left), spacingRight=str(left), spacingTop=str(10 if shape == "person" else 0 if shape in ("database", "bucket", "directory") else top), spacingBottom=str(0 if shape in ("database", "bucket", "directory") else padding_bottom), align="center", verticalAlign="middle", resizable="1", metaEdit="1")
+            if profile != "drawio-c4" or node["type"] in ("deployment-node", "infrastructure-node", "group"):
+                fields.update(fillColor=colour["fill"], strokeColor=colour["stroke"])
             if node["type"] in FRAMES:
-                style += f"shape=rectangle;fillColor=none;fontColor={colour['stroke']};container=1;collapsible=0;connectable=0;verticalAlign=top;align=left;spacingTop=10;spacingLeft=12;spacingRight=12;"
-                if node["type"] == "group":
-                    style += "dashed=1;dashPattern=2 5;"
-            else:
-                style += "shape=stencil(" + encode_xml(stencil_for(shape, node["width"], node["height"], colour["stroke"], colour["text"])) + ");"
-                if shape == "infrastructure":
-                    style += "perimeter=ellipsePerimeter;"
-            cell = add_object(root, node["id"], label, style=style, parent=node.get("parent", "1"), c4Type=node["type"], c4Subtype=node.get("subtype", ""), c4Shape=shape)
+                fields.update(fillColor="none", container="1", collapsible="0", connectable="0", align="left", spacingLeft="12", spacingRight="12", spacingTop="10", spacingBottom="10", fontColor="#333333")
+                if node["type"] not in ("system-boundary", "container-boundary"):
+                    fields["verticalAlign"] = "top"
+                else:
+                    fields["verticalAlign"] = "bottom"
+            style = ";".join(key+"="+value for key,value in fields.items())+";"
+            native_type = {"person":"Person", "software-system":"Software System", "container":"Container", "component":"Component", "system-boundary":"SystemScopeBoundary", "container-boundary":"ContainerScopeBoundary"}.get(node["type"], kind_for(node["type"]))
+            cell = add_object(root, node["id"], label, style=style, parent=node.get("parent", "1"), c4Type=native_type, c4ModelType=node["type"], c4Name=node["name"], c4Technology=node.get("technology", ""), c4Description=node.get("description", ""), c4Subtype=node.get("subtype", ""), c4Shape=shape, c4Role=role)
             if node["type"] in FRAMES:
                 cell.set("connectable", "0")
+                if node["type"] in ("system-boundary", "container-boundary"):
+                    root[-1].set("c4Application", visible_kind(node["type"]))
             ET.SubElement(cell, "mxGeometry", {**{key: str(node[key]) for key in ("x", "y", "width", "height")}, "as": "geometry"})
         for edge in page.get("relationships", []):
             label = html.escape(edge["action"]) + ("<br>[" + html.escape(edge["technology"]) + "]" if edge.get("technology") else "")
-            style = f"edgeStyle=none;html=1;rounded=0;endArrow=block;endFill=1;strokeWidth=1.5;strokeColor={palette['line']};fontColor={palette['line']};fontSize=12;fontFamily=Arial;labelBackgroundColor={palette['background']};"
+            fields = style_for("Relationship with description and technology").copy()
+            fields.update(edgeStyle="none", fontSize="12", fontFamily="Arial", labelBackgroundColor=palette["background"])
+            style = ";".join(key+"="+value for key,value in fields.items())+";"
             if edge.get("dashed"):
                 style += "dashed=1;"
             for endpoint, prefix in (("source_port", "exit"), ("target_port", "entry")):
                 if endpoint in edge:
                     px, py = edge[endpoint]
+                    endpoint_node = nodes[edge["source" if endpoint == "source_port" else "target"]]
+                    if endpoint_node.get("subtype") == "queue":
+                        # Native cylinder direction=south rotates its connection coordinate space.
+                        px, py = py, 1-px
                     if not 0 <= px <= 1 or not 0 <= py <= 1:
                         raise ValueError("Ports must be within 0..1.")
                     style += f"{prefix}X={px};{prefix}Y={py};{prefix}Perimeter=0;"
@@ -372,7 +302,7 @@ def export_model(model):
             target_ancestors = ancestors(edge["target"])
             edge_parent = next((identifier for identifier in ancestors(edge["source"]) if identifier in target_ancestors), "1")
             px, py = boxes[edge_parent][:2] if edge_parent != "1" else (0, 0)
-            cell = add_object(root, edge["id"], label, style=style, parent=edge_parent, vertex=False, c4Type="relationship")
+            cell = add_object(root, edge["id"], label, style=style, parent=edge_parent, vertex=False, c4Type="Relationship", c4ModelType="relationship")
             cell.set("source", edge["source"])
             cell.set("target", edge["target"])
             geometry = ET.SubElement(cell, "mxGeometry", relative="1", **{"as": "geometry"})
@@ -382,8 +312,8 @@ def export_model(model):
                 points = ET.SubElement(geometry, "Array", **{"as": "points"})
                 for x, y in edge["points"]:
                     ET.SubElement(points, "mxPoint", x=str(x-px), y=str(y-py))
-        annotations = [("meta_title", page["title"], 10, 50, 20), ("meta_legend", "Legend\n" + page["legend"], bottom+36, None, 13), ("meta_attribution", "C4: Simon Brown, CC BY 4.0. Shape assets adapted from draw.io C4, Apache-2.0.", None, 30, 11)]
-        footer_y = bottom+80
+        footer_y = add_legend(root, used_roles, palette, 20, bottom+36, full_width-40, page["legend"], add_object, wrap_label)
+        annotations = [("meta_title", page["title"], 10, 50, 20), ("meta_attribution", "C4: Simon Brown, CC BY 4.0. draw.io C4 palette, Apache-2.0.", None, 30, 11)]
         for identifier, value, y, height, font in annotations:
             lines = [line for paragraph in value.splitlines() for line in wrap_label(paragraph, full_width-40, font)]
             height = height or len(lines)*18+16
@@ -394,7 +324,8 @@ def export_model(model):
                 obj.set("c4View", page["view"])
                 obj.set("c4ExpectedExternalSystems", json.dumps(page.get("expected_external_systems", [])))
             ET.SubElement(cell, "mxGeometry", x="20", y=str(y), width=str(full_width-40), height=str(height), **{"as": "geometry"})
-            footer_y = y+height+20
+            if identifier != "meta_title":
+                footer_y = y+height+20
     return ET.tostring(file, encoding="unicode", xml_declaration=False)
 
 
@@ -417,6 +348,7 @@ def check_file(path):
         ids = set()
         nodes = {}
         edges = []
+        role_colors = {}
         expected_external = []
         for obj in objects:
             identifier = obj.get("id")
@@ -429,7 +361,7 @@ def check_file(path):
             parent = cell.get("parent")
             chain = {identifier}
             while parent not in ("0", "1"):
-                if parent in chain or parent not in object_map or object_map[parent].get("c4Type") not in FRAMES:
+                if parent in chain or parent not in object_map or object_map[parent].get("c4ModelType", object_map[parent].get("c4Type")) not in FRAMES:
                     raise ValueError("Invalid or cyclic saved containment: " + identifier)
                 chain.add(parent)
                 parent = object_map[parent].find("mxCell").get("parent")
@@ -441,7 +373,7 @@ def check_file(path):
                 raise ValueError("Image cells do not satisfy native C4 editability.")
             if not obj.get("label"):
                 raise ValueError("Missing label: " + str(identifier))
-            element_type = obj.get("c4Type")
+            element_type = obj.get("c4ModelType", obj.get("c4Type"))
             if element_type == "annotation":
                 if identifier == "meta_title":
                     expected_external = json.loads(obj.get("c4ExpectedExternalSystems", "[]"))
@@ -451,28 +383,23 @@ def check_file(path):
                 continue
             shape = shape_for(element_type, obj.get("c4Subtype") or None)
             plain = html.unescape(re.sub(r"<[^>]+>", "", obj.get("label", "")))
-            if not any(normalize(value).startswith(normalize(kind_for(element_type))) for value in re.findall(r"\[([^\]]*)\]", plain)):
+            if not any(normalize(value).startswith(normalize(visible_kind(element_type))) for value in re.findall(r"\[([^\]]*)\]", plain)):
                 raise ValueError("Visible type label disagrees with C4 metadata: " + str(identifier))
             background = graph.get("background", "#FFFFFF") if fields.get("fillColor") == "none" else fields.get("fillColor", "#FFFFFF")
             if contrast_ratio(fields.get("fontColor", "#152332"), background) < 4.5:
                 raise ValueError("Text contrast is below 4.5:1: " + str(identifier))
             if obj.get("c4Shape") != shape:
                 raise ValueError("C4 type/shape mismatch: " + str(identifier))
-            if element_type not in FRAMES:
-                match = re.search(r"shape=stencil\(([^)]+)\)", style)
-                if not match:
-                    raise ValueError("Missing embedded editable vector shape: " + str(identifier))
-                stencil = ET.fromstring(decode_xml(match.group(1)))
-                if stencil.get("name") != "c4-" + shape or stencil.findall(".//image"):
-                    raise ValueError("Wrong or image-based stencil: " + str(identifier))
-                expected = ET.fromstring(stencil_for(shape, float(stencil.get("w")), float(stencil.get("h")), fields.get("strokeColor", "#1168BD"), fields.get("fontColor", "#1168BD")))
-                if signature(stencil) != signature(expected):
-                    raise ValueError("Vector geometry differs from its declared C4 shape: " + str(identifier))
-            elif fields.get("shape") != "rectangle" or fields.get("fillColor") != "none" or cell.get("connectable") != "0":
-                raise ValueError("Containment/deployment/group frames must remain transparent native frames.")
-            elif (element_type == "group") != (fields.get("dashed") == "1"):
-                raise ValueError("Frame line style does not match its declared type.")
+            if not geometry_matches(fields, element_type, obj.get("c4Subtype") or None):
+                raise ValueError("Native C4 geometry/style differs from its declared type: " + str(identifier))
+            if element_type in FRAMES and (fields.get("fillColor") != "none" or cell.get("connectable") != "0"):
+                raise ValueError("Containment frames must be transparent and nonconnectable.")
             nodes[identifier] = element_type
+            if element_type not in FRAMES:
+                role = obj.get("c4Role")
+                if not role:
+                    raise ValueError("Missing legend role metadata: " + identifier)
+                role_colors[role] = fields.get("fillColor")
         legend = object_map.get("meta_legend")
         if legend is None or not html.unescape(re.sub(r"<[^>]+>", "", legend.get("label", ""))).strip():
             raise ValueError("Every saved page must contain a visible legend.")
@@ -488,6 +415,15 @@ def check_file(path):
             legend_background = graph.get("background", "#FFFFFF")
         if contrast_ratio(legend_style.get("fontColor", "#152332"), legend_background) < 4.5:
             raise ValueError("Saved legend text has insufficient contrast.")
+        keys = {cell.get("c4LegendRole"):cell for cell in graph.findall("./root/mxCell") if cell.get("c4LegendRole")}
+        if set(keys) != set(role_colors):
+            raise ValueError("Legend color key does not cover the actual element roles.")
+        for role, key in keys.items():
+            fields = dict(part.split("=",1) for part in key.get("style", "").split(";") if "=" in part)
+            if not key.get("value") or fields.get("fillColor") != role_colors[role] or key.get("visible", "1") == "0":
+                raise ValueError("Legend key is missing, hidden, or has the wrong color: " + role)
+            if contrast_ratio(fields.get("fontColor", "#152332"), fields["fillColor"]) < 4.5:
+                raise ValueError("Legend color row has insufficient text contrast: " + role)
         for edge in edges:
             if edge.get("source") not in nodes or edge.get("target") not in nodes:
                 raise ValueError("Dangling relationship endpoint.")

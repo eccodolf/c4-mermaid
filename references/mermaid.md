@@ -2,11 +2,9 @@
 
 ## Visual profiles and shapes
 
-The [official examples](official-examples.md) were visually inspected together with their keys. The default `example-light` profile uses white fill, colored borders, and colored text. `example-dark` uses outlines on `#111111` with light text; `example-filled` is a separate filled adaptation; `classic` provides the familiar blue/gray alternative when requested.
+Always use the [mandatory supplied assets](canonical-assets.md) as the C4 notation source. Apply their dark-blue Person, blue System, cyan Container, light-cyan Component, and muted external-role colors. Use explicit labels and readable font contrast. Native draw.io exact shapes and a visible color-key legend are mandatory companions; Mermaid cannot import native draw.io assets.
 
-Exact parameters are in `../assets/c4-theme.json`. Example identity accents include green `#297E06`, blue `#1168BD`, red `#BF101D`, and orange `#ED8609`. Keep assignments stable across views. Red does not imply failure, nor orange risk. Different roles/systems may use additional explained accents. Do not encode hierarchy depth by progressively recoloring the same system's descendants in the example profile.
-
-The vector set contains person, system, terminal application, browser, directory, component, database, bucket, queue, logical boundary, deployment node, infrastructure oval, and organizational group. A bucket differs from a database cylinder. A queue symbol is an explicitly explained extension, not a symbol copied from the banking examples.
+Use the [semantic mapping](shape-rules.md): rounded blocks, person2, cylinder3 stores/message buses, the microservice hexagon, browser container, and gray dashed rounded logical scopes with bottom captions. Mermaid-native geometry and label positions may differ; disclose each applicable adaptation. Never describe invented folder/bucket/terminal/UML-component artwork as the supplied C4 assets.
 
 ## Native C4
 
@@ -61,7 +59,7 @@ Use `flowchart`, `subgraph`, `classDef`, `class`, `style`, and `linkStyle defaul
 | Store/topic | `store[("Orders<br/>[Container: PostgreSQL]<br/>Stores orders")]` | Cylinder with an explicit store type |
 | Logical boundary | `subgraph scope["Orders [Software System]"]` | Style and name the frame explicitly |
 
-Copy the selected palette into classes. A light logical frame is blue and solid in the reference profile; organizational grouping is neutral and dotted. Deployment frames identify placement. A dark export needs an explicit background and readable legend colors.
+Copy the selected palette into classes. A canonical logical frame is gray, dashed, rounded, and captioned at the bottom; organizational grouping is explicitly distinct. Deployment frames identify placement. A dark export needs an explicit background and readable legend colors.
 
 Prefer the compact `container-flowchart.mmd` arrangement. Its companion legend is available through `%% legend:` comments and must be displayed with the diagram; it is not optional. If an in-diagram key is required, use a small clearly marked group and check that it does not stretch the layout.
 
@@ -75,4 +73,4 @@ Open `assets/offline/viewer.html`, load a `.mmd`, render, and export SVG with th
 
 The viewer preserves SVG whitespace, checks text against diagram bounds, checks external labels against other labels/nodes, and checks internal label bounds where the renderer exposes its block geometry. Detected text problems block export. Manually check remaining shape-specific containment, edge routes, arrowheads, compactness, legend, and intended export size. The detector is supplemental and conservative; it does not certify the diagram or the entire mandatory checklist. Check exported SVG in the intended viewer/rasterizer: lost spaces can join words, and restored spaces can reveal text overflow. Use explicit supported line breaks and recheck instead of accepting either problem.
 
-Generate a vector component with `python scripts/render_shape.py --shape component --title "Order intake" --kind Component --technology Python --width 440 --height 260 --profile example-light --output component.svg`. `--fill`, `--stroke`, and `--text-color` override colors; `--catalog` renders all thirteen shapes. The generator rejects text exceeding available height and recalculates geometry rather than stretching it.
+Generate a vector component with `python scripts/render_shape.py --shape component --title "Order intake" --kind Component --technology Python --width 440 --height 260 --profile drawio-c4 --output component.svg`. `--fill`, `--stroke`, and `--text-color` override colors; `--catalog` renders all fourteen parameterized variants. The generator rejects text exceeding available height and recalculates geometry rather than stretching it.

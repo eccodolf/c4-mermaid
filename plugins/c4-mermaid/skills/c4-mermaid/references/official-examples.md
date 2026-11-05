@@ -1,5 +1,7 @@
 # Visual study of official C4 examples
 
+This is historical analysis of the C4 site's examples. For actual output, the [mandatory supplied palette](canonical-assets.md) takes precedence over their original artwork, identity colors, and earlier vector adaptations described here.
+
 On 2026-11-05, all ten original diagrams and eight separate keys linked from Diagrams were inspected as images, in addition to the interactive example. These are observations about those examples, not mandatory notation for every C4 project.
 
 ## Visual vocabulary

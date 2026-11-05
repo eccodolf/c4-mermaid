@@ -3,7 +3,7 @@
 SHAPE_KINDS = {
     "person": "Person", "system": "Software System", "application": "Container",
     "browser": "Container", "directory": "Container", "component": "Component",
-    "database": "Container", "bucket": "Container", "queue": "Container",
+    "database": "Container", "bucket": "Container", "queue": "Container", "microservice": "Container",
     "boundary": "Boundary", "deployment-node": "Deployment Node",
     "infrastructure": "Infrastructure Node", "group-boundary": "Group",
 }
@@ -13,7 +13,7 @@ TYPE_SHAPES = {
     "deployment-node": "deployment-node", "infrastructure-node": "infrastructure",
     "group": "group-boundary",
 }
-CONTAINER_SHAPES = ("application", "browser", "directory", "database", "bucket", "queue")
+CONTAINER_SHAPES = ("application", "browser", "directory", "database", "bucket", "queue", "microservice")
 FRAMES = ("system-boundary", "container-boundary", "deployment-node", "group")
 
 

@@ -3,8 +3,8 @@
   "pages": [
     {
       "view": "shape-catalog",
-      "title": "C4 shape/type catalog - fictional samples",
-      "legend": "draw.io C4 palette: dark blue = Person, blue = Software System, cyan = Container, light cyan = Component, muted violet = external system. General applications/components are rounded blocks; data, object, and file stores share the data-container cylinder; message buses use a horizontal cylinder; browser uses the C4 window. Solid blue/neutral frames = logical/placement scope; dotted frames = organization. Arrows show named directed interactions. Font contrast is adapted; sizes fit text, not quantity.",
+      "title": "Supplied draw.io C4 shapes - native catalog",
+      "legend": "The supplied C4 shapes and role colors are used. Person2 = internal/external person; rounded blocks = System, Container or Component as labeled; cylinder3 = Data Container; horizontal cylinder3 = Message Bus; hexagon = Microservice Container; C4 browser = browser container. Gray dashed rounded frames = System/Container logical scope, with bottom captions. Text contrast and dimensions are adapted for readability. Empty scopes are notation samples.",
       "elements": [
         {
           "id": "sample_1",
@@ -17,85 +17,75 @@
           "description": "Vector shape sample"
         },
         {
+          "id": "sample_external_person",
+          "name": "External Person",
+          "type": "person",
+          "external": true,
+          "description": "Outside the organization",
+          "x": 400,
+          "y": 100,
+          "width": 320,
+          "height": 220
+        },
+        {
           "id": "sample_2",
           "name": "System",
           "type": "software-system",
-          "x": 400,
+          "x": 760,
           "y": 100,
           "width": 320,
           "height": 220,
           "description": "Vector shape sample"
         },
         {
+          "id": "sample_external_system",
+          "name": "External System",
+          "type": "software-system",
+          "external": true,
+          "description": "Outside the focal system",
+          "x": 40,
+          "y": 370,
+          "width": 320,
+          "height": 220
+        },
+        {
           "id": "sample_3",
           "name": "Application",
           "type": "container",
-          "x": 760,
-          "y": 100,
+          "x": 400,
+          "y": 370,
           "width": 320,
           "height": 220,
           "description": "Vector shape sample",
           "subtype": "application"
         },
         {
-          "id": "sample_4",
-          "name": "Browser",
-          "type": "container",
-          "x": 40,
-          "y": 370,
-          "width": 320,
-          "height": 220,
-          "description": "Vector shape sample",
-          "subtype": "browser"
-        },
-        {
-          "id": "sample_5",
-          "name": "Directory",
-          "type": "container",
-          "x": 400,
-          "y": 370,
-          "width": 320,
-          "height": 220,
-          "description": "Vector shape sample",
-          "subtype": "directory"
-        },
-        {
-          "id": "sample_6",
-          "name": "Component",
-          "type": "component",
-          "x": 760,
-          "y": 370,
-          "width": 320,
-          "height": 220,
-          "description": "Vector shape sample"
-        },
-        {
           "id": "sample_7",
           "name": "Database",
           "type": "container",
-          "x": 40,
-          "y": 640,
+          "x": 760,
+          "y": 370,
           "width": 320,
           "height": 220,
           "description": "Vector shape sample",
           "subtype": "database"
         },
         {
-          "id": "sample_8",
-          "name": "Bucket",
+          "id": "sample_microservice",
+          "name": "Microservice",
           "type": "container",
-          "x": 400,
+          "subtype": "microservice",
+          "description": "Independent runtime",
+          "x": 40,
           "y": 640,
           "width": 320,
-          "height": 220,
-          "description": "Vector shape sample",
-          "subtype": "bucket"
+          "height": 220
         },
         {
           "id": "sample_9",
           "name": "Queue",
           "type": "container",
-          "x": 760,
+          "x": 400,
           "y": 640,
           "width": 320,
           "height": 220,
@@ -103,19 +93,30 @@
           "subtype": "queue"
         },
         {
-          "id": "sample_10",
-          "name": "System boundary",
-          "type": "system-boundary",
+          "id": "sample_4",
+          "name": "Browser",
+          "type": "container",
+          "x": 760,
+          "y": 640,
+          "width": 320,
+          "height": 220,
+          "description": "Vector shape sample",
+          "subtype": "browser"
+        },
+        {
+          "id": "sample_6",
+          "name": "Component",
+          "type": "component",
           "x": 40,
           "y": 910,
           "width": 320,
           "height": 220,
-          "description": ""
+          "description": "Vector shape sample"
         },
         {
-          "id": "sample_11",
-          "name": "Deployment node",
-          "type": "deployment-node",
+          "id": "sample_10",
+          "name": "System boundary",
+          "type": "system-boundary",
           "x": 400,
           "y": 910,
           "width": 320,
@@ -123,24 +124,13 @@
           "description": ""
         },
         {
-          "id": "sample_12",
-          "name": "Infrastructure",
-          "type": "infrastructure-node",
+          "id": "sample_container_scope",
+          "name": "Container scope",
+          "type": "container-boundary",
           "x": 760,
           "y": 910,
           "width": 320,
-          "height": 220,
-          "description": "Vector shape sample"
-        },
-        {
-          "id": "sample_13",
-          "name": "Organization",
-          "type": "group",
-          "x": 40,
-          "y": 1180,
-          "width": 320,
-          "height": 220,
-          "description": ""
+          "height": 220
         }
       ],
       "relationships": []

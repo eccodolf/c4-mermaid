@@ -1,5 +1,5 @@
 {
-  "default_profile": "example-light",
+  "default_profile": "drawio-c4",
   "reference": "../references/official-examples.md",
   "profiles": {
     "example-light": {

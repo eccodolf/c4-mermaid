@@ -15,15 +15,18 @@ ContainerQueue(topic, "orders.created", "Kafka topic", "Stores OrderCreated<br/>
 Rel(web, api, "Submits order", "JSON/HTTPS")
 Rel(api, db, "Saves order", "PostgreSQL/TLS")
 Rel(api, topic, "Publishes OrderCreated", "Kafka/TLS")
-UpdateElementStyle(web, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(api, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(db, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(topic, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(web, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
+UpdateElementStyle(api, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
+UpdateElementStyle(db, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
+UpdateElementStyle(topic, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
 UpdateRelStyle(web, api, $offsetX="-65", $offsetY="-70")
 UpdateRelStyle(api, db, $offsetX="-90", $offsetY="-10")
 UpdateRelStyle(api, topic, $offsetX="40", $offsetY="5")
 UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
 
-%% legend: Blue = participants belonging to Orders. Rectangles = applications. Cylinders = the explicitly typed database and topic.
+%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
 %% legend: Numbers identify interaction order in this scenario. Arrow wording and protocol identify each message. Replies are outside this focused fragment.
 %% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
+
+
+%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.

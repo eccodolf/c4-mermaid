@@ -23,13 +23,13 @@ Rel(api, db, "Writes orders", "PostgreSQL/TLS")
 Rel(api, payments, "Authorizes payments", "JSON/HTTPS")
 Rel(api, topic, "Publishes OrderCreated", "Kafka/TLS")
 Rel(worker, topic, "Subscribes to OrderCreated", "Kafka/TLS")
-UpdateElementStyle(customer, $bgColor="#FFFFFF", $fontColor="#297E06", $borderColor="#297E06")
-UpdateElementStyle(payments, $bgColor="#FFFFFF", $fontColor="#BF101D", $borderColor="#BF101D")
-UpdateElementStyle(web, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(api, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(worker, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(db, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(topic, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(customer, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
+UpdateElementStyle(payments, $bgColor="#8C8496", $fontColor="#000000", $borderColor="#736782")
+UpdateElementStyle(web, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
+UpdateElementStyle(api, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
+UpdateElementStyle(worker, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
+UpdateElementStyle(db, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
+UpdateElementStyle(topic, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
 UpdateRelStyle(customer, web, $offsetX="-50", $offsetY="-35")
 UpdateRelStyle(web, api, $offsetX="-60", $offsetY="-70")
 UpdateRelStyle(api, payments, $offsetX="-50", $offsetY="-20")
@@ -38,8 +38,11 @@ UpdateRelStyle(api, topic, $offsetX="-65", $offsetY="-30")
 UpdateRelStyle(worker, topic, $offsetX="15", $offsetY="5")
 UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 
-%% legend: White fill. Green = Customer, blue = Orders elements, red = external Payments system.
+%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
 %% legend: Person = actor. Rectangle = application/system with an explicit type. Vertical cylinder = database. Horizontal cylinder = named Kafka topic.
-%% legend: Frame = logical system boundary. Native C4 uses a neutral dashed frame here, adapting the reference solid blue frame.
+%% legend: Frame = logical system boundary. Native Mermaid uses a neutral dashed scope frame; the exact native companion preserves the canonical rounded frame and bottom label.
 %% legend: Arrows describe dependencies through their action/protocol labels. A dashed line does not itself mean async.
 %% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
+
+
+%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.

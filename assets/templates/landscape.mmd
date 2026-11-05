@@ -20,19 +20,22 @@ Enterprise_Boundary(provider, "Payment provider") {
 Rel(customer, orders, "Places orders using")
 Rel(operator, warehouse, "Manages stock using")
 Rel(orders, payments, "Requests payment")
-UpdateElementStyle(customer, $bgColor="#FFFFFF", $fontColor="#297E06", $borderColor="#297E06")
-UpdateElementStyle(orders, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(warehouse, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(operator, $bgColor="#FFFFFF", $fontColor="#297E06", $borderColor="#297E06")
-UpdateElementStyle(payments, $bgColor="#FFFFFF", $fontColor="#BF101D", $borderColor="#BF101D")
-UpdateElementStyle(operator, $bgColor="#FFFFFF", $fontColor="#1A849C", $borderColor="#1A849C")
-UpdateElementStyle(warehouse, $bgColor="#FFFFFF", $fontColor="#7F0AC5", $borderColor="#7F0AC5")
+UpdateElementStyle(customer, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
+UpdateElementStyle(orders, $bgColor="#1061B0", $fontColor="#FFFFFF", $borderColor="#0D5091")
+UpdateElementStyle(warehouse, $bgColor="#1061B0", $fontColor="#FFFFFF", $borderColor="#0D5091")
+UpdateElementStyle(operator, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
+UpdateElementStyle(payments, $bgColor="#8C8496", $fontColor="#000000", $borderColor="#736782")
+UpdateElementStyle(operator, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
+UpdateElementStyle(warehouse, $bgColor="#1061B0", $fontColor="#FFFFFF", $borderColor="#0D5091")
 UpdateRelStyle(customer, orders, $offsetX="15", $offsetY="-20")
 UpdateRelStyle(operator, warehouse, $offsetX="15", $offsetY="-20")
 UpdateRelStyle(orders, payments, $offsetX="-30", $offsetY="-65")
 UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="2")
 
-%% legend: Identity accents: green Customer, teal Warehouse operator, blue Orders, purple Inventory, red Payments.
+%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
 %% legend: Commerce company and Payment provider frames = organizational groups, not software systems. Person glyph = role. Rectangle = software system. Arrows = named interactions.
-%% legend: No system is decomposed in this portfolio view. Native group-frame styling adapts the dotted reference group.
+%% legend: No system is decomposed in this portfolio view. Organizational grouping is explicitly distinct from logical scope.
 %% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
+
+
+%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.

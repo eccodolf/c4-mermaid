@@ -17,12 +17,15 @@ Deployment_Node(dev, "Developer machine", "Development environment", "Local deve
   }
 }
 Rel(api_dev, db_dev, "Writes orders", "PostgreSQL protocol")
-UpdateElementStyle(api_dev, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(db_dev, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
+UpdateElementStyle(api_dev, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
+UpdateElementStyle(db_dev, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
 UpdateRelStyle(api_dev, db_dev, $offsetX="-65", $offsetY="-80")
 UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="2")
 
-%% legend: Environment = Development. Nested neutral frames = hosting nodes/runtimes. Blue blocks = placed instances of logical containers.
+%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
 %% legend: Rectangle = application. Cylinder = logical store. Arrow = the API instance accessing the database instance.
 %% legend: This is a partial development deployment, not evidence of production topology.
 %% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
+
+
+%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.

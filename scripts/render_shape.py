@@ -11,7 +11,7 @@ from drawio_assets import SHAPES as DRAWIO_SHAPES, append_geometry, default_prof
 ROOT = Path(__file__).resolve().parents[1]
 THEME = json.loads((ROOT / 'assets/c4-theme.json').read_text(encoding='utf-8'))
 THEME['profiles']['drawio-c4'] = default_profile()
-SHAPES = ('person', 'system', 'application', 'browser', 'directory', 'component', 'database', 'bucket', 'queue', 'boundary', 'deployment-node', 'infrastructure', 'group-boundary')
+SHAPES = ('person', 'system', 'application', 'browser', 'directory', 'component', 'database', 'bucket', 'queue', 'boundary', 'deployment-node', 'infrastructure', 'group-boundary', 'microservice')
 SVG = 'http://www.w3.org/2000/svg'
 ET.register_namespace('', SVG)
 ATTRIBUTION = 'C4 reference: Simon Brown, c4model.com, CC BY 4.0. Shape assets adapted from draw.io C4, Apache-2.0; bundled source revisions and license included.'
@@ -44,7 +44,7 @@ def wrap_label(value, width, font):
     return lines
 
 def render_shape(shape, *, title='', kind='', technology='', description='', width=320, height=220,
-                 profile='example-light', role=None, fill=None, stroke=None, text_color=None):
+                 profile='drawio-c4', role=None, fill=None, stroke=None, text_color=None):
     if shape not in SHAPES:
         raise ValueError('Unknown shape: ' + shape)
     kind = validate_kind(shape, kind)
@@ -61,6 +61,8 @@ def render_shape(shape, *, title='', kind='', technology='', description='', wid
             colours[key] = value
     if shape in ('boundary','deployment-node','group-boundary') and text_color is None:
         colours['text'] = colours['stroke']
+    if shape == 'boundary':
+        colours.update(stroke='#666666', text='#333333')
     root = ET.Element(f'{{{SVG}}}svg', {'viewBox': f'0 0 {width} {height}', 'width': str(width),
                        'height': str(height), 'role': 'img', 'aria-labelledby': 'shape-title shape-desc'})
     element(root, 'title', id='shape-title').text = title or shape.title()
@@ -84,6 +86,8 @@ def render_shape(shape, *, title='', kind='', technology='', description='', wid
         attrs = {'x':left, 'y':top, 'width':right-left, 'height':bottom-top}
         if shape in ('system','deployment-node','boundary'):
             attrs.update(rx=6)
+        if shape == 'boundary':
+            attrs.update(rx=10, stroke_dasharray='8 4')
         if shape in ('boundary','deployment-node','group-boundary'):
             attrs.update(fill='none')
         if shape == 'group-boundary':
@@ -100,6 +104,8 @@ def render_shape(shape, *, title='', kind='', technology='', description='', wid
     if len(lines)*19 > available:
         raise ValueError('Text does not fit: shorten labels or increase width/height.')
     y = text_top + (16 if shape in ('boundary','deployment-node','group-boundary') else max(16, (available-len(lines)*19)/2 + 16))
+    if shape == 'boundary':
+        y = bottom - (len(lines)-1)*19 - 12
     for line, bold in lines:
         element(root, 'text', x=(left+right)/2, y=y, fill=colours['text'],
                 font_family='Arial, sans-serif', font_size=font, font_weight='bold' if bold else 'normal', text_anchor='middle').text = line
@@ -134,7 +140,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--shape', choices=SHAPES)
     parser.add_argument('--type', choices=('person','software-system','container','component','system-boundary','container-boundary','deployment-node','infrastructure-node','group'))
-    parser.add_argument('--subtype', choices=('application','browser','directory','database','bucket','queue'))
+    parser.add_argument('--subtype', choices=('application','browser','directory','database','bucket','queue','microservice'))
     parser.add_argument('--catalog', action='store_true', help='Render all available shapes in one SVG')
     parser.add_argument('--title', default='')
     parser.add_argument('--kind', default='', help='Explicit C4 type, e.g. Container')
@@ -142,8 +148,8 @@ def main():
     parser.add_argument('--description', default='')
     parser.add_argument('--width', type=int, default=320)
     parser.add_argument('--height', type=int, default=220)
-    parser.add_argument('--profile', choices=THEME['profiles'], default=THEME['default_profile'])
-    parser.add_argument('--role', choices=THEME['profiles']['example-light']['roles'])
+    parser.add_argument('--profile', choices=('drawio-c4',), default=THEME['default_profile'])
+    parser.add_argument('--role', choices=THEME['profiles']['drawio-c4']['roles'])
     parser.add_argument('--fill')
     parser.add_argument('--stroke')
     parser.add_argument('--text-color')

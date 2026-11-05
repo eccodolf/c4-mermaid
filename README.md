@@ -8,8 +8,8 @@ A self-contained, air-gap-ready Agent Skill for **Codex, Claude Code, Kimi Code 
 - Consistent shapes and colors based on the C4 examples.
 - All 21 C4 review criteria plus evidence, layout, export, and air-gap gates.
 - Nine editable Mermaid examples with reviewed SVG previews.
-- Thirteen parametric vector shapes and a local SVG generator.
-- Bundled draw.io C4 palette and shape assets, with full Apache-2.0 attribution.
+- Fourteen parametric vector variants and a local SVG generator.
+- Mandatory user-supplied draw.io C4 assets, native XML templates, an importable shape library, and complete Apache-2.0 notices.
 - Native editable draw.io export, typed shape checks, layout preflight, and round-trip examples.
 - Mermaid 12.3.0 browser engine, local viewer, and complete license texts.
 - Offline installation, tests, and SHA-256 integrity verification.
@@ -52,7 +52,9 @@ Example request:
 - [Mandatory checklist](references/review-checklist.md)
 - [Mermaid syntax and layout](references/mermaid.md)
 - [C4 example analysis](references/official-examples.md)
-- [Semantic shape rules and draw.io C4 assets](references/shape-rules.md)
+- [Mandatory supplied C4 assets](references/canonical-assets.md)
+- [Importable native shape library](assets/drawio-c4/native-c4.mxlibrary)
+- [Semantic shape rules](references/shape-rules.md)
 - [Editable draw.io delivery and verification](references/drawio.md)
 - [Native shape catalog](assets/drawio/shapes.drawio) and [Container example](assets/drawio/container.drawio)
 - [Mermaid sources and SVG previews](assets/templates/)

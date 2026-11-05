@@ -6,3 +6,5 @@ Additional source copyright notices remain in the unchanged Shapes.js.
 Licensed under Apache-2.0; see LICENSE.drawio. Pinned sources and hashes: provenance.json.
 
 The local adapters freeze C4 styles and paint geometry as data, parameterize dimensions, keep the person head circular, reserve safe label areas, and adapt font contrast. File/object stores use the C4 data-container cylinder; general applications and components use the C4 rounded blocks. No optional external icon/theme asset is required. Preserve this notice and upstream source/license notices with redistributions.
+
+Canonical user-supplied native palette: reference-palette.drawio. The exact original digest and importable library are recorded in provenance.json. Native architecture output now uses the original C4 shape/style identifiers, gray dashed rounded scopes with bottom captions, and a native color-key legend. Text wrapping, dimensions, contrast, hierarchy, and routing are adapted for readability.

@@ -17,25 +17,29 @@ config:
 ---
 C4Context
 title System Context - Orders (fictional example)
-Person(customer, &quot;Customer&quot;, &quot;Places orders&quot;)
-System(orders, &quot;Orders&quot;, &quot;Accepts and processes&lt;br/&gt;orders&quot;)
-System_Ext(payments, &quot;Payments&quot;, &quot;Authorizes payments&quot;)
-Rel(customer, orders, &quot;Places order&quot;)
-Rel(orders, payments, &quot;Authorizes payments using&quot;)
-UpdateElementStyle(customer, $bgColor=&quot;#FFFFFF&quot;, $fontColor=&quot;#297E06&quot;, $borderColor=&quot;#297E06&quot;)
-UpdateElementStyle(orders, $bgColor=&quot;#FFFFFF&quot;, $fontColor=&quot;#1168BD&quot;, $borderColor=&quot;#1168BD&quot;)
-UpdateElementStyle(payments, $bgColor=&quot;#FFFFFF&quot;, $fontColor=&quot;#BF101D&quot;, $borderColor=&quot;#BF101D&quot;)
-UpdateRelStyle(customer, orders, $offsetX=&quot;-3&quot;, $offsetY=&quot;-35&quot;)
-UpdateRelStyle(orders, payments, $offsetX=&quot;-75&quot;, $offsetY=&quot;-45&quot;)
-UpdateLayoutConfig($c4ShapeInRow=&quot;3&quot;, $c4BoundaryInRow=&quot;1&quot;)
+Person(customer, "Customer", "Places orders")
+System(orders, "Orders", "Accepts and processes<br/>orders")
+System_Ext(payments, "Payments", "Authorizes payments")
+Rel(customer, orders, "Places order")
+Rel(orders, payments, "Authorizes payments using")
+UpdateElementStyle(customer, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
+UpdateElementStyle(orders, $bgColor="#1061B0", $fontColor="#FFFFFF", $borderColor="#0D5091")
+UpdateElementStyle(payments, $bgColor="#8C8496", $fontColor="#000000", $borderColor="#736782")
+UpdateRelStyle(customer, orders, $offsetX="-3", $offsetY="-35")
+UpdateRelStyle(orders, payments, $offsetX="-75", $offsetY="-45")
+UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 
-%% legend: White fill with identity-colored outlines/text: green Customer, blue Orders, red Payments. Red does not mean failure.
+%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
 %% legend: Person glyph = actor. Rectangle = software system. Arrows = named, directed interactions. No internal applications are expanded.
 %% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
+
+
+%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.
 </textarea>
-<label for="legend">Legend for preview and SVG export</label><textarea id="legend">White fill with identity-colored outlines/text: green Customer, blue Orders, red Payments. Red does not mean failure.
+<label for="legend">Legend for preview and SVG export</label><textarea id="legend">Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
 Person glyph = actor. Rectangle = software system. Arrows = named, directed interactions. No internal applications are expanded.
-Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.</textarea>
+Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
+Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.</textarea>
 <button id="render">Render</button><button id="download" disabled>Save SVG with legend</button>
 <div id="status" role="status" aria-live="polite"></div><div id="preview" aria-label="Diagram preview"></div>
 <p id="legend-preview"></p>

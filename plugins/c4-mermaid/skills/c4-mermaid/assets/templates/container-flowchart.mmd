@@ -23,16 +23,19 @@ flowchart LR
   api -->|"Authorizes payment - JSON/HTTPS"| payments
   api -->|"Publishes OrderCreated - Kafka/TLS"| topic
   worker -->|"Subscribes to OrderCreated - Kafka/TLS"| topic
-  classDef person fill:#FFFFFF,stroke:#297E06,color:#297E06
-  classDef internal fill:#FFFFFF,stroke:#1168BD,color:#1168BD
-  classDef external fill:#FFFFFF,stroke:#BF101D,color:#BF101D
+  classDef person fill:#083F75,stroke:#06315C,color:#FFFFFF
+  classDef internal fill:#23A2D9,stroke:#0E7DAD,color:#152332
+  classDef external fill:#8C8496,stroke:#736782,color:#000000
   class customer person
   class web,api,db,topic,worker internal
   class payments external
-  style orders fill:#FFFFFF,stroke:#1168BD,stroke-width:2px,color:#1168BD
+  style orders fill:none,stroke:#666666,stroke-width:1px,stroke-dasharray:8 4,color:#333333
   linkStyle default stroke:#666666,color:#333333
 
-%% legend: White fill with identity-colored outlines. Green = person, blue = Orders elements, red = external Payments.
+%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
 %% legend: Capsule adapts the person glyph. Plain rectangles adapt application glyphs. Cylinders are typed logical stores, including a Kafka topic.
-%% legend: Blue solid frame = software-system boundary. Arrows = named dependencies with protocols. The compact companion legend must remain visible with the diagram/export.
+%% legend: Gray dashed frame = software-system boundary. Arrows = named dependencies with protocols. The compact companion legend must remain visible with the diagram/export.
 %% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
+
+
+%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.

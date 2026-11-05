@@ -2,7 +2,7 @@
 
 ## Operating boundary
 
-Everything this skill teaches or renders is included in this directory: abstraction mapping, seven C4 view scopes, all 21 diagram review criteria, extra acceptance gates, Mermaid syntax guidance, nine source/SVG examples, thirteen parametric shapes, palettes, rendering engine, and license texts. All instruction links resolve to local files. Original source names are attribution, not retrieval instructions.
+All task-specific resources are included: abstraction mapping, seven C4 view scopes, all 21 review criteria, additional gates, nine Mermaid source/SVG examples, fourteen parameterized vector variants, the mandatory original C4 palette, 17 extracted native templates, an 18-entry importable draw.io library, rendering engine, and license texts. Instruction links resolve locally. Original source names establish attribution, not retrieval requirements.
 
 The package does not include an agent application, model weights, operating system, browser, Python interpreter, or a general-purpose headless browser. Provision those inside the isolated environment before using the skill. Python 3.9 or newer is optional for installation, verification, tests, and vector generation. Mermaid rendering uses the included JavaScript engine in an already-installed browser and does not require Python, Node, npm, a package registry, or a server.
 
@@ -38,6 +38,6 @@ If rendering is unavailable, deliver an explicitly unrendered draft and mark V1/
 
 ## Attribution and inert identifiers
 
-For native editable draw.io output, follow [drawio.md](drawio.md). Provision the desktop editor before isolation; no editor runtime is included or downloaded by this skill. The exporter and frozen draw.io C4 geometry/styles use only bundled files and Python's standard library. The complete [Apache-2.0 license](../assets/drawio-c4/LICENSE.drawio) and adaptation notice travel with the assets. Missing native rendering capability must be disclosed as a verification limit.
+For the mandatory native C4 companion, follow [drawio.md](drawio.md). Provision the desktop editor before isolation; no editor runtime is included or downloaded by this skill. The exporter and supplied native C4 templates and library use only bundled files and Python's standard library. The complete [Apache-2.0 license](../assets/drawio-c4/LICENSE.drawio) and adaptation notice travel with the assets. Missing native rendering capability must be disclosed as a verification limit.
 
 [Sources and provenance](sources.md) identifies the original authors and adaptations. Full [CC BY 4.0](../assets/offline/LICENSE.CC-BY-4.0) and [Mermaid MIT](../assets/offline/LICENSE.mermaid) texts are bundled. Third-party license text and the unchanged engine may contain source identifiers; XML namespace identifiers in SVG are format identifiers. None is an instruction to access a website or a runtime download dependency. Preserve legal notices when redistributing the bundle.

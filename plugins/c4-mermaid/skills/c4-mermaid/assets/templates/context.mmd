@@ -13,13 +13,16 @@ System(orders, "Orders", "Accepts and processes<br/>orders")
 System_Ext(payments, "Payments", "Authorizes payments")
 Rel(customer, orders, "Places order")
 Rel(orders, payments, "Authorizes payments using")
-UpdateElementStyle(customer, $bgColor="#FFFFFF", $fontColor="#297E06", $borderColor="#297E06")
-UpdateElementStyle(orders, $bgColor="#FFFFFF", $fontColor="#1168BD", $borderColor="#1168BD")
-UpdateElementStyle(payments, $bgColor="#FFFFFF", $fontColor="#BF101D", $borderColor="#BF101D")
+UpdateElementStyle(customer, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
+UpdateElementStyle(orders, $bgColor="#1061B0", $fontColor="#FFFFFF", $borderColor="#0D5091")
+UpdateElementStyle(payments, $bgColor="#8C8496", $fontColor="#000000", $borderColor="#736782")
 UpdateRelStyle(customer, orders, $offsetX="-3", $offsetY="-35")
 UpdateRelStyle(orders, payments, $offsetX="-75", $offsetY="-45")
 UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
 
-%% legend: White fill with identity-colored outlines/text: green Customer, blue Orders, red Payments. Red does not mean failure.
+%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
 %% legend: Person glyph = actor. Rectangle = software system. Arrows = named, directed interactions. No internal applications are expanded.
 %% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
+
+
+%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.
