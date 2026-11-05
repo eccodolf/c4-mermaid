@@ -1,0 +1,274 @@
+{
+  "profile": "drawio-c4",
+  "pages": [
+    {
+      "id": "deployment",
+      "view": "deployment",
+      "title": "Deployment — GameSessionMonitor: описанное размещение",
+      "legend": "Сплошные рамки — узлы размещения; голубые блоки — экземпляры контейнеров; цилиндры — данные. Стрелки показывают направленные взаимодействия. Размещение сервера основано на локальных скриптах и не проверено вживую. HTTPS — защищённый HTTP; JSON — формат данных; API — интерфейс; PWA — веб-приложение.",
+      "elements": [
+        {
+          "id": "pc",
+          "type": "deployment-node",
+          "name": "Игровой компьютер — Windows",
+          "technology": "Windows / планировщик задач",
+          "x": 0,
+          "y": 80,
+          "width": 1890,
+          "height": 470
+        },
+        {
+          "id": "enforcer",
+          "type": "container",
+          "subtype": "application",
+          "parent": "pc",
+          "name": "SystemEnforcer",
+          "technology": "PowerShell / SYSTEM",
+          "description": "Учет и ограничения",
+          "x": 50,
+          "y": 80,
+          "width": 260,
+          "height": 170
+        },
+        {
+          "id": "budget",
+          "type": "container",
+          "subtype": "database",
+          "parent": "pc",
+          "name": "Игровой бюджет",
+          "technology": "JSON / файл",
+          "description": "Остаток и история",
+          "x": 500,
+          "y": 80,
+          "width": 260,
+          "height": 210
+        },
+        {
+          "id": "notice",
+          "type": "container",
+          "subtype": "application",
+          "parent": "pc",
+          "name": "Уведомления",
+          "technology": "PowerShell / сеанс пользователя",
+          "description": "Предупреждения",
+          "x": 950,
+          "y": 80,
+          "width": 260,
+          "height": 170
+        },
+        {
+          "id": "agent",
+          "type": "container",
+          "subtype": "application",
+          "parent": "pc",
+          "name": "WebAgent",
+          "technology": "PowerShell / задача",
+          "description": "Опрос сервера и команды",
+          "x": 1510,
+          "y": 80,
+          "width": 260,
+          "height": 170
+        },
+        {
+          "id": "server",
+          "type": "deployment-node",
+          "name": "Веб-сервер — Linux, Nginx, systemd",
+          "technology": "Linux / Nginx / systemd",
+          "x": 760,
+          "y": 860,
+          "width": 1130,
+          "height": 400
+        },
+        {
+          "id": "api",
+          "type": "container",
+          "subtype": "application",
+          "parent": "server",
+          "name": "Web API",
+          "technology": "Python / 127.0.0.1:8097",
+          "description": "Команды и состояние",
+          "x": 750,
+          "y": 90,
+          "width": 270,
+          "height": 180
+        },
+        {
+          "id": "webdb",
+          "type": "container",
+          "subtype": "database",
+          "parent": "server",
+          "name": "Данные Web API",
+          "technology": "SQLite / файл",
+          "description": "Сессии и телеметрия",
+          "x": 320,
+          "y": 80,
+          "width": 260,
+          "height": 210
+        },
+        {
+          "id": "browser",
+          "type": "deployment-node",
+          "name": "Браузер пользователя",
+          "technology": "Браузер",
+          "x": 0,
+          "y": 860,
+          "width": 510,
+          "height": 400
+        },
+        {
+          "id": "pwa",
+          "type": "container",
+          "subtype": "browser",
+          "parent": "browser",
+          "name": "GameTime PWA",
+          "technology": "React / браузер",
+          "description": "Интерфейс управления",
+          "x": 100,
+          "y": 90,
+          "width": 280,
+          "height": 180
+        }
+      ],
+      "relationships": [
+        {
+          "id": "enforcer_budget",
+          "source": "enforcer",
+          "target": "budget",
+          "action": "Пересчитывает",
+          "technology": "файл JSON",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.4
+          ],
+          "label_offset": [
+            0,
+            -20
+          ]
+        },
+        {
+          "id": "notice_budget",
+          "source": "notice",
+          "target": "budget",
+          "action": "Читает остаток",
+          "technology": "файл JSON",
+          "source_port": [
+            0,
+            0.5
+          ],
+          "target_port": [
+            1,
+            0.4
+          ],
+          "label_offset": [
+            0,
+            -20
+          ]
+        },
+        {
+          "id": "agent_budget",
+          "source": "agent",
+          "target": "budget",
+          "action": "Применяет команду",
+          "technology": "локальный скрипт",
+          "source_port": [
+            0.3,
+            1
+          ],
+          "target_port": [
+            0.5,
+            1
+          ],
+          "points": [
+            [
+              1588,
+              480
+            ],
+            [
+              630,
+              480
+            ]
+          ],
+          "label_offset": [
+            0,
+            -20
+          ]
+        },
+        {
+          "id": "agent_api",
+          "source": "agent",
+          "target": "api",
+          "action": "Опрашивает и передает статус",
+          "technology": "HTTPS через Nginx",
+          "source_port": [
+            0.7,
+            1
+          ],
+          "target_port": [
+            0.5,
+            0
+          ],
+          "label_offset": [
+            -110,
+            0
+          ]
+        },
+        {
+          "id": "api_db",
+          "source": "api",
+          "target": "webdb",
+          "action": "Читает и сохраняет",
+          "technology": "SQLite",
+          "source_port": [
+            0,
+            0.5
+          ],
+          "target_port": [
+            1,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -20
+          ]
+        },
+        {
+          "id": "pwa_api",
+          "source": "pwa",
+          "target": "api",
+          "action": "Запрашивает данные и команды",
+          "technology": "HTTPS через Nginx",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0.5,
+            1
+          ],
+          "points": [
+            [
+              600,
+              1040
+            ],
+            [
+              600,
+              1310
+            ],
+            [
+              1645,
+              1310
+            ]
+          ],
+          "label_offset": [
+            0,
+            -20
+          ]
+        }
+      ]
+    }
+  ]
+}

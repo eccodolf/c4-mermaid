@@ -2,7 +2,7 @@
 
 ## Operating boundary
 
-All task-specific resources are included: abstraction mapping, seven C4 view scopes, all 21 review criteria, additional gates, nine Mermaid source/SVG examples, exact native vector references, the mandatory original C4 palette, 17 extracted native templates, an 18-entry importable draw.io library, rendering engine, and license texts. Instruction links resolve locally. Original source names establish attribution, not retrieval requirements.
+All task-specific resources are included: abstraction mapping, seven C4 view scopes, all 21 review criteria, additional gates, nine Mermaid source/SVG templates, seven metadata-described application examples, exact native vector references, the mandatory original C4 palette, 17 extracted native templates, an 18-entry importable draw.io library, rendering engine, and license texts. Instruction links resolve locally. Original source names establish attribution, not retrieval requirements.
 
 The package does not include an agent application, model weights, operating system, browser, Python interpreter, or a general-purpose headless browser. Provision those inside the isolated environment before using the skill. Python 3.9 or newer is optional for installation, verification, tests, and vector generation. Exact C4 Mermaid rendering uses the included Mermaid and native draw.io JavaScript engines in an already-installed browser and does not require Python, Node, npm, a package registry, or a server.
 
@@ -28,7 +28,7 @@ Use the bundled Mermaid engine for reproducible syntax support. Do not add inclu
 
 ## Render and inspect
 
-Open `assets/offline/viewer.html` in a permitted local browser. Select a `.mmd` file, inspect the preview, complete the [mandatory checklist](review-checklist.md), and save SVG with its visible legend. No internet connection is needed. The viewer uses installed font fallbacks and does not download fonts; inspect actual text fit on the target machine because local font metrics may differ.
+Open `assets/offline/viewer.html` in a permitted local browser. Select a `.mmd` file, inspect the preview, complete the [mandatory checklist](review-checklist.md), and save SVG and PNG with their visible legend. PNG is generated locally from the same SVG at twice its pixel dimensions, subject to a 64-megapixel canvas limit; larger exports require a provisioned local rasterizer or a smaller view. No internet connection is needed. The viewer uses installed font fallbacks and does not download fonts; inspect actual text fit on the target machine because local font metrics may differ.
 
 If the environment permits loopback HTTP but cannot open local HTML, an operator can run `python -m http.server 8766 --bind 127.0.0.1 --directory .` from the bundle root, then open the local loopback address on port 8766 at path `/assets/offline/viewer.html`. Keep the server on loopback and stop it after use. This is optional local interprocess access, not an external service. Do not use it to bypass a host security warning or policy.
 
@@ -38,6 +38,6 @@ If rendering is unavailable, deliver an explicitly unrendered draft and mark V1/
 
 ## Attribution and inert identifiers
 
-For requested native draw.io files, follow [drawio.md](drawio.md). Provision the desktop editor before isolation; the separate desktop editor is not bundled or downloaded. Exact Mermaid rendering already includes the native painter and only needs a local browser. The exporter and supplied native C4 templates and library use only bundled files and Python's standard library. The complete [Apache-2.0 license](../assets/drawio-c4/LICENSE.drawio) and adaptation notice travel with the assets. Missing native rendering capability must be disclosed as a verification limit.
+For the mandatory native draw.io artifact, follow [drawio.md](drawio.md). Provision the desktop editor before isolation; the separate desktop editor is not bundled or downloaded. Exact Mermaid rendering already includes the native painter and only needs a local browser. The exporter and supplied native C4 templates and library use only bundled files and Python's standard library. The complete [Apache-2.0 license](../assets/drawio-c4/LICENSE.drawio) and adaptation notice travel with the assets. Missing native authoring/rendering capability means the four-format delivery is incomplete; retain a draft and disclose the exact failed or unverified gates. See [delivery-formats.md](delivery-formats.md).
 
 [Sources and provenance](sources.md) identifies the original authors and adaptations. Full [CC BY 4.0](../assets/offline/LICENSE.CC-BY-4.0) and [Mermaid MIT](../assets/offline/LICENSE.mermaid) texts are bundled. Third-party license text and the unchanged engine may contain source identifiers; XML namespace identifiers in SVG are format identifiers. None is an instruction to access a website or a runtime download dependency. Preserve legal notices when redistributing the bundle.

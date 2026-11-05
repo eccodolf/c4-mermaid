@@ -51,8 +51,8 @@ This target means the official `deepseek-ai/deepseek-harness` application, not t
 | File reading/search | Inspect repository evidence and selected references | State inspection scope and unsupported assumptions |
 | Description only | Build the model from supplied facts | Mark unknown technologies, protocols, ownership, and relationships |
 | Python | Run the optional vector generator using absolute resource/output paths | Do not require Python for Mermaid authoring |
-| Browser or local renderer | Render using the target or bundled Mermaid version | Name the actual renderer/version; parsing is not visual review |
-| Image/SVG inspection | Inspect the rendered diagram and its final export | Complete compactness, overlap, routing, and clipping checks |
+| Browser or local renderer | Render C4 with the bundled exact extension and its pinned Mermaid version | Name the actual renderer/version; parsing is not visual review |
+| Image/SVG inspection | Inspect the rendered diagram and its final export | Complete compactness, overlap, routing, clipping, and receiving-end arrowhead/direction checks |
 | No renderer or no image inspection | Deliver supported source/model work with explicit limits | Mark affected gates `NOT VERIFIED`; an unrendered result is a draft |
 
 A tool's presence does not imply it can open local HTML, inspect SVG, or export files. Use the offline viewer when the host permits it. If local file URLs are unavailable, an authorized loopback server can serve the bundle; do not bypass a security warning or publish a private application to obtain a preview. A host's optional Mermaid preview may omit legends or support a different syntax version; check its actual output. Preserve all evidence, C4 abstraction, compact layout, and mandatory checklist rules in every harness.
@@ -67,4 +67,4 @@ This revision passed the Codex skill validator and all eight isolated user/proje
 
 ## Exact Mermaid and native draw.io capabilities
 
-All four harnesses use the [same exact Mermaid renderer](exact-mermaid.md). Host Mermaid previews must not substitute generic glyphs; open the bundled local viewer and deliver its SVG. The [native exporter and saving procedure](drawio.md) applies when native files are requested. Python provides model export and structural checks; a separately provisioned local draw.io editor provides native rendering and save/re-export verification. The exporter has no harness-specific API or network dependency. Without the editor or image inspection, report the corresponding D3/D4 gates as `NOT VERIFIED`.
+All four harnesses use the [same exact Mermaid renderer](exact-mermaid.md). Host Mermaid previews must not substitute generic glyphs; open the bundled local viewer and export SVG and PNG. Every view also requires editable Mermaid and native draw.io under the [four-format contract](delivery-formats.md). The [native exporter and saving procedure](drawio.md) therefore applies to every delivered view. Python provides model export and structural checks; a separately provisioned local draw.io editor provides native rendering and save/re-export verification. The exporter has no harness-specific API or network dependency. Without the editor or image inspection, report the corresponding D3/D4 gates as `NOT VERIFIED`.

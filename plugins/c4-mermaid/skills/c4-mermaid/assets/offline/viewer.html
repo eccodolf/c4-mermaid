@@ -5,7 +5,7 @@
 <style>body{font:16px Arial,sans-serif;margin:28px;background:#f6f7f8;color:#152332}main{max-width:1400px;margin:auto}h1{font-size:26px}p{max-width:1050px;line-height:1.5}label{display:block;margin:18px 0 7px;font-weight:600}textarea{box-sizing:border-box;width:100%;border:1px solid #9aa8b5;border-radius:6px;padding:12px;font:14px Consolas,monospace}#source{height:280px}#legend{height:100px;font:14px Arial,sans-serif}button,input{font:inherit;margin:12px 12px 12px 0}button{padding:10px 18px;background:#1168bd;color:white;border:0;border-radius:5px;cursor:pointer}button:disabled{opacity:.45;cursor:default}#status{white-space:pre-wrap;line-height:1.5}#preview{background:white;padding:20px;overflow:auto;border:1px solid #d5dde3;border-radius:6px;min-height:150px}#preview svg{max-width:none}#legend-preview{white-space:pre-line}details{margin:18px 0;line-height:1.5}footer{margin-top:24px;color:#586672;font-size:13px}</style>
 </head><body><main>
 <h1>C4 Mermaid - Offline</h1>
-<p>Air-gapped viewer. Mermaid 12.3.0 and the exact native C4 renderer are included. Files are processed locally without uploading. Choose a bundled template or paste source without resource URLs, external images, or clickable links. SVG export includes the visible legend.</p>
+<p>Air-gapped viewer. Mermaid 12.3.0 and the exact native C4 renderer are included. Files are processed locally without uploading. Choose a bundled template or paste source without resource URLs, external images, or clickable links. SVG and PNG export include the visible legend.</p>
 <input id="file" type="file" accept=".mmd,.txt,.md" aria-label="Open Mermaid file">
 <label for="source">Mermaid source</label><textarea id="source" spellcheck="false">drawioC4 container
 title Container - Orders (fictional example)
@@ -28,13 +28,13 @@ Rel(api, topic, "Publishes events", "Kafka/TLS")
 %% legend: Person and system colors are shown in the key. Data, object, and file stores use the C4 data cylinder; the horizontal cylinder is a message bus. Gray dashed rounded frames delimit logical scopes, with the scope label at the bottom. Solid thin arrows indicate the named directed interaction. Text colors are adapted for contrast; sizes fit text.
 </textarea>
 <label for="legend">Legend for preview and SVG export</label><textarea id="legend">Person and system colors are shown in the key. Data, object, and file stores use the C4 data cylinder; the horizontal cylinder is a message bus. Gray dashed rounded frames delimit logical scopes, with the scope label at the bottom. Solid thin arrows indicate the named directed interaction. Text colors are adapted for contrast; sizes fit text.</textarea>
-<button id="render">Render</button><button id="download" disabled>Save SVG with legend</button>
+<button id="render">Render</button><button id="download" disabled>Save SVG with legend</button><button id="download-png" disabled>Save PNG with legend</button>
 <div id="status" role="status" aria-live="polite"></div><div id="preview" aria-label="Diagram preview"></div>
 <p id="legend-preview"></p>
 <details><summary>Mandatory review before delivery</summary><p>Complete the <a href="../../references/review-checklist.md">C4 review checklist</a> for every view. Also verify abstraction mapping, compact placement inside contours, internal text fit, arrow routing, and the final export size. The automatic external-label detector supplements this review and cannot certify the diagram.</p></details>
 <footer>C4 model and visual references: Simon Brown, c4model.com, CC BY 4.0. Native C4 geometry: draw.io, Apache-2.0. Mermaid: MIT. Complete licenses are bundled.</footer>
 </main><script src="airgap-guard.js"></script><script src="mermaid.min.js"></script><script>window.mxLoadResources=false;window.mxLoadStylesheets=false;window.mxBasePath="";window.mxImageBasePath="";</script><script src="../drawio-c4/mxClient.js"></script><script src="../drawio-c4/native-builtins.js"></script><script src="../drawio-c4/mxC4.js"></script><script src="drawio-data.js"></script><script src="c4-drawio.js"></script><script>
-const source=document.getElementById('source'),legend=document.getElementById('legend'),preview=document.getElementById('preview'),status=document.getElementById('status'),download=document.getElementById('download');
+const source=document.getElementById('source'),legend=document.getElementById('legend'),preview=document.getElementById('preview'),status=document.getElementById('status'),download=document.getElementById('download'),downloadPng=document.getElementById('download-png');
 let serial=0,renderedSource='',renderedLegend='';
 mermaid.initialize({startOnLoad:false,securityLevel:'strict',secure:['securityLevel','startOnLoad','secure'],theme:'base',fontFamily:'Arial, sans-serif',htmlLabels:false,flowchart:{htmlLabels:false}});
 const exactReady=C4Drawio.install(mermaid);
@@ -45,7 +45,7 @@ document.getElementById('file').addEventListener('change',async event=>{
  legend.value=key;
  invalidate();status.textContent='Source loaded. Select Render.';
 });
-function invalidate(){download.disabled=true;}
+function invalidate(){download.disabled=true;downloadPng.disabled=true;}
 function checkLayout(svg){
  const box=e=>e.getBoundingClientRect(),overlap=(a,b)=>Math.min(a.right,b.right)-Math.max(a.left,b.left)>1&&Math.min(a.bottom,b.bottom)-Math.max(a.top,b.top)>1;
  const nodes=[...svg.querySelectorAll('.node')].map(e=>({element:e,box:box(e),name:e.querySelector('.c4-name')?.textContent||e.textContent.slice(0,50)}));
@@ -74,7 +74,7 @@ function checkLayout(svg){
 }
 source.addEventListener('input',invalidate);legend.addEventListener('input',invalidate);
 document.getElementById('render').addEventListener('click',async()=>{
- download.disabled=true;status.textContent='Rendering...';preview.replaceChildren();
+ invalidate();status.textContent='Rendering...';preview.replaceChildren();
  const requestedSource=source.value,requestedLegend=legend.value;
  try{
   assertAirGapSource(requestedSource);
@@ -87,7 +87,7 @@ document.getElementById('render').addEventListener('click',async()=>{
   renderedSource=requestedSource;renderedLegend=requestedLegend;
   document.getElementById('legend-preview').textContent=preview.querySelector('svg').getAttribute('data-c4-exact')==='true'?'':requestedLegend;
   const issues=checkLayout(preview.querySelector('svg'));
-  download.disabled=issues.length>0||source.value!==renderedSource||legend.value!==renderedLegend;
+  download.disabled=issues.length>0||source.value!==renderedSource||legend.value!==renderedLegend;downloadPng.disabled=download.disabled;
   status.textContent=issues.length?'Text layout issues detected ('+issues.length+'). Fix the layout before export.\n'+issues.join('\n'):'Rendered locally. No detected text layout issues. Complete the mandatory review, including compactness, routing, and export size.';
  }catch(error){preview.replaceChildren();status.textContent='Rendering failed: '+String(error.message||error);}
 });
@@ -105,10 +105,10 @@ function wrapLegend(value,width){
  }
  return lines;
 }
-download.addEventListener('click',()=>{
+function exportSvg(){
  if(source.value!==renderedSource||legend.value!==renderedLegend){invalidate();return;}
  const original=preview.querySelector('svg');if(!original)return;
- if(original.getAttribute('data-c4-exact')==='true'){const xml=new XMLSerializer().serializeToString(original),url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml;charset=utf-8'}));const link=document.createElement('a');link.href=url;link.download='c4-diagram.svg';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);return;}
+ if(original.getAttribute('data-c4-exact')==='true')return original.cloneNode(true);
  const NS='http://www.w3.org/2000/svg',outer=document.createElementNS(NS,'svg'),image=original.cloneNode(true);
  const box=original.viewBox.baseVal,w=Math.max(760,Math.ceil(box.width)),h=Math.ceil(box.height),lines=wrapLegend(renderedLegend,w-40),total=h+110+lines.length*20;
  outer.setAttribute('viewBox',`0 0 ${w} ${total}`);outer.setAttribute('width',w);outer.setAttribute('height',total);
@@ -117,7 +117,15 @@ download.addEventListener('click',()=>{
  function text(value,y,bold=false){const t=document.createElementNS(NS,'text');t.setAttribute('x',20);t.setAttribute('y',y);t.setAttribute('font-family','Arial, sans-serif');t.setAttribute('font-size',14);t.setAttribute('fill','#152332');if(bold)t.setAttribute('font-weight','bold');t.textContent=value;outer.append(t);}
  text('Legend',h+28,true);lines.forEach((line,index)=>text(line,h+52+index*20));
  text('C4 visual reference: Simon Brown - c4model.com - CC BY 4.0 - Adapted',total-16);
- const xml=new XMLSerializer().serializeToString(outer),url=URL.createObjectURL(new Blob([xml],{type:'image/svg+xml;charset=utf-8'}));
- const a=document.createElement('a');a.href=url;a.download='c4-diagram.svg';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ return outer;
+}
+function saveBlob(blob,name){const url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
+function svgBlob(svg){return new Blob([new XMLSerializer().serializeToString(svg)],{type:'image/svg+xml;charset=utf-8'});}
+download.addEventListener('click',()=>{const svg=exportSvg();if(svg)saveBlob(svgBlob(svg),'c4-diagram.svg');});
+downloadPng.addEventListener('click',async()=>{
+ const svg=exportSvg();if(!svg)return;const url=URL.createObjectURL(svgBlob(svg));downloadPng.disabled=true;
+ try{const image=new Image();await new Promise((resolve,reject)=>{image.onload=resolve;image.onerror=()=>reject(Error('Local SVG rasterization failed.'));image.src=url;});const width=Math.ceil(Number(svg.getAttribute('width'))*2),height=Math.ceil(Number(svg.getAttribute('height'))*2);if(!width||!height||width*height>64000000)throw Error('PNG exceeds the local 64-megapixel export limit; split the view or use a provisioned local rasterizer.');const canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;const context=canvas.getContext('2d');context.fillStyle='#FFFFFF';context.fillRect(0,0,width,height);context.drawImage(image,0,0,width,height);const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/png'));if(!blob)throw Error('PNG encoding failed.');saveBlob(blob,'c4-diagram.png');}
+ catch(error){status.textContent='PNG export failed: '+String(error.message||error);}
+ finally{URL.revokeObjectURL(url);downloadPng.disabled=download.disabled;}
 });
 </script></body></html>

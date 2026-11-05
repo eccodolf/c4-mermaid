@@ -42,6 +42,8 @@ Use L3/L4 selectively. On L3, only one container is decomposed; its siblings rem
 
 Choose an explicit meaning for arrows. `worker -> topic: Subscribes to OrderCreated` represents a dependency; `topic -> worker: Delivers OrderCreated` represents data flow. Keep direction and wording aligned. Mark async behavior explicitly; dashed lines only mean what the legend says.
 
+Every relationship needs a visible receiving-end arrowhead. Verify that endpoint against the evidence register in all four delivered formats; page placement cannot establish direction. For UML Code views, dependency arrows point to the dependency and realization/generalization arrows to the interface/parent. Sequence calls and replies each retain their explicit sender and receiver.
+
 `API -> store: Reads and writes orders` can be one dependency. A static diagram need not add an HTTP response edge to every request. Dynamic views may show known replies and results; do not invent payloads for symmetry. Add webhooks only with evidence.
 
 An internal L2 relationship does not become an external L1 relationship. Preserve aggregate external interactions when zooming out. If a system-level integration is known but its calling container is not, retain that uncertainty instead of arbitrarily assigning it to the API.

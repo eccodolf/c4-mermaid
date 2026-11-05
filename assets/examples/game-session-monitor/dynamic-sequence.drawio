@@ -1,0 +1,306 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="offline" version="32.6.10">
+  <diagram id="dynamic-sequence" name="dynamic-sequence">
+    <mxGraphModel grid="1" page="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <object id="head_User" label="Пользователь" notation="uml-sequence-actor">
+          <mxCell vertex="1" parent="1" style="html=0;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=umlActor;fillColor=#D4E8F5;strokeColor=#666666;verticalLabelPosition=bottom;verticalAlign=top;align=center;">
+            <mxGeometry x="86" y="100" width="40" height="50" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="tail_User" label="Пользователь" notation="uml-sequence-actor">
+          <mxCell vertex="1" parent="1" style="html=0;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=umlActor;fillColor=#D4E8F5;strokeColor=#666666;verticalLabelPosition=bottom;verticalAlign=top;align=center;">
+            <mxGeometry x="86" y="1106" width="40" height="50" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="life_User" label="" notation="uml-lifeline" participant="User">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;">
+            <mxGeometry x="105.5" y="173" width="1" height="933" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="lifeline_User" label="" sourceId="head_User" targetId="tail_User" notation="uml-lifeline">
+          <mxCell edge="1" parent="1" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;endArrow=none;dashed=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="106" y="173" as="sourcePoint" />
+              <mxPoint x="106" y="1106" as="targetPoint" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="head_PWA" label="GameTime PWA" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="329.0" y="100" width="150.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="tail_PWA" label="GameTime PWA" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="329.0" y="1106" width="150.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="life_PWA" label="" notation="uml-lifeline" participant="PWA">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;">
+            <mxGeometry x="403.5" y="173" width="1" height="933" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="lifeline_PWA" label="" sourceId="head_PWA" targetId="tail_PWA" notation="uml-lifeline">
+          <mxCell edge="1" parent="1" source="head_PWA" target="tail_PWA" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;endArrow=none;dashed=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="head_API" label="Web API" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="609.0" y="100" width="150.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="tail_API" label="Web API" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="609.0" y="1106" width="150.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="life_API" label="" notation="uml-lifeline" participant="API">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;">
+            <mxGeometry x="683.5" y="173" width="1" height="933" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="lifeline_API" label="" sourceId="head_API" targetId="tail_API" notation="uml-lifeline">
+          <mxCell edge="1" parent="1" source="head_API" target="tail_API" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;endArrow=none;dashed=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="head_DB" label="SQLite" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="905.0" y="100" width="150.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="tail_DB" label="SQLite" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="905.0" y="1106" width="150.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="life_DB" label="" notation="uml-lifeline" participant="DB">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;">
+            <mxGeometry x="979.5" y="173" width="1" height="933" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="lifeline_DB" label="" sourceId="head_DB" targetId="tail_DB" notation="uml-lifeline">
+          <mxCell edge="1" parent="1" source="head_DB" target="tail_DB" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;endArrow=none;dashed=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="head_Agent" label="WebAgent" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="1105.0" y="100" width="150.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="tail_Agent" label="WebAgent" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="1105.0" y="1106" width="150.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="life_Agent" label="" notation="uml-lifeline" participant="Agent">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;">
+            <mxGeometry x="1179.5" y="173" width="1" height="933" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="lifeline_Agent" label="" sourceId="head_Agent" targetId="tail_Agent" notation="uml-lifeline">
+          <mxCell edge="1" parent="1" source="head_Agent" target="tail_Agent" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;endArrow=none;dashed=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="head_Adjust" label="AdjustGameTime.ps1" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="1352.0" y="100" width="174.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="tail_Adjust" label="AdjustGameTime.ps1" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="1352.0" y="1106" width="174.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="life_Adjust" label="" notation="uml-lifeline" participant="Adjust">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;">
+            <mxGeometry x="1438.5" y="173" width="1" height="933" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="lifeline_Adjust" label="" sourceId="head_Adjust" targetId="tail_Adjust" notation="uml-lifeline">
+          <mxCell edge="1" parent="1" source="head_Adjust" target="tail_Adjust" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;endArrow=none;dashed=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="head_Budget" label="Игровой бюджет JSON" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="1708.5" y="100" width="189.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="tail_Budget" label="Игровой бюджет JSON" notation="uml-sequence-participant">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=1;fillColor=#D4E8F5;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="1708.5" y="1106" width="189.0" height="73" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="life_Budget" label="" notation="uml-lifeline" participant="Budget">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;">
+            <mxGeometry x="1802.5" y="173" width="1" height="933" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="lifeline_Budget" label="" sourceId="head_Budget" targetId="tail_Budget" notation="uml-lifeline">
+          <mxCell edge="1" parent="1" source="head_Budget" target="tail_Budget" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=1;entryX=0.5;entryY=0;exitPerimeter=0;entryPerimeter=0;endArrow=none;dashed=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="message_0" label="Выбирает изменение бюджета" sourceId="life_User" targetId="life_PWA" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_User" target="life_PWA" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.04715969989281887;entryX=0.5;entryY=0.04715969989281887;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_1" label="POST /api/adjust" sourceId="life_PWA" targetId="life_API" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_PWA" target="life_API" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.09431939978563773;entryX=0.5;entryY=0.09431939978563773;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_2" label="Сохраняет команду pending" sourceId="life_API" targetId="life_DB" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_API" target="life_DB" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.1414790996784566;entryX=0.5;entryY=0.1414790996784566;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_3" label="202 Accepted и ID команды" sourceId="life_API" targetId="life_PWA" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_API" target="life_PWA" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.18863879957127547;entryX=0.5;entryY=0.18863879957127547;exitPerimeter=0;entryPerimeter=0;dashed=1;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_4" label="GET /api/agent/commands" sourceId="life_Agent" targetId="life_API" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_Agent" target="life_API" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.2861736334405145;entryX=0.5;entryY=0.2861736334405145;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_5" label="Читает ожидающую команду" sourceId="life_API" targetId="life_DB" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_API" target="life_DB" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.3333333333333333;entryX=0.5;entryY=0.3333333333333333;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_6" label="Команда" sourceId="life_DB" targetId="life_API" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_DB" target="life_API" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.3804930332261522;entryX=0.5;entryY=0.3804930332261522;exitPerimeter=0;entryPerimeter=0;dashed=1;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_7" label="Действие, минуты и ID" sourceId="life_API" targetId="life_Agent" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_API" target="life_Agent" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.42765273311897106;entryX=0.5;entryY=0.42765273311897106;exitPerimeter=0;entryPerimeter=0;dashed=1;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_8" label="Вызывает с паролем и ID" sourceId="life_Agent" targetId="life_Adjust" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_Agent" target="life_Adjust" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.47481243301178994;entryX=0.5;entryY=0.47481243301178994;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_9" label="Проверяет пароль монитора" sourceId="life_Adjust" targetId="life_Adjust" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_Adjust" target="life_Adjust" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.5219721329046088;entryX=0.5;entryY=0.5434083601286174;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="1519.0" y="660.0" />
+                <mxPoint x="1519.0" y="680.0" />
+              </Array>
+              <mxPoint x="45" y="-30" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_10" label="Меняет бюджет и сохраняет квитанцию" sourceId="life_Adjust" targetId="life_Budget" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_Adjust" target="life_Budget" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.6012861736334405;entryX=0.5;entryY=0.6012861736334405;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_11" label="Возвращает результат" sourceId="life_Adjust" targetId="life_Agent" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_Adjust" target="life_Agent" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.6484458735262594;entryX=0.5;entryY=0.6484458735262594;exitPerimeter=0;entryPerimeter=0;dashed=1;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_12" label="POST /api/agent/result" sourceId="life_Agent" targetId="life_API" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_Agent" target="life_API" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.6956055734190782;entryX=0.5;entryY=0.6956055734190782;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_13" label="Сохраняет результат команды" sourceId="life_API" targetId="life_DB" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_API" target="life_DB" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.7427652733118971;entryX=0.5;entryY=0.7427652733118971;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_14" label="POST /api/agent/status" sourceId="life_Agent" targetId="life_API" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_Agent" target="life_API" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.789924973204716;entryX=0.5;entryY=0.789924973204716;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_15" label="Сохраняет телеметрию" sourceId="life_API" targetId="life_DB" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_API" target="life_DB" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.8370846730975349;entryX=0.5;entryY=0.8370846730975349;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_16" label="GET /api/status" sourceId="life_PWA" targetId="life_API" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_PWA" target="life_API" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.8842443729903537;entryX=0.5;entryY=0.8842443729903537;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_17" label="Читает статус и результаты" sourceId="life_API" targetId="life_DB" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_API" target="life_DB" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.9314040728831725;entryX=0.5;entryY=0.9314040728831725;exitPerimeter=0;entryPerimeter=0;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="message_18" label="Статус и результат команды" sourceId="life_API" targetId="life_PWA" notation="uml-sequence-message">
+          <mxCell edge="1" parent="1" source="life_API" target="life_PWA" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=0.5;exitY=0.9785637727759914;entryX=0.5;entryY=0.9785637727759914;exitPerimeter=0;entryPerimeter=0;dashed=1;fontSize=14;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="0.0" y="-16.0" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="poll_note" label="Исходящий опрос агента примерно раз в 10 секунд" notation="uml-note">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=note;fillColor=#EDF2AE;strokeColor=#666666;align=center;verticalAlign=middle;">
+            <mxGeometry x="659.0" y="359.0" width="546.0" height="37.0" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="meta_title" label="Dynamic - Budget Adjustment">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;align=left;verticalAlign=top;">
+            <mxGeometry x="30" y="20" width="1500" height="45" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="meta_legend" label="Legend&#10;Область — успешное изменение бюджета; проверка ошибок и повтор команды здесь не развёрнуты. Время идёт сверху вниз.&#10;Сплошная стрелка — запрос или вызов; пунктирная — ответ. Note — пояснение к периоду опроса. JSON — формат данных; API — интерфейс; PWA — веб-приложение.">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;align=left;verticalAlign=top;">
+            <mxGeometry x="30" y="1230" width="1900" height="100" as="geometry" />
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

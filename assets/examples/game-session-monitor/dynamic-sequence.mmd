@@ -1,0 +1,33 @@
+---
+title: Dynamic — изменение бюджета через GameTime
+---
+sequenceDiagram
+  actor User as Пользователь
+  participant PWA as GameTime PWA
+  participant API as Web API
+  participant DB as SQLite
+  participant Agent as WebAgent
+  participant Adjust as AdjustGameTime.ps1
+  participant Budget as Игровой бюджет JSON
+  User->>PWA: Выбирает изменение бюджета
+  PWA->>API: POST /api/adjust
+  API->>DB: Сохраняет команду pending
+  API-->>PWA: 202 Accepted и ID команды
+  Note over Agent,API: Исходящий опрос агента примерно раз в 10 секунд
+  Agent->>API: GET /api/agent/commands
+  API->>DB: Читает ожидающую команду
+  DB-->>API: Команда
+  API-->>Agent: Действие, минуты и ID
+  Agent->>Adjust: Вызывает с паролем и ID
+  Adjust->>Adjust: Проверяет пароль монитора
+  Adjust->>Budget: Меняет бюджет и сохраняет квитанцию
+  Adjust-->>Agent: Возвращает результат
+  Agent->>API: POST /api/agent/result
+  API->>DB: Сохраняет результат команды
+  Agent->>API: POST /api/agent/status
+  API->>DB: Сохраняет телеметрию
+  PWA->>API: GET /api/status
+  API->>DB: Читает статус и результаты
+  API-->>PWA: Статус и результат команды
+%% legend: Область — успешное изменение бюджета; проверка ошибок и повтор команды здесь не развёрнуты. Время идёт сверху вниз.
+%% legend: Сплошная стрелка — запрос или вызов; пунктирная — ответ. Note — пояснение к периоду опроса. JSON — формат данных; API — интерфейс; PWA — веб-приложение.

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="offline" version="32.6.10">
+  <diagram id="c4-classifier" name="c4-classifier">
+    <mxGraphModel grid="1" page="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <object id="Loop" label="«script»&#10;Цикл Monitor.System.ps1" notation="uml-function-dependency">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=0;fillColor=#D4E8F5;strokeColor=#0E7DAD;align=center;verticalAlign=middle;">
+            <mxGeometry x="42.0" y="179.0" width="219.484375" height="94.0" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="RobloxState" label="«function»&#10;Get-RobloxSessionState" notation="uml-function-dependency">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=0;fillColor=#72C4EB;strokeColor=#0E7DAD;align=center;verticalAlign=middle;">
+            <mxGeometry x="529.79296875" y="112.0" width="210.8046875" height="94.0" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="TextParser" label="«function»&#10;Get-RobloxSessionStateFromText" notation="uml-function-dependency">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=0;fillColor=#72C4EB;strokeColor=#0E7DAD;align=center;verticalAlign=middle;">
+            <mxGeometry x="974.140625" y="112.0" width="283.0859375" height="94.0" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="Playing" label="«function»&#10;Test-PlayingGameProcess" notation="uml-function-dependency">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=0;fillColor=#72C4EB;strokeColor=#0E7DAD;align=center;verticalAlign=middle;">
+            <mxGeometry x="522.8046875" y="246.0" width="224.78125" height="94.0" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="IsGame" label="«function»&#10;Test-GameProcess" notation="uml-function-dependency">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;rounded=0;fillColor=#72C4EB;strokeColor=#0E7DAD;align=center;verticalAlign=middle;">
+            <mxGeometry x="974.140625" y="246.0" width="167.875" height="94.0" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="call_0" label="вызывает для Roblox" sourceId="Loop" targetId="RobloxState" notation="uml-dependency">
+          <mxCell edge="1" parent="1" source="Loop" target="RobloxState" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.36879432624113495;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;dashed=1;rounded=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="274.4133071881345" y="213.66666666666669" />
+                <mxPoint x="281.484375" y="206.5955988548012" />
+                <mxPoint x="281.484375" y="166.07106781186548" />
+                <mxPoint x="288.5554428118655" y="159.0" />
+              </Array>
+              <mxPoint x="22.69705708460242" y="-0.5" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="call_1" label="вызывает для процесса" sourceId="Loop" targetId="Playing" notation="uml-dependency">
+          <mxCell edge="1" parent="1" source="Loop" target="Playing" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.6312056737588654;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;dashed=1;rounded=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <Array as="points">
+                <mxPoint x="274.4133071881345" y="238.33333333333334" />
+                <mxPoint x="281.484375" y="245.40440114519882" />
+                <mxPoint x="281.484375" y="285.9289321881345" />
+                <mxPoint x="288.5554428118655" y="293.0" />
+              </Array>
+              <mxPoint x="26.19119770960242" y="-0.5" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="call_2" label="разбирает журнал" sourceId="RobloxState" targetId="TextParser" notation="uml-dependency">
+          <mxCell edge="1" parent="1" source="RobloxState" target="TextParser" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;dashed=1;rounded=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="6.494140625" y="-0.5" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="call_3" label="проверяет процесс" sourceId="Playing" targetId="IsGame" notation="uml-dependency">
+          <mxCell edge="1" parent="1" source="Playing" target="IsGame" style="html=0;fontFamily=Arial;fontSize=13;fontColor=#152332;strokeColor=#666666;strokeWidth=1;startArrow=none;endArrow=open;endSize=10;edgeStyle=none;labelBackgroundColor=#FFFFFF;exitX=1;exitY=0.5;entryX=0;entryY=0.5;exitPerimeter=0;entryPerimeter=0;dashed=1;rounded=1;">
+            <mxGeometry x="0" y="0" relative="1" as="geometry">
+              <mxPoint x="3.0" y="-0.5" as="offset" />
+            </mxGeometry>
+          </mxCell>
+        </object>
+        <object id="meta_title" label="C4 - Session Classification Code">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;align=left;verticalAlign=top;">
+            <mxGeometry x="30" y="20" width="1100" height="40" as="geometry" />
+          </mxCell>
+        </object>
+        <object id="meta_legend" label="Legend&#10;Область — компонент определения сессии. Прямоугольник function — функция PowerShell, script — вызывающий скрипт. Это не классы программы.&#10;Пунктирная стрелка — вызов функции, направление указывает на вызываемую функцию. Цвет выделяет скрипт и функции; размер соответствует подписи.">
+          <mxCell vertex="1" parent="1" style="html=0;whiteSpace=wrap;fontFamily=Arial;fontSize=14;fontColor=#152332;shape=rectangle;fillColor=none;strokeColor=none;align=left;verticalAlign=top;">
+            <mxGeometry x="30" y="390.0" width="1400" height="95" as="geometry" />
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

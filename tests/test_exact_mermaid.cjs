@@ -43,13 +43,14 @@ function geometrySignature(group,ox,oy){
    const legend=overrideLegend??source.split('\n').filter(line=>line.startsWith('%% legend:')).map(line=>line.slice(10).trim()).join('\n');
    await page.locator('#source').fill(source);await page.locator('#legend').fill(legend);await page.locator('#render').click();
    await page.waitForFunction(()=>!document.querySelector('#status').textContent.startsWith('Rendering...'),null,{timeout:30000});
-   const status=await page.locator('#status').innerText();return {status,success:!(await page.locator('#download').isDisabled())};
+   const status=await page.locator('#status').innerText();assert.equal(await page.locator('#download-png').isDisabled(),await page.locator('#download').isDisabled(),'PNG and SVG must share validation gates.');return {status,success:!(await page.locator('#download').isDisabled())};
   }
   async function save(name){const pending=page.waitForEvent('download');await page.locator('#download').click();await(await pending).saveAs(path.join(output,name+'.svg'));}
   for(const name of (await fs.readdir(path.join(root,'assets/templates'))).filter(name=>name.endsWith('.mmd'))){
    const source=await fs.readFile(path.join(root,'assets/templates',name),'utf8'),result=await render(source);assert.equal(result.success,true,name+': '+result.status);
    if(source.startsWith('drawioC4'))assert.equal(await page.locator('#preview svg').getAttribute('data-c4-native-renderer'),'drawio-32.6.10');
    await save(name.replace('.mmd',''));report.examples.push(name);
+   const pendingPng=page.waitForEvent('download');await page.locator('#download-png').click();const target=path.join(output,name.replace('.mmd','-viewer.png'));await(await pendingPng).saveAs(target);const bytes=await fs.readFile(target);assert.equal(bytes.subarray(0,8).toString('hex'),'89504e470d0a1a0a',name+' must export a real PNG.');assert.ok(bytes.readUInt32BE(16)>0&&bytes.readUInt32BE(20)>0);
   }
   const catalog=await fs.readFile(path.join(root,'assets/drawio/shapes.mmd'),'utf8');
   const model=JSON.parse(await fs.readFile(path.join(root,'assets/drawio/shapes.json'),'utf8'));
@@ -65,6 +66,12 @@ function geometrySignature(group,ox,oy){
   }
   await page.emulateMedia({colorScheme:'light'});await render(catalog);await save('shapes-mermaid');
   const source=await fs.readFile(path.join(root,'assets/drawio/container.mmd'),'utf8');assert.equal((await render(source)).success,true);await save('container-mermaid');
+  const expectedEdges=JSON.parse(await fs.readFile(path.join(root,'assets/drawio/container.json'),'utf8')).pages[0].relationships;
+  const paintedEdges=await page.locator('[data-c4-relationship]').evaluateAll(edges=>edges.map(edge=>({id:edge.getAttribute('data-c4-relationship'),source:edge.getAttribute('data-c4-source'),target:edge.getAttribute('data-c4-target'),arrow:!!edge.querySelector('[data-c4-arrowhead="target"]')})));
+  assert.deepEqual(paintedEdges,expectedEdges.map(edge=>({id:edge.id,source:edge.source,target:edge.target,arrow:true})));
+  const pngPending=page.waitForEvent('download');await page.locator('#download-png').click();const pngPath=path.join(output,'container-browser.png');await(await pngPending).saveAs(pngPath);const png=await fs.readFile(pngPath);assert.equal(png.subarray(0,8).toString('hex'),'89504e470d0a1a0a');assert.ok(png.readUInt32BE(16)>0&&png.readUInt32BE(20)>0);report.pngExport={width:png.readUInt32BE(16),height:png.readUInt32BE(20)};
+  const inverted=source.replace('Rel(customer, web,','Rel(web, customer,');assert.equal((await render(inverted)).success,false,'Swapped semantic endpoints must fail against routing metadata.');report.rejections.push('reversed source endpoints');
+  const originalStyle=await page.evaluate(()=>C4_DRAWIO_DATA.entries['Relationship with description and technology'].style);await page.evaluate(()=>{C4_DRAWIO_DATA.entries['Relationship with description and technology'].style=C4_DRAWIO_DATA.entries['Relationship with description and technology'].style.replace('endArrow=blockThin','endArrow=none');});assert.equal((await render(source)).success,false,'Missing painted arrowhead must block rendering.');report.rejections.push('missing arrowhead');await page.evaluate(style=>{C4_DRAWIO_DATA.entries['Relationship with description and technology'].style=style;},originalStyle);
   const escaped=catalog.replace('System(sample_2, "System"','System(sample_2, "A&amp;B &quot;Q&quot; &lt;svc&gt; &bsol; P"');assert.equal((await render(escaped)).success,true);const escapedText=await page.locator('[data-c4-id="sample_2"]').textContent();assert.ok(escapedText.includes('A&B "Q" <svc> \\ P'),JSON.stringify(escapedText));
   const line=catalog.split('\n').find(line=>line.startsWith('%% drawio-layout:'));
   const layout=JSON.parse(line.slice('%% drawio-layout:'.length));
@@ -74,6 +81,6 @@ function geometrySignature(group,ox,oy){
   assert.equal((await render(source)).success,true,'Renderer must recover after rejected inputs.');
   assert.deepEqual(report.externalRequests,[],'No network request may be made by the renderer.');
   await fs.writeFile(path.join(output,'review.json'),JSON.stringify(report,null,2)+'\n');
-  process.stdout.write('Exact Mermaid browser checks passed: 9 examples, 12/12 native vector shapes in light/dark modes, 9 rejected invalid inputs, no network requests.\n');
+  process.stdout.write('Exact Mermaid browser checks passed: 9 examples, 12/12 native vector shapes in light/dark modes, 11 rejected invalid inputs and local PNG export, no network requests.\n');
  }finally{await browser.close();}
 })().catch(error=>{process.stderr.write(error.stack+'\n');process.exit(1);});

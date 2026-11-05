@@ -1,0 +1,26 @@
+---
+title: C4 — Код компонента определения сессии
+---
+classDiagram
+  direction LR
+  class Loop["Цикл Monitor.System.ps1"]
+  class RobloxState["Get-RobloxSessionState"]
+  class TextParser["Get-RobloxSessionStateFromText"]
+  class Playing["Test-PlayingGameProcess"]
+  class IsGame["Test-GameProcess"]
+  <<script>> Loop
+  <<function>> RobloxState
+  <<function>> TextParser
+  <<function>> Playing
+  <<function>> IsGame
+  Loop ..> RobloxState : вызывает для Roblox
+  Loop ..> Playing : вызывает для процесса
+  RobloxState ..> TextParser : разбирает журнал
+  Playing ..> IsGame : проверяет процесс
+  style Loop fill:#D4E8F5,stroke:#0E7DAD,color:#152332
+  style RobloxState fill:#72C4EB,stroke:#0E7DAD,color:#152332
+  style TextParser fill:#72C4EB,stroke:#0E7DAD,color:#152332
+  style Playing fill:#72C4EB,stroke:#0E7DAD,color:#152332
+  style IsGame fill:#72C4EB,stroke:#0E7DAD,color:#152332
+%% legend: Область — компонент определения сессии. Прямоугольник function — функция PowerShell, script — вызывающий скрипт. Это не классы программы.
+%% legend: Пунктирная стрелка — вызов функции, направление указывает на вызываемую функцию. Цвет выделяет скрипт и функции; размер соответствует подписи.

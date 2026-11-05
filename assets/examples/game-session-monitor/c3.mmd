@@ -1,0 +1,20 @@
+drawioC4 component
+title C3 — Компоненты SystemEnforcer
+Container_Boundary(scope3, "SystemEnforcer") {
+  Component(sampler, "Опрос процессов", "CIM / PowerShell", "Проверяет обнаруженные процессы")
+  Component(classifier, "Определение сессии", "PowerShell", "Распознаёт игру и Roblox-сессию")
+  Component(accounting, "Учёт бюджета", "PowerShell", "Списывает время и записывает историю")
+  Component(enforcement, "Применение ограничений", "PowerShell / IFEO", "Блокирует или завершает процессы")
+}
+ContainerDb(budget, "Игровой бюджет", "JSON / файл", "Остаток и история")
+System_Ext(windows, "Windows", "Процессы, реестр IFEO")
+System_Ext(roblox, "Roblox", "Журнал сессий")
+Rel(sampler, windows, "Получает процессы", "CIM")
+Rel(sampler, classifier, "Передаёт процессы", "вызов функций")
+Rel(classifier, roblox, "Читает события сессии", "локальный журнал")
+Rel(classifier, accounting, "Определяет активность", "вызов функций")
+Rel(accounting, budget, "Читает и сохраняет", "JSON")
+Rel(accounting, enforcement, "Определяет режим", "остаток бюджета")
+Rel(enforcement, windows, "Применяет ограничения", "реестр / процессы")
+%% drawio-layout: {"view":"component","nodes":{"scope3":{"x":600,"y":80,"width":1130,"height":760},"sampler":{"x":40,"y":45,"width":270,"height":170,"parent":"scope3"},"classifier":{"x":760,"y":45,"width":290,"height":170,"parent":"scope3"},"accounting":{"x":760,"y":465,"width":290,"height":170,"parent":"scope3"},"enforcement":{"x":40,"y":465,"width":270,"height":170,"parent":"scope3"},"budget":{"x":2000,"y":500,"width":270,"height":210,"subtype":"database"},"windows":{"x":0,"y":300,"width":245,"height":170},"roblox":{"x":2000,"y":80,"width":270,"height":170}},"edges":[{"id":"sampler_windows","source":"sampler","target":"windows","source_port":[0,0.4],"target_port":[1,0.3],"label_offset":[-10,-40]},{"id":"sampler_classifier","source":"sampler","target":"classifier","source_port":[1,0.5],"target_port":[0,0.5],"label_offset":[0,-20]},{"id":"classifier_roblox","source":"classifier","target":"roblox","source_port":[1,0.5],"target_port":[0,0.5],"label_offset":[0,-30]},{"id":"classifier_accounting","source":"classifier","target":"accounting","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[-80,0]},{"id":"accounting_budget","source":"accounting","target":"budget","source_port":[1,0.5],"target_port":[0,0.5],"label_offset":[0,-30]},{"id":"accounting_enforce","source":"accounting","target":"enforcement","source_port":[0,0.5],"target_port":[1,0.5],"label_offset":[0,-20]},{"id":"enforce_windows","source":"enforcement","target":"windows","source_port":[0,0.5],"target_port":[1,0.75],"label_offset":[-20,50]}],"expected_external_systems":[]}
+%% legend: Голубые блоки — компоненты SystemEnforcer; соседний цилиндр — файл бюджета; серые блоки — внешние системы. Пунктир — граница контейнера. Стрелки показывают направленные действия; размеры подобраны для текста. CIM — модель управления Windows; IFEO — параметры запуска процессов; JSON — формат данных.

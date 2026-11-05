@@ -1,0 +1,688 @@
+{
+  "profile": "drawio-c4",
+  "pages": [
+    {
+      "id": "context",
+      "view": "context",
+      "title": "C1 — Контекст GameSessionMonitor",
+      "legend": "Человек — пользователь; синее — система; серое — внешние системы. Стрелка показывает направление взаимодействия; подписи описывают действия. Размеры подобраны для текста. PWA — веб-приложение.",
+      "expected_external_systems": [
+        "windows",
+        "roblox"
+      ],
+      "elements": [
+        {
+          "id": "person",
+          "type": "person",
+          "name": "Пользователь",
+          "description": "Управляет временем",
+          "x": 20,
+          "y": 230,
+          "width": 240,
+          "height": 230
+        },
+        {
+          "id": "monitor",
+          "type": "software-system",
+          "name": "GameSessionMonitor",
+          "description": "Учитывает игровой бюджет и ограничивает запуск",
+          "x": 500,
+          "y": 230,
+          "width": 280,
+          "height": 180
+        },
+        {
+          "id": "windows",
+          "type": "software-system",
+          "name": "Windows",
+          "external": true,
+          "description": "Процессы, задачи и ограничения запуска",
+          "x": 1100,
+          "y": 80,
+          "width": 260,
+          "height": 180
+        },
+        {
+          "id": "roblox",
+          "type": "software-system",
+          "name": "Roblox",
+          "external": true,
+          "description": "Клиент и журнал игровой сессии",
+          "x": 1100,
+          "y": 440,
+          "width": 260,
+          "height": 180
+        }
+      ],
+      "relationships": [
+        {
+          "id": "user_monitor",
+          "source": "person",
+          "target": "monitor",
+          "action": "Смотрит и меняет бюджет",
+          "technology": "PWA / локально",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -30
+          ]
+        },
+        {
+          "id": "monitor_windows",
+          "source": "monitor",
+          "target": "windows",
+          "action": "Проверяет и ограничивает процессы",
+          "technology": "Windows API",
+          "source_port": [
+            1,
+            0.3
+          ],
+          "target_port": [
+            0,
+            0.6
+          ],
+          "label_offset": [
+            -20,
+            -50
+          ]
+        },
+        {
+          "id": "monitor_roblox",
+          "source": "monitor",
+          "target": "roblox",
+          "action": "Читает события игровой сессии",
+          "technology": "локальный журнал",
+          "source_port": [
+            1,
+            0.7
+          ],
+          "target_port": [
+            0,
+            0.4
+          ],
+          "label_offset": [
+            -20,
+            60
+          ]
+        }
+      ]
+    },
+    {
+      "id": "containers",
+      "view": "container",
+      "title": "C2 — Контейнеры GameSessionMonitor",
+      "legend": "Человек — пользователь; голубые блоки — контейнеры, цилиндры — данные; серое — внешние системы. Пунктирная рамка — граница системы. Стрелки — направленные действия; размеры подобраны для текста. PWA — веб-приложение; API — интерфейс; JSON — формат данных; HTTPS — защищённый HTTP.",
+      "expected_external_systems": [
+        "windows",
+        "roblox"
+      ],
+      "elements": [
+        {
+          "id": "person",
+          "type": "person",
+          "name": "Пользователь",
+          "description": "Управляет бюджетом",
+          "x": 0,
+          "y": 80,
+          "width": 240,
+          "height": 230
+        },
+        {
+          "id": "scope",
+          "type": "system-boundary",
+          "name": "GameSessionMonitor",
+          "x": 500,
+          "y": 80,
+          "width": 1430,
+          "height": 1100
+        },
+        {
+          "id": "pwa",
+          "type": "container",
+          "subtype": "browser",
+          "parent": "scope",
+          "name": "GameTime PWA",
+          "technology": "React / браузер",
+          "description": "Интерфейс бюджета",
+          "x": 30,
+          "y": 40,
+          "width": 260,
+          "height": 165
+        },
+        {
+          "id": "api",
+          "type": "container",
+          "subtype": "application",
+          "parent": "scope",
+          "name": "Web API",
+          "technology": "Python HTTP",
+          "description": "Сессии, команды и статус",
+          "x": 490,
+          "y": 40,
+          "width": 260,
+          "height": 165
+        },
+        {
+          "id": "webdb",
+          "type": "container",
+          "subtype": "database",
+          "parent": "scope",
+          "name": "Данные Web API",
+          "technology": "SQLite",
+          "description": "Команды, сессии, статус",
+          "x": 1080,
+          "y": 40,
+          "width": 280,
+          "height": 165
+        },
+        {
+          "id": "agent",
+          "type": "container",
+          "subtype": "application",
+          "parent": "scope",
+          "name": "WebAgent",
+          "technology": "PowerShell",
+          "description": "Опрашивает API и применяет команды",
+          "x": 490,
+          "y": 355,
+          "width": 260,
+          "height": 165
+        },
+        {
+          "id": "enforcer",
+          "type": "container",
+          "subtype": "application",
+          "parent": "scope",
+          "name": "SystemEnforcer",
+          "technology": "PowerShell / SYSTEM",
+          "description": "Учет и блокировка процессов",
+          "x": 1080,
+          "y": 355,
+          "width": 280,
+          "height": 165
+        },
+        {
+          "id": "budget",
+          "type": "container",
+          "subtype": "database",
+          "parent": "scope",
+          "name": "Игровой бюджет",
+          "technology": "JSON / файл",
+          "description": "Остаток и история",
+          "x": 490,
+          "y": 705,
+          "width": 260,
+          "height": 210
+        },
+        {
+          "id": "notice",
+          "type": "container",
+          "subtype": "application",
+          "parent": "scope",
+          "name": "Уведомления",
+          "technology": "PowerShell / Windows Forms",
+          "description": "Предупреждения и отсчет",
+          "x": 30,
+          "y": 705,
+          "width": 260,
+          "height": 165
+        },
+        {
+          "id": "windows",
+          "type": "software-system",
+          "external": true,
+          "name": "Windows",
+          "description": "Процессы и ограничения запуска",
+          "x": 2200,
+          "y": 260,
+          "width": 260,
+          "height": 170
+        },
+        {
+          "id": "roblox",
+          "type": "software-system",
+          "external": true,
+          "name": "Roblox",
+          "description": "Журнал игровой сессии",
+          "x": 2200,
+          "y": 560,
+          "width": 260,
+          "height": 170
+        }
+      ],
+      "relationships": [
+        {
+          "id": "person_pwa",
+          "source": "person",
+          "target": "pwa",
+          "action": "Управляет временем",
+          "technology": "браузер",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -20
+          ]
+        },
+        {
+          "id": "pwa_api",
+          "source": "pwa",
+          "target": "api",
+          "action": "Запрашивает статус и команды",
+          "technology": "HTTPS / JSON",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -100
+          ]
+        },
+        {
+          "id": "api_db",
+          "source": "api",
+          "target": "webdb",
+          "action": "Читает и сохраняет",
+          "technology": "SQLite",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -20
+          ]
+        },
+        {
+          "id": "agent_api",
+          "source": "agent",
+          "target": "api",
+          "action": "Опрашивает и отправляет статус",
+          "technology": "HTTPS / JSON",
+          "source_port": [
+            0.5,
+            0
+          ],
+          "target_port": [
+            0.5,
+            1
+          ],
+          "label_offset": [
+            -120,
+            0
+          ]
+        },
+        {
+          "id": "agent_budget",
+          "source": "agent",
+          "target": "budget",
+          "action": "Читает и меняет с проверкой пароля",
+          "technology": "локальные скрипты",
+          "source_port": [
+            0.5,
+            1
+          ],
+          "target_port": [
+            0.5,
+            0
+          ],
+          "label_offset": [
+            -130,
+            0
+          ]
+        },
+        {
+          "id": "enforcer_budget",
+          "source": "enforcer",
+          "target": "budget",
+          "action": "Учитывает игровое время",
+          "technology": "JSON",
+          "source_port": [
+            0,
+            0.75
+          ],
+          "target_port": [
+            1,
+            0.35
+          ],
+          "label_offset": [
+            -50,
+            -50
+          ]
+        },
+        {
+          "id": "notice_budget",
+          "source": "notice",
+          "target": "budget",
+          "action": "Читает остаток",
+          "technology": "JSON",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -30
+          ]
+        },
+        {
+          "id": "notice_person",
+          "source": "notice",
+          "target": "person",
+          "action": "Показывает уведомления",
+          "technology": "Windows Forms",
+          "source_port": [
+            0,
+            0.5
+          ],
+          "target_port": [
+            1,
+            0.8
+          ],
+          "label_offset": [
+            -80,
+            30
+          ]
+        },
+        {
+          "id": "enforcer_windows",
+          "source": "enforcer",
+          "target": "windows",
+          "action": "Проверяет и блокирует",
+          "technology": "Windows API",
+          "source_port": [
+            1,
+            0.35
+          ],
+          "target_port": [
+            0,
+            0.65
+          ],
+          "label_offset": [
+            -20,
+            -40
+          ]
+        },
+        {
+          "id": "enforcer_roblox",
+          "source": "enforcer",
+          "target": "roblox",
+          "action": "Читает состояние сессии",
+          "technology": "журнал",
+          "source_port": [
+            1,
+            0.7
+          ],
+          "target_port": [
+            0,
+            0.35
+          ],
+          "label_offset": [
+            0,
+            -40
+          ]
+        }
+      ]
+    },
+    {
+      "id": "components",
+      "view": "component",
+      "title": "C3 — Компоненты SystemEnforcer",
+      "legend": "Голубые блоки — компоненты SystemEnforcer; соседний цилиндр — файл бюджета; серые блоки — внешние системы. Пунктир — граница контейнера. Стрелки показывают направленные действия; размеры подобраны для текста. CIM — модель управления Windows; IFEO — параметры запуска процессов; JSON — формат данных.",
+      "elements": [
+        {
+          "id": "scope3",
+          "type": "container-boundary",
+          "name": "SystemEnforcer",
+          "x": 600,
+          "y": 80,
+          "width": 1130,
+          "height": 760
+        },
+        {
+          "id": "sampler",
+          "type": "component",
+          "parent": "scope3",
+          "name": "Опрос процессов",
+          "technology": "CIM / PowerShell",
+          "description": "Проверяет обнаруженные процессы",
+          "x": 40,
+          "y": 45,
+          "width": 270,
+          "height": 170
+        },
+        {
+          "id": "classifier",
+          "type": "component",
+          "parent": "scope3",
+          "name": "Определение сессии",
+          "technology": "PowerShell",
+          "description": "Распознаёт игру и Roblox-сессию",
+          "x": 760,
+          "y": 45,
+          "width": 290,
+          "height": 170
+        },
+        {
+          "id": "accounting",
+          "type": "component",
+          "parent": "scope3",
+          "name": "Учёт бюджета",
+          "technology": "PowerShell",
+          "description": "Списывает время и записывает историю",
+          "x": 760,
+          "y": 465,
+          "width": 290,
+          "height": 170
+        },
+        {
+          "id": "enforcement",
+          "type": "component",
+          "parent": "scope3",
+          "name": "Применение ограничений",
+          "technology": "PowerShell / IFEO",
+          "description": "Блокирует или завершает процессы",
+          "x": 40,
+          "y": 465,
+          "width": 270,
+          "height": 170
+        },
+        {
+          "id": "budget",
+          "type": "container",
+          "subtype": "database",
+          "name": "Игровой бюджет",
+          "technology": "JSON / файл",
+          "description": "Остаток и история",
+          "x": 2000,
+          "y": 500,
+          "width": 270,
+          "height": 210
+        },
+        {
+          "id": "windows",
+          "type": "software-system",
+          "external": true,
+          "name": "Windows",
+          "description": "Процессы, реестр IFEO",
+          "x": 0,
+          "y": 300,
+          "width": 245,
+          "height": 170
+        },
+        {
+          "id": "roblox",
+          "type": "software-system",
+          "external": true,
+          "name": "Roblox",
+          "description": "Журнал сессий",
+          "x": 2000,
+          "y": 80,
+          "width": 270,
+          "height": 170
+        }
+      ],
+      "relationships": [
+        {
+          "id": "sampler_windows",
+          "source": "sampler",
+          "target": "windows",
+          "action": "Получает процессы",
+          "technology": "CIM",
+          "source_port": [
+            0,
+            0.4
+          ],
+          "target_port": [
+            1,
+            0.3
+          ],
+          "label_offset": [
+            -10,
+            -40
+          ]
+        },
+        {
+          "id": "sampler_classifier",
+          "source": "sampler",
+          "target": "classifier",
+          "action": "Передаёт процессы",
+          "technology": "вызов функций",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -20
+          ]
+        },
+        {
+          "id": "classifier_roblox",
+          "source": "classifier",
+          "target": "roblox",
+          "action": "Читает события сессии",
+          "technology": "локальный журнал",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -30
+          ]
+        },
+        {
+          "id": "classifier_accounting",
+          "source": "classifier",
+          "target": "accounting",
+          "action": "Определяет активность",
+          "technology": "вызов функций",
+          "source_port": [
+            0.5,
+            1
+          ],
+          "target_port": [
+            0.5,
+            0
+          ],
+          "label_offset": [
+            -80,
+            0
+          ]
+        },
+        {
+          "id": "accounting_budget",
+          "source": "accounting",
+          "target": "budget",
+          "action": "Читает и сохраняет",
+          "technology": "JSON",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -30
+          ]
+        },
+        {
+          "id": "accounting_enforce",
+          "source": "accounting",
+          "target": "enforcement",
+          "action": "Определяет режим",
+          "technology": "остаток бюджета",
+          "source_port": [
+            0,
+            0.5
+          ],
+          "target_port": [
+            1,
+            0.5
+          ],
+          "label_offset": [
+            0,
+            -20
+          ]
+        },
+        {
+          "id": "enforce_windows",
+          "source": "enforcement",
+          "target": "windows",
+          "action": "Применяет ограничения",
+          "technology": "реестр / процессы",
+          "source_port": [
+            0,
+            0.5
+          ],
+          "target_port": [
+            1,
+            0.75
+          ],
+          "label_offset": [
+            -20,
+            50
+          ]
+        }
+      ]
+    }
+  ]
+}

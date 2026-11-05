@@ -18,10 +18,12 @@ The supplied palette controls full shapes and colors: Person2; rounded System/Co
 
 ## Render and inspect offline
 
-Open `assets/offline/viewer.html` in a permitted local browser, load source, render, inspect, and save SVG. The renderer includes actual native geometry and text, its legend, and fixed light colors. Missing native runtime/layout or detected overflow/overlap blocks export. Complete the [mandatory checklist](review-checklist.md); browser checks do not prove architecture discovery or every possible route correct.
+Open `assets/offline/viewer.html` in a permitted local browser, load source, render, inspect, and save SVG and PNG. The renderer includes actual native geometry and text, its legend, and fixed light colors. Missing native runtime/layout or detected overflow/overlap blocks export. Complete the [mandatory checklist](review-checklist.md); browser checks do not prove architecture discovery or every possible route correct.
 
 A stock Mermaid CLI or third-party preview without the extension is not a compatible exact renderer. Use the exported SVG there, preserving the editable `.mmd`. Do not substitute capsules, generic rectangles, approximate icons, images, or stretched snapshots. The legacy filename `container-flowchart.mmd` now contains exact drawioC4 syntax and is not a generic flowchart alternative.
 
 Code views use appropriate `classDiagram` or `erDiagram` notation; there is no C4Code keyword. Supporting sequence views use native sequence lifelines. These express UML/code/message semantics rather than replacing C4 runtime elements. Use drawioC4 dynamic when native C4 participant shapes are required. Nine fictional examples are included; their names and integrations are not evidence about a user's application.
 
 The model converter escapes quotation marks and backslashes for the C4 parser. For direct edits use `&quot;` and `&bsol;` inside arguments; use explicit supported line breaks. Rendered text must agree with the source. Increase bounds or revise wording when text does not fit; do not hide, shrink, or truncate it to pass validation.
+
+For every view deliver [PNG, SVG, Mermaid, and native draw.io](delivery-formats.md), preserving the same facts and checked arrow directions.

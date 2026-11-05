@@ -1,0 +1,11 @@
+drawioC4 context
+title C1 — Контекст GameSessionMonitor
+Person(person, "Пользователь", "Управляет временем")
+System(monitor, "GameSessionMonitor", "Учитывает игровой бюджет и ограничивает запуск")
+System_Ext(windows, "Windows", "Процессы, задачи и ограничения запуска")
+System_Ext(roblox, "Roblox", "Клиент и журнал игровой сессии")
+Rel(person, monitor, "Смотрит и меняет бюджет", "PWA / локально")
+Rel(monitor, windows, "Проверяет и ограничивает процессы", "Windows API")
+Rel(monitor, roblox, "Читает события игровой сессии", "локальный журнал")
+%% drawio-layout: {"view":"context","nodes":{"person":{"x":20,"y":230,"width":240,"height":230},"monitor":{"x":500,"y":230,"width":280,"height":180},"windows":{"x":1100,"y":80,"width":260,"height":180},"roblox":{"x":1100,"y":440,"width":260,"height":180}},"edges":[{"id":"user_monitor","source":"person","target":"monitor","source_port":[1,0.5],"target_port":[0,0.5],"label_offset":[0,-30]},{"id":"monitor_windows","source":"monitor","target":"windows","source_port":[1,0.3],"target_port":[0,0.6],"label_offset":[-20,-50]},{"id":"monitor_roblox","source":"monitor","target":"roblox","source_port":[1,0.7],"target_port":[0,0.4],"label_offset":[-20,60]}],"expected_external_systems":["windows","roblox"]}
+%% legend: Человек — пользователь; синее — система; серое — внешние системы. Стрелка показывает направление взаимодействия; подписи описывают действия. Размеры подобраны для текста. PWA — веб-приложение.

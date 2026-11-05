@@ -1,0 +1,23 @@
+drawioC4 deployment
+title Deployment — GameSessionMonitor: описанное размещение
+Deployment_Node(pc, "Игровой компьютер — Windows", "Windows / планировщик задач", "") {
+  Container(enforcer, "SystemEnforcer", "PowerShell / SYSTEM", "Учет и ограничения")
+  ContainerDb(budget, "Игровой бюджет", "JSON / файл", "Остаток и история")
+  Container(notice, "Уведомления", "PowerShell / сеанс пользователя", "Предупреждения")
+  Container(agent, "WebAgent", "PowerShell / задача", "Опрос сервера и команды")
+}
+Deployment_Node(server, "Веб-сервер — Linux, Nginx, systemd", "Linux / Nginx / systemd", "") {
+  Container(api, "Web API", "Python / 127.0.0.1:8097", "Команды и состояние")
+  ContainerDb(webdb, "Данные Web API", "SQLite / файл", "Сессии и телеметрия")
+}
+Deployment_Node(browser, "Браузер пользователя", "Браузер", "") {
+  Container(pwa, "GameTime PWA", "React / браузер", "Интерфейс управления")
+}
+Rel(enforcer, budget, "Пересчитывает", "файл JSON")
+Rel(notice, budget, "Читает остаток", "файл JSON")
+Rel(agent, budget, "Применяет команду", "локальный скрипт")
+Rel(agent, api, "Опрашивает и передает статус", "HTTPS через Nginx")
+Rel(api, webdb, "Читает и сохраняет", "SQLite")
+Rel(pwa, api, "Запрашивает данные и команды", "HTTPS через Nginx")
+%% drawio-layout: {"view":"deployment","nodes":{"pc":{"x":0,"y":80,"width":1890,"height":470},"enforcer":{"x":50,"y":80,"width":260,"height":170,"parent":"pc","subtype":"application"},"budget":{"x":500,"y":80,"width":260,"height":210,"parent":"pc","subtype":"database"},"notice":{"x":950,"y":80,"width":260,"height":170,"parent":"pc","subtype":"application"},"agent":{"x":1510,"y":80,"width":260,"height":170,"parent":"pc","subtype":"application"},"server":{"x":760,"y":860,"width":1130,"height":400},"api":{"x":750,"y":90,"width":270,"height":180,"parent":"server","subtype":"application"},"webdb":{"x":320,"y":80,"width":260,"height":210,"parent":"server","subtype":"database"},"browser":{"x":0,"y":860,"width":510,"height":400},"pwa":{"x":100,"y":90,"width":280,"height":180,"parent":"browser","subtype":"browser"}},"edges":[{"id":"enforcer_budget","source":"enforcer","target":"budget","source_port":[1,0.5],"target_port":[0,0.4],"label_offset":[0,-20]},{"id":"notice_budget","source":"notice","target":"budget","source_port":[0,0.5],"target_port":[1,0.4],"label_offset":[0,-20]},{"id":"agent_budget","source":"agent","target":"budget","source_port":[0.3,1],"target_port":[0.5,1],"points":[[1588,480],[630,480]],"label_offset":[0,-20]},{"id":"agent_api","source":"agent","target":"api","source_port":[0.7,1],"target_port":[0.5,0],"label_offset":[-110,0]},{"id":"api_db","source":"api","target":"webdb","source_port":[0,0.5],"target_port":[1,0.5],"label_offset":[0,-20]},{"id":"pwa_api","source":"pwa","target":"api","source_port":[1,0.5],"target_port":[0.5,1],"points":[[600,1040],[600,1310],[1645,1310]],"label_offset":[0,-20]}],"expected_external_systems":[]}
+%% legend: Сплошные рамки — узлы размещения; голубые блоки — экземпляры контейнеров; цилиндры — данные. Стрелки показывают направленные взаимодействия. Размещение сервера основано на локальных скриптах и не проверено вживую. HTTPS — защищённый HTTP; JSON — формат данных; API — интерфейс; PWA — веб-приложение.

@@ -1,0 +1,197 @@
+{
+  "source_metadata": "Owner-supplied image-metadata.json",
+  "source_metadata_sha256": "7a4c0e81ef2c34878bfa6d439ddcc20ade073aa41e528549a756790c70529513",
+  "description_policy": "English descriptions translate the supplied JSON; original diagram labels are retained in Russian. No live application or remote deployment was re-audited.",
+  "diagrams": [
+    {
+      "id": "c1",
+      "title": "C1 - System Context",
+      "description": "Shows GameSessionMonitor as one system, its user, and its interactions with Windows and Roblox.",
+      "scope": "System context",
+      "source_model": "model.json",
+      "artifacts": {
+        "png": "c1.png",
+        "svg": "c1.svg",
+        "mermaid": "c1.mmd",
+        "drawio": "c1.drawio"
+      },
+      "sha256": {
+        "c1.png": "97e65760a7af0e0bb368e8dee8bfbb3e7b18bb973c9b51f36e33badfa16230fb",
+        "c1.svg": "9f847ec029a603c38bf8b7e4817cb71b6ad664c3431e725bfc7893222a2a1a31",
+        "c1.mmd": "84026feae0e48618a5c98cd06f5b316ed5d5d2a252010f06b8bc2fa32151d76a",
+        "c1.drawio": "b76fdb58565e9904bf5ede81aa43557eda12210288adca84728cf14761c38987"
+      },
+      "verification": {
+        "source_and_rendered_direction_review": "PASS",
+        "four_formats": "PASS",
+        "native_graph_save_reexport": "PASS",
+        "native_renderer": "draw.io desktop 32.6.10",
+        "mermaid_renderer": "Mermaid 12.3.0; native drawioC4 for C1/C2/C3/deployment, appropriate UML/sequence for Code/scenario",
+        "native_notation": "Canonical C4 templates"
+      }
+    },
+    {
+      "id": "c2",
+      "title": "C2 - Containers",
+      "description": "Shows the web interface, API, web agent, system monitor, notifications, data stores, and their connections to Windows and Roblox.",
+      "scope": "Containers of GameSessionMonitor",
+      "source_model": "model.json",
+      "artifacts": {
+        "png": "c2.png",
+        "svg": "c2.svg",
+        "mermaid": "c2.mmd",
+        "drawio": "c2.drawio"
+      },
+      "sha256": {
+        "c2.png": "86e93f265db5c1a92a613a40c15d62be0972378deb17ea4e33060a88ae979dba",
+        "c2.svg": "28a126cc094f79cff95ee4910cf22e1950e65566a95ec3c0cfe780642734328e",
+        "c2.mmd": "5c9a36ca193a58b6c6a7d772af6366c3580252f33448affab53461bedea34bbb",
+        "c2.drawio": "d0914ee855cae990a69785a6fbda19867b99f13c54737a5453cf6e38764a98e9"
+      },
+      "verification": {
+        "source_and_rendered_direction_review": "PASS",
+        "four_formats": "PASS",
+        "native_graph_save_reexport": "PASS",
+        "native_renderer": "draw.io desktop 32.6.10",
+        "mermaid_renderer": "Mermaid 12.3.0; native drawioC4 for C1/C2/C3/deployment, appropriate UML/sequence for Code/scenario",
+        "native_notation": "Canonical C4 templates"
+      }
+    },
+    {
+      "id": "c3",
+      "title": "C3 - SystemEnforcer Components",
+      "description": "Expands process polling, session classification, budget accounting, and enforcement inside SystemEnforcer.",
+      "scope": "One selected container: SystemEnforcer",
+      "source_model": "model.json",
+      "artifacts": {
+        "png": "c3.png",
+        "svg": "c3.svg",
+        "mermaid": "c3.mmd",
+        "drawio": "c3.drawio"
+      },
+      "sha256": {
+        "c3.png": "15898ecff9c1295d28722de7be23f41cd2e048797df804bdc547e5e6766b51c3",
+        "c3.svg": "69c95f2492d648b9733365703353a682d35e21ddbc815fd4146cbff4a02c7544",
+        "c3.mmd": "e75322d2c9985cf95cc4ff0c1f06ceee486f209891fd462b3f18bf7675e52b04",
+        "c3.drawio": "e903d666ba03196b65a7a5f6807f75e3ac3b68627e7285e0882bc63b8b27d663"
+      },
+      "verification": {
+        "source_and_rendered_direction_review": "PASS",
+        "four_formats": "PASS",
+        "native_graph_save_reexport": "PASS",
+        "native_renderer": "draw.io desktop 32.6.10",
+        "mermaid_renderer": "Mermaid 12.3.0; native drawioC4 for C1/C2/C3/deployment, appropriate UML/sequence for Code/scenario",
+        "native_notation": "Canonical C4 templates"
+      }
+    },
+    {
+      "id": "c4-budget",
+      "title": "C4 - Budget Accounting Code",
+      "description": "Shows the PowerShell functions that read, recalculate, and save the game budget and determine the monitor mode.",
+      "scope": "Code within the budget-accounting component",
+      "source_model": null,
+      "artifacts": {
+        "png": "c4-budget.png",
+        "svg": "c4-budget.svg",
+        "mermaid": "c4-budget.mmd",
+        "drawio": "c4-budget.drawio"
+      },
+      "sha256": {
+        "c4-budget.png": "f39daa9ef3bf5673214052e25a7e2e9daca58913aa47d1144096724831069624",
+        "c4-budget.svg": "d4cbd55187d6d2282ffb5a66b2d1459fc25708b574c22a86a2fe64d632b819e9",
+        "c4-budget.mmd": "4c48a2c3fe3884df2fa6196058fd69e2ddf6d2c303e7bf86ee1e4c1e9b828fc0",
+        "c4-budget.drawio": "443a10f5efe67038585eeb174a99e2ef3e02e31ed24134d8536aeda5af8bdbe4"
+      },
+      "verification": {
+        "source_and_rendered_direction_review": "PASS",
+        "four_formats": "PASS",
+        "native_graph_save_reexport": "PASS",
+        "native_renderer": "draw.io desktop 32.6.10",
+        "mermaid_renderer": "Mermaid 12.3.0; native drawioC4 for C1/C2/C3/deployment, appropriate UML/sequence for Code/scenario",
+        "native_notation": "Editable native UML/sequence cells; not an image import"
+      }
+    },
+    {
+      "id": "c4-classifier",
+      "title": "C4 - Session Classification Code",
+      "description": "Shows PowerShell function calls that classify game processes and determine the Roblox session state.",
+      "scope": "Code within the session-classification component",
+      "source_model": null,
+      "artifacts": {
+        "png": "c4-classifier.png",
+        "svg": "c4-classifier.svg",
+        "mermaid": "c4-classifier.mmd",
+        "drawio": "c4-classifier.drawio"
+      },
+      "sha256": {
+        "c4-classifier.png": "d6b951e08eff50e15632422b732c6567503c922046bcc7b7e48fd147e2943904",
+        "c4-classifier.svg": "d2597745838961d448835ddb3a47593d27c26d2d882d0487d764df3e90cc832a",
+        "c4-classifier.mmd": "acca16895edbc438ece12c734e4c8d5bb78b517b3ffc3738b1eca6ea3ef544e3",
+        "c4-classifier.drawio": "7556cad05e69dde66c9eee426c2b575adccdde51ff45cb954d007feea92dcf17"
+      },
+      "verification": {
+        "source_and_rendered_direction_review": "PASS",
+        "four_formats": "PASS",
+        "native_graph_save_reexport": "PASS",
+        "native_renderer": "draw.io desktop 32.6.10",
+        "mermaid_renderer": "Mermaid 12.3.0; native drawioC4 for C1/C2/C3/deployment, appropriate UML/sequence for Code/scenario",
+        "native_notation": "Editable native UML/sequence cells; not an image import"
+      }
+    },
+    {
+      "id": "deployment",
+      "title": "Deployment - Described Installation",
+      "description": "Shows the described placement of the monitor on a Windows PC, the PWA in a browser, and the API with SQLite on a web server, together with their connections.",
+      "scope": "Described deployment; current remote-server state has not been verified",
+      "source_model": "deployment.json",
+      "artifacts": {
+        "png": "deployment.png",
+        "svg": "deployment.svg",
+        "mermaid": "deployment.mmd",
+        "drawio": "deployment.drawio"
+      },
+      "sha256": {
+        "deployment.png": "d9c289ba94db2b5f2994dcb414947cd813655e6ff3aa18f38072cd6b2f1378a9",
+        "deployment.svg": "18ce6235e884ae6ff8379f3c5fe910782bf6a4cc01b26906c81758b997f5f143",
+        "deployment.mmd": "7eab2c07690d9ba4f7f8353d6cdfa370ca9240caee562ce549e07e4363ff6096",
+        "deployment.drawio": "37add6a974046ec4b156b94505b599316c9e559d3c55b3d3ae739e122748ff60"
+      },
+      "verification": {
+        "source_and_rendered_direction_review": "PASS",
+        "four_formats": "PASS",
+        "native_graph_save_reexport": "PASS",
+        "native_renderer": "draw.io desktop 32.6.10",
+        "mermaid_renderer": "Mermaid 12.3.0; native drawioC4 for C1/C2/C3/deployment, appropriate UML/sequence for Code/scenario",
+        "native_notation": "Canonical C4 templates"
+      }
+    },
+    {
+      "id": "dynamic-sequence",
+      "title": "Dynamic - Budget Adjustment",
+      "description": "Traces a successful budget-adjustment request from the user and PWA through the API and SQLite queue to WebAgent, password verification, budget update, and status publication.",
+      "scope": "Successful scenario only; errors and retries are not expanded",
+      "source_model": null,
+      "artifacts": {
+        "png": "dynamic-sequence.png",
+        "svg": "dynamic-sequence.svg",
+        "mermaid": "dynamic-sequence.mmd",
+        "drawio": "dynamic-sequence.drawio"
+      },
+      "sha256": {
+        "dynamic-sequence.png": "b20060b29b57f004e6210d29c8529478ae7898ceb7a19af1063ecb57ecaef372",
+        "dynamic-sequence.svg": "22c82754c5e9d8855c8d6ad75fb22a509bf08b1ad97d2b2bfeea1b979159758f",
+        "dynamic-sequence.mmd": "5fdcd056ba60f49a75298319fab20b9da0c2c66c551b09d840260176b5c1d831",
+        "dynamic-sequence.drawio": "99fefa38a655c13d4157304ca1e9193a42c8fb408e8ef3b19c888970434ac029"
+      },
+      "verification": {
+        "source_and_rendered_direction_review": "PASS",
+        "four_formats": "PASS",
+        "native_graph_save_reexport": "PASS",
+        "native_renderer": "draw.io desktop 32.6.10",
+        "mermaid_renderer": "Mermaid 12.3.0; native drawioC4 for C1/C2/C3/deployment, appropriate UML/sequence for Code/scenario",
+        "native_notation": "Editable native UML/sequence cells; not an image import"
+      }
+    }
+  ],
+  "verification_note": "All seven sources render in the current local viewer with zero external requests. Original PNG/SVG bytes are preserved and verified against the supplied JSON. Native companions were generated from the same semantic sources, rendered, visually reviewed, and XML re-exported; labels, IDs, parents, endpoint direction, styles, and geometry survive the round trip. Pixel layout/text wrapping can differ between the original Mermaid export and the native editor. These checks do not verify the live remote deployment or re-audit the application code."
+}

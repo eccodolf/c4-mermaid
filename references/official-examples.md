@@ -20,7 +20,7 @@ The light examples use white fill and colored outlines/text. Green identifies th
 
 ## Shapes from the keys
 
-| Meaning | Example appearance | Offline shape |
+| Meaning | Historical example appearance | Semantic identifier (not the required geometry) |
 |---|---|---|
 | Person | Head and rounded body | `person` |
 | Software system | Rounded rectangle | `system` |
@@ -43,4 +43,4 @@ A dashed arrow in the main keys means a relationship, not necessarily async comm
 
 For delivery, use the [exact Mermaid extension](exact-mermaid.md), which renders the supplied draw.io C4 geometry through the native engine. Historical example artwork does not authorize simplified substitute shapes.
 
-Attribution: C4 model and original visual references by Simon Brown, c4model.com, CC BY 4.0. The original banking images are not distributed in this bundle. Mermaid previews use Mermaid's renderer; the separate parametric graphics adapt local draw.io C4 assets under Apache-2.0. See [shape rules](shape-rules.md) and [provenance](sources.md).
+Attribution: C4 model and original visual references by Simon Brown, c4model.com, CC BY 4.0. The original banking images are not distributed in this bundle. C4 Mermaid previews use the bundled extension and original native draw.io painter; Code/sequence previews use the appropriate Mermaid-native notation. Separate Python parametric graphics are layout aids, not exact deliverables. See [shape rules](shape-rules.md) and [provenance](sources.md).

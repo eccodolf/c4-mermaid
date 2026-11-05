@@ -1,0 +1,32 @@
+---
+title: C4 — Код компонента учёта бюджета
+---
+classDiagram
+  direction LR
+  class Loop["Цикл Monitor.System.ps1"]
+  class ReadBudget["Get-GameBudget"]
+  class UpdateBudget["Get-UpdatedGameBudget"]
+  class SaveBudget["Save-GameBudget"]
+  class MonitorState["Get-MonitorState"]
+  class BudgetPath["Get-GameBudgetPath"]
+  <<script>> Loop
+  <<function>> ReadBudget
+  <<function>> UpdateBudget
+  <<function>> SaveBudget
+  <<function>> MonitorState
+  <<function>> BudgetPath
+  Loop ..> ReadBudget : читает
+  Loop ..> UpdateBudget : пересчитывает
+  Loop ..> SaveBudget : сохраняет
+  Loop ..> MonitorState : определяет режим
+  MonitorState ..> ReadBudget : читает остаток
+  ReadBudget ..> BudgetPath : определяет путь
+  SaveBudget ..> BudgetPath : определяет путь
+  style Loop fill:#D4E8F5,stroke:#0E7DAD,color:#152332
+  style ReadBudget fill:#72C4EB,stroke:#0E7DAD,color:#152332
+  style UpdateBudget fill:#72C4EB,stroke:#0E7DAD,color:#152332
+  style SaveBudget fill:#72C4EB,stroke:#0E7DAD,color:#152332
+  style MonitorState fill:#72C4EB,stroke:#0E7DAD,color:#152332
+  style BudgetPath fill:#72C4EB,stroke:#0E7DAD,color:#152332
+%% legend: Область — компонент учёта бюджета. Прямоугольник function — функция PowerShell, script — вызывающий скрипт. Это не классы программы.
+%% legend: Пунктирная стрелка — вызов функции, направление указывает на вызываемую функцию. Цвет выделяет скрипт и функции; размер соответствует подписи.

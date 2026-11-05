@@ -1,0 +1,16 @@
+# Required diagram delivery formats
+
+For every delivered view, provide `name.png`, `name.svg`, `name.mmd` (Mermaid), and `name.drawio`, with the source JSON model, evidence, assumptions, and checklist verdict. All four are mandatory. Keep the same scope, facts, node identities, relationships, and visible legend across them. A missing artifact means an incomplete draft, even when another format looks correct.
+
+| Format | Required verification |
+| --- | --- |
+| PNG | Valid PNG signature and dimensions; inspect the final raster at its intended reading scale. All text, arrowheads, scope borders, title, and legend remain readable and unclipped. |
+| SVG | Valid standalone SVG; exact C4 native-renderer stamp and canonical asset digest; no external resources or image substitutes. Inspect actual text, paths, arrowheads, and local clip references. |
+| Mermaid | Real editable Mermaid source with matching IDs, labels, containment, and directed relationships. Render through the bundled drawioC4 extension for C4 shapes; keep geometry metadata consistent with the positioned model. |
+| draw.io | Valid native `mxfile` graph. Separate editable vertices, edges, labels, and legends; correct C4 types/styles or appropriate native UML/sequence notation. Reopen/render and verify native endpoints and arrowheads, including after a save. |
+
+Generate Mermaid and native C4 from the same positioned JSON with `scripts/model_to_mermaid.py` and `scripts/export_drawio.py`. Render Mermaid in the local viewer and save SVG and PNG with their legends. PNG is rasterized from the same final export SVG, not from a cropped editor screenshot. Retain enough resolution for the smallest label; export more pixels instead of enlarging a low-resolution raster. Native Code/sequence diagrams need editable UML/sequence cells authored with an available local editor/exporter; the C4 JSON exporter cannot manufacture them by changing the view name.
+
+For each relationship, trace the source and target through all four formats. Verify a visible receiving-end arrowhead, real endpoint attachment, and matching action/protocol. In native XML inspect `source`, `target`, `startArrow`, and `endArrow`; in SVG inspect actual arrowhead paths/markers and placement, not only CSS or IDs. Also inspect the final PNG, where small or clipped arrowheads can disappear. Direction is semantic: compare with the evidence register, not left-to-right page placement. UML generalization/realization points to the parent/interface; a dependency points to the dependency. Sequence calls and replies each have their own direction. Undirected lines and unexplained double-headed arrows fail the checklist.
+
+When updating a README from supplied diagrams, read the accompanying JSON metadata before writing captions. Preserve its scope, assumptions, and unverified deployment/scenario limits. Group format variants by diagram ID rather than describing PNG and SVG as different diagrams. Verify file hashes when supplied, copy assets into the repository, use relative links, and keep the gallery usable offline. Translate descriptions into the README language without adding architectural claims; original localized diagram labels may be retained. Keep project examples distinct from the skill's own architecture.

@@ -1,6 +1,6 @@
 # Harness packaging audit
 
-Checked 2026-11-05. Current plugin version: `1.3.0`. Native installation checks below establish the `1.0.1` packaging baseline. Packaging contracts are unchanged; the current bundle adds the exact native draw.io painter for Mermaid. Version `1.3.0` repeats both strict Claude validators and all resource/manifest identity tests. This audit concerns connected distribution and native package discovery; it is separate from the offline skill instructions. No model inference was needed for these checks.
+Checked 2026-11-05. Current plugin version: `1.4.0`. Native installation checks below establish the `1.0.1` packaging baseline. Packaging contracts are unchanged; the current bundle includes the exact native painter, PNG export, a metadata-described example gallery, and mandatory four-format delivery. Version `1.4.0` repeats both strict Claude validators and all resource/manifest identity tests. This audit concerns connected distribution and native package discovery; it is separate from the offline skill instructions. No model inference was needed for these checks.
 
 | Harness | Required package contract | Result and evidence |
 | --- | --- | --- |

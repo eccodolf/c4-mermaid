@@ -1,0 +1,26 @@
+drawioC4 container
+title C2 — Контейнеры GameSessionMonitor
+Person(person, "Пользователь", "Управляет бюджетом")
+System_Boundary(scope, "GameSessionMonitor") {
+  Container(pwa, "GameTime PWA", "React / браузер", "Интерфейс бюджета")
+  Container(api, "Web API", "Python HTTP", "Сессии, команды и статус")
+  ContainerDb(webdb, "Данные Web API", "SQLite", "Команды, сессии, статус")
+  Container(agent, "WebAgent", "PowerShell", "Опрашивает API и применяет команды")
+  Container(enforcer, "SystemEnforcer", "PowerShell / SYSTEM", "Учет и блокировка процессов")
+  ContainerDb(budget, "Игровой бюджет", "JSON / файл", "Остаток и история")
+  Container(notice, "Уведомления", "PowerShell / Windows Forms", "Предупреждения и отсчет")
+}
+System_Ext(windows, "Windows", "Процессы и ограничения запуска")
+System_Ext(roblox, "Roblox", "Журнал игровой сессии")
+Rel(person, pwa, "Управляет временем", "браузер")
+Rel(pwa, api, "Запрашивает статус и команды", "HTTPS / JSON")
+Rel(api, webdb, "Читает и сохраняет", "SQLite")
+Rel(agent, api, "Опрашивает и отправляет статус", "HTTPS / JSON")
+Rel(agent, budget, "Читает и меняет с проверкой пароля", "локальные скрипты")
+Rel(enforcer, budget, "Учитывает игровое время", "JSON")
+Rel(notice, budget, "Читает остаток", "JSON")
+Rel(notice, person, "Показывает уведомления", "Windows Forms")
+Rel(enforcer, windows, "Проверяет и блокирует", "Windows API")
+Rel(enforcer, roblox, "Читает состояние сессии", "журнал")
+%% drawio-layout: {"view":"container","nodes":{"person":{"x":0,"y":80,"width":240,"height":230},"scope":{"x":500,"y":80,"width":1430,"height":1100},"pwa":{"x":30,"y":40,"width":260,"height":165,"parent":"scope","subtype":"browser"},"api":{"x":490,"y":40,"width":260,"height":165,"parent":"scope","subtype":"application"},"webdb":{"x":1080,"y":40,"width":280,"height":165,"parent":"scope","subtype":"database"},"agent":{"x":490,"y":355,"width":260,"height":165,"parent":"scope","subtype":"application"},"enforcer":{"x":1080,"y":355,"width":280,"height":165,"parent":"scope","subtype":"application"},"budget":{"x":490,"y":705,"width":260,"height":210,"parent":"scope","subtype":"database"},"notice":{"x":30,"y":705,"width":260,"height":165,"parent":"scope","subtype":"application"},"windows":{"x":2200,"y":260,"width":260,"height":170},"roblox":{"x":2200,"y":560,"width":260,"height":170}},"edges":[{"id":"person_pwa","source":"person","target":"pwa","source_port":[1,0.5],"target_port":[0,0.5],"label_offset":[0,-20]},{"id":"pwa_api","source":"pwa","target":"api","source_port":[1,0.5],"target_port":[0,0.5],"label_offset":[0,-100]},{"id":"api_db","source":"api","target":"webdb","source_port":[1,0.5],"target_port":[0,0.5],"label_offset":[0,-20]},{"id":"agent_api","source":"agent","target":"api","source_port":[0.5,0],"target_port":[0.5,1],"label_offset":[-120,0]},{"id":"agent_budget","source":"agent","target":"budget","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[-130,0]},{"id":"enforcer_budget","source":"enforcer","target":"budget","source_port":[0,0.75],"target_port":[1,0.35],"label_offset":[-50,-50]},{"id":"notice_budget","source":"notice","target":"budget","source_port":[1,0.5],"target_port":[0,0.5],"label_offset":[0,-30]},{"id":"notice_person","source":"notice","target":"person","source_port":[0,0.5],"target_port":[1,0.8],"label_offset":[-80,30]},{"id":"enforcer_windows","source":"enforcer","target":"windows","source_port":[1,0.35],"target_port":[0,0.65],"label_offset":[-20,-40]},{"id":"enforcer_roblox","source":"enforcer","target":"roblox","source_port":[1,0.7],"target_port":[0,0.35],"label_offset":[0,-40]}],"expected_external_systems":["windows","roblox"]}
+%% legend: Человек — пользователь; голубые блоки — контейнеры, цилиндры — данные; серое — внешние системы. Пунктирная рамка — граница системы. Стрелки — направленные действия; размеры подобраны для текста. PWA — веб-приложение; API — интерфейс; JSON — формат данных; HTTPS — защищённый HTTP.

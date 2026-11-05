@@ -1,12 +1,14 @@
 # draw.io C4 delivery audit — 1.2.0
 
-The skill now delivers editable native draw.io architecture for every C4 view, using the supplied native draw.io C4 palette. Every diagram must include its own visible legend. The bundle contains no Structurizr assets, theme, or runtime adapter. The supplied XML is mandatory; its exact original bytes, 17 extracted templates, and an 18-entry importable native library are included.
+Historical audit of version 1.2.0. Current behavior is documented in [README.md](README.md), [the current rendering review](EXACT-MERMAID-REVIEW.md), and [the four-format contract](references/delivery-formats.md).
+
+At version 1.2.0, the skill delivered editable native draw.io architecture for its supported C4 views, using the supplied native draw.io C4 palette. Every diagram must include its own visible legend. The bundle contains no Structurizr assets, theme, or runtime adapter. The supplied XML is mandatory; its exact original bytes, 17 extracted templates, and an 18-entry importable native library are included.
 
 ## Asset source and adaptations
 
 Pinned source: `jgraph/drawio`, tag `v32.6.10`, commit `c72c9a98b7a6ce392556ed04c05e0ff19f43f5c3`. The unchanged C4 sidebar, custom shapes, and built-in shapes source are retained under `assets/drawio-c4` with Apache-2.0 license, source hashes, and modification notice. A frozen snapshot contains the actual C4 palette entries and selected vector paint operations. Python uses local data and source-derived geometry; it never executes the vendor JavaScript or downloads a shape library.
 
-Person uses the C4 person2 silhouette; browser uses C4 WebBrowserContainer2; systems, general applications, and components use the C4 rounded blocks. Data stores, including object/file stores, use cylinder3; message buses use its horizontal orientation. Placement/group primitives and reserved bottom logical-scope captions are documented adaptations. Font colors are adjusted where necessary for readable contrast. Mermaid-native output keeps its renderer's own glyphs and discloses these limitations.
+Person uses the C4 person2 silhouette; browser uses C4 WebBrowserContainer2; systems, general applications, and components use the C4 rounded blocks. Data stores, including object/file stores, use cylinder3; message buses use its horizontal orientation. Placement/group primitives and reserved bottom logical-scope captions are documented adaptations. Font colors are adjusted where necessary for readable contrast. At that historical version, Mermaid-native output kept its renderer's own glyphs. This limitation was superseded in 1.3.0 by the exact native drawioC4 extension; simplified C4 fallback is now prohibited.
 
 ## Observed verification
 

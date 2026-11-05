@@ -24,7 +24,7 @@ A vendor's own downstream dependency is not automatically a direct dependency of
 
 ## Reconcile the diagrams
 
-For each expected system, verify an actual software-system node with the correct stable identity in each applicable Mermaid source and its rendered output. A mention in a protocol label, description, legend, prose, or another view does not count. A generic "External services" box does not cover several independently identified systems.
+For each expected system, verify an actual software-system node with the correct stable identity in each applicable Mermaid source, PNG, SVG, and native draw.io graph. A mention in a protocol label, description, legend, prose, or another view does not count. A generic "External services" box does not cover several independently identified systems.
 
 Preserve known cross-boundary relationships and their direction when moving between levels. In a Container view, use the evidenced calling/receiving container. If the system integration is confirmed but that container is unknown, still show the external system and add a clear companion note identifying the unresolved caller/receiver. Keep the known system-level relationship in the evidence register; do not attach a guessed edge to a container or frame. Record the relationship-resolution limit separately from node coverage.
 

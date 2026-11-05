@@ -75,6 +75,23 @@ class DrawioTests(unittest.TestCase):
             with self.subTest(change=change), self.assertRaises(ValueError):
                 self.check_xml(document)
 
+    def test_missing_reversed_and_double_arrowheads_are_rejected(self):
+        for change in ('missing', 'reversed', 'double', 'endpoints'):
+            document = ET.fromstring(drawio.export_model(self.model))
+            edge = document.find(".//object[@id='api_db']/mxCell")
+            if change == 'missing':
+                edge.set('style', edge.get('style').replace('endArrow=blockThin;', 'endArrow=none;'))
+            elif change == 'reversed':
+                edge.set('style', edge.get('style').replace('endArrow=blockThin;', 'endArrow=none;startArrow=blockThin;'))
+            elif change == 'double':
+                edge.set('style', edge.get('style')+'startArrow=blockThin;')
+            else:
+                source, target = edge.get('source'), edge.get('target')
+                edge.set('source', target)
+                edge.set('target', source)
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                self.check_xml(document)
+
     def test_layout_and_scope_failures_are_rejected(self):
         for change in ("overlap", "clipping", "text", "type", "external", "label", "route", "frame-endpoint"):
             model = copy.deepcopy(self.model)

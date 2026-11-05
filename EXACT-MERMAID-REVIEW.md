@@ -1,6 +1,6 @@
 # Exact Mermaid rendering review
 
-Version **1.3.0**, reviewed 2026-11-05.
+Version **1.4.0**, reviewed 2026-11-05.
 
 The previous Mermaid path could approximate the supplied draw.io glyphs. The bundled `drawioC4` extension now parses editable C4 statements through Mermaid 12.3.0 and renders them with the original draw.io 32.6.10 native engine, original C4 definitions, and the user-supplied canonical styles. It does not replace the architecture with image cells or embedded native XML. Layout metadata contains positions, routing, presentation subtypes, and coverage IDs; architecture facts remain in the C4 statements.
 
@@ -10,15 +10,17 @@ The previous Mermaid path could approximate the supplied draw.io glyphs. The bun
 - Live browser checks repeat those comparisons in light and dark modes. Export freezes canonical light colors and uses standalone SVG primitives and text; no image or foreignObject substitutions remain.
 - All **nine example sources** render and export with visible legends. Raster previews were visually reviewed for text fit, readable arrows, containment, and compact placement.
 - The native renderer measures actual SVG text glyph bounds, checks shape-safe interiors, and rejects detected overlaps, unrelated blocks crossed by arrows, and relationship labels on scope contours or captions. Manual review remains mandatory.
-- Nine invalid input cases are rejected, including semantic metadata overrides, wrong store glyphs, overlapping blocks, text overflow, missing layout, plain stock C4, generic flowcharts, remote directives, and a blank legend. Rendering recovers after rejection.
+- Eleven invalid input cases are rejected (including reversed semantic endpoints and a missing painted arrowhead), including semantic metadata overrides, wrong store glyphs, overlapping blocks, text overflow, missing layout, plain stock C4, generic flowcharts, remote directives, and a blank legend. Rendering recovers after rejection.
 - Network requests observed during browser testing: **zero**. SVG clip references are fragment-local, with no source-machine paths or external resources.
-- **26 Python tests**, the air-gap source guard, bundle integrity checks, skill validation, and both strict Claude packaging validators pass. Generated plugin resources match the standalone bundle.
+- **28 Python tests**, the air-gap source guard, bundle integrity checks, skill validation, and both strict Claude packaging validators pass. Generated plugin resources match the standalone bundle.
+- All seven GameSessionMonitor gallery entries include PNG, SVG, Mermaid, and native draw.io. Descriptions translate the supplied JSON and preserve its deployment/scenario limits. Original PNG/SVG hashes match; native companions were rendered, visually reviewed, and XML re-exported with IDs, labels, parents, endpoint directions, styles, and geometry preserved. Code/sequence companions use editable native UML cells.
+- The README, skill entry point, local references, and repository audit Markdown were reconciled with implementation. Four-format delivery, visible receiving-end arrowheads, exact-renderer requirements, unsupported variants, and historical test versions are stated consistently. This is a consistency/implementation audit, not new runtime certification for every harness or a live deployment audit.
 
 The live browser harness uses an already-provisioned local Playwright module and Microsoft Edge. Test tools are not downloaded by the skill or required by its local viewer. See [the reproducible runtime checks](references/exact-mermaid.md).
 
 ## Compatibility boundary
 
-The complete local viewer includes the extension and native engine; no draw.io desktop application is needed for this Mermaid path. An unmodified GitHub, ChatGPT, editor, or Mermaid CLI preview does not automatically load the extension. Supply the exact exported SVG in those hosts and retain `.mmd` plus its positioned model for editing. Missing native-renderer capability must never trigger a simplified fallback.
+The complete local viewer includes the extension and native engine and exports SVG plus PNG from the same final diagram; no draw.io desktop application is needed for this Mermaid rendering path. Complete delivery additionally requires editable native draw.io and its separate save/reopen checks. An unmodified GitHub, ChatGPT, editor, or Mermaid CLI preview does not automatically load the extension. Supply the exact exported SVG in those hosts and retain `.mmd` plus its positioned model for editing. Missing native-renderer capability must never trigger a simplified fallback.
 
 The separate native `.drawio` export remains editable and uses the same canonical source templates. The historical [native save review](DRAWIO-REVIEW.md) records the earlier desktop export and round-trip checks. Python-generated parameterized glyph samples are layout aids, not authoritative exact Mermaid deliverables.
 

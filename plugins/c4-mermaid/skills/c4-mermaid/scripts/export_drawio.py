@@ -302,7 +302,7 @@ def export_model(model):
             target_ancestors = ancestors(edge["target"])
             edge_parent = next((identifier for identifier in ancestors(edge["source"]) if identifier in target_ancestors), "1")
             px, py = boxes[edge_parent][:2] if edge_parent != "1" else (0, 0)
-            cell = add_object(root, edge["id"], label, style=style, parent=edge_parent, vertex=False, c4Type="Relationship", c4ModelType="relationship")
+            cell = add_object(root, edge["id"], label, style=style, parent=edge_parent, vertex=False, c4Type="Relationship", c4ModelType="relationship", c4Source=edge["source"], c4Target=edge["target"])
             cell.set("source", edge["source"])
             cell.set("target", edge["target"])
             geometry = ET.SubElement(cell, "mxGeometry", relative="1", **{"as": "geometry"})
@@ -379,6 +379,10 @@ def check_file(path):
                     expected_external = json.loads(obj.get("c4ExpectedExternalSystems", "[]"))
                 continue
             if element_type == "relationship":
+                if fields.get("endArrow", "none") != "blockThin" or fields.get("startArrow", "none") != "none":
+                    raise ValueError("Relationship requires the canonical receiving-end arrowhead: " + identifier)
+                if any(obj.get(attribute) is not None and obj.get(attribute) != cell.get(endpoint) for attribute, endpoint in (("c4Source", "source"), ("c4Target", "target"))):
+                    raise ValueError("Relationship direction differs from its declared source/target: " + identifier)
                 edges.append(cell)
                 continue
             shape = shape_for(element_type, obj.get("c4Subtype") or None)
