@@ -1,5 +1,7 @@
 # C4 Mermaid
 
+Version: **1.2.0**.
+
 A self-contained, air-gap-ready Agent Skill for **Codex, Claude Code, Kimi Code CLI, and DeepSeek Harness**. Analyze a local application repository or supplied description and produce evidence-based C4 architecture diagrams in Mermaid.
 
 - Correct mapping of systems, containers, components, and code.

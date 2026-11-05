@@ -3,7 +3,7 @@
   "mermaid_version": "12.3.0",
   "files": {
     ".gitattributes": "705fd4d6451a31d36b3df7de96f83f30ac976c9b4a6d1e51671d8e2f33e2d0da",
-    "README.md": "f003805b62da9fd9089535e832163d05cab3991813a16d3d4d68d0957a475213",
+    "README.md": "2a96f3eeee7a3077a90f91cc8415ec93a775128ec1ef477fb6d99666ecfd1cc3",
     "SKILL.md": "5199fa0eff0d4329af5e271bb87b011d3e4640701c8d44fdfb8a59cd32aaa5bd",
     "agents/openai.yaml": "4ab16a494a2c3e417f8cf971103454afc81b0c187d8e672daacc0d179315bbe6",
     "assets/c4-theme.json": "ac7f1b9bfc9fc95bbe0dc19b359e622711829f8e1c0d0b1e313d14ffbdef7d3e",
