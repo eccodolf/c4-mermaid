@@ -1,8 +1,8 @@
 # C4 Mermaid
 
-Version: **1.2.0**.
+Version: **1.3.0**.
 
-A self-contained, air-gap-ready Agent Skill for **Codex, Claude Code, Kimi Code CLI, and DeepSeek Harness**. Analyze a local application repository or supplied description and produce evidence-based C4 architecture diagrams in Mermaid.
+A self-contained, air-gap-ready Agent Skill for **Codex, Claude Code, Kimi Code CLI, and DeepSeek Harness**. Analyze a local application repository or supplied description and produce evidence-based C4 architecture diagrams in Mermaid with original draw.io C4 vector geometry.
 
 - Correct mapping of systems, containers, components, and code.
 - Mandatory external-system coverage across Landscape, System Context, and Container views.
@@ -10,7 +10,7 @@ A self-contained, air-gap-ready Agent Skill for **Codex, Claude Code, Kimi Code 
 - Consistent shapes and colors based on the C4 examples.
 - All 21 C4 review criteria plus evidence, layout, export, and air-gap gates.
 - Nine editable Mermaid examples with reviewed SVG previews.
-- Fourteen parametric vector variants and a local SVG generator.
+- Exact native draw.io C4 shapes in Mermaid, without generic glyph substitutions or image cells.
 - Mandatory user-supplied draw.io C4 assets, native XML templates, an importable shape library, and complete Apache-2.0 notices.
 - Native editable draw.io export, typed shape checks, layout preflight, and round-trip examples.
 - Mermaid 12.3.0 browser engine, local viewer, and complete license texts.
@@ -52,6 +52,7 @@ Example request:
 - [Abstraction mapping](references/c4-model.md)
 - [External-system coverage](references/external-systems.md)
 - [Mandatory checklist](references/review-checklist.md)
+- [Exact draw.io geometry in Mermaid](references/exact-mermaid.md)
 - [Mermaid syntax and layout](references/mermaid.md)
 - [C4 example analysis](references/official-examples.md)
 - [Mandatory supplied C4 assets](references/canonical-assets.md)
@@ -69,13 +70,13 @@ Example request:
 Open `assets/offline/viewer.html` in a permitted local browser. Load a `.mmd`, render, inspect it, and export SVG with its legend. The engine is included and uses installed font fallbacks. The viewer blocks network connections and rejects external-resource directives. Normal use requires no server, Python, Node, npm, or additional fonts. A permitted loopback-only fallback is described in the runbook.
 
 ```sh
-python scripts/render_shape.py --help
+python scripts/model_to_mermaid.py --input assets/drawio/container.json --output orders.mmd
 python scripts/export_drawio.py --input assets/drawio/container.json --output orders.drawio
 python scripts/export_drawio.py --check orders.drawio
 python scripts/verify_bundle.py
 python -m unittest discover -s tests
 ```
 
-Automatic checks supplement visual review. An unrendered source remains a draft, and missing visual inspection is reported as `NOT VERIFIED`. Native Mermaid C4 cannot import the bundled SVG primitives as custom symbols; the notation guide identifies adaptations.
+Automatic checks supplement visual review. An unrendered source remains a draft, and missing visual inspection is reported as `NOT VERIFIED`. The bundled extension renders the original native shapes. Stock third-party Mermaid previews need that extension; use the exported SVG there. Simplified C4/flowchart fallback is blocked.
 
 The integrity manifest detects changed/missing files; it is not a cryptographic signature. Runtime applications and model behavior are separate from package verification. Preserve the bundled legal notices when redistributing adaptations.

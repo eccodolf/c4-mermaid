@@ -1,41 +1,16 @@
----
-config:
-  c4:
-    c4ShapeMargin: 45
-    c4ShapePadding: 10
-    diagramMarginX: 15
-    diagramMarginY: 15
----
-C4Context
+drawioC4 context
 title System Landscape - Commerce portfolio (fictional example)
 Person(operator, "Warehouse operator", "Manages stock")
 Person(customer, "Customer", "Places orders")
 Enterprise_Boundary(company, "Commerce company") {
   System(warehouse, "Inventory", "Tracks stock movements")
-  System(orders, "Orders", "Accepts and processes<br/>orders")
+  System(orders, "Orders", "Accepts and processes orders")
 }
 Enterprise_Boundary(provider, "Payment provider") {
   System_Ext(payments, "Payments", "Authorizes payments")
 }
-Rel(customer, orders, "Places orders using")
-Rel(operator, warehouse, "Manages stock using")
-Rel(orders, payments, "Requests payment")
-UpdateElementStyle(customer, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
-UpdateElementStyle(orders, $bgColor="#1061B0", $fontColor="#FFFFFF", $borderColor="#0D5091")
-UpdateElementStyle(warehouse, $bgColor="#1061B0", $fontColor="#FFFFFF", $borderColor="#0D5091")
-UpdateElementStyle(operator, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
-UpdateElementStyle(payments, $bgColor="#8C8496", $fontColor="#000000", $borderColor="#736782")
-UpdateElementStyle(operator, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
-UpdateElementStyle(warehouse, $bgColor="#1061B0", $fontColor="#FFFFFF", $borderColor="#0D5091")
-UpdateRelStyle(customer, orders, $offsetX="15", $offsetY="-20")
-UpdateRelStyle(operator, warehouse, $offsetX="15", $offsetY="-20")
-UpdateRelStyle(orders, payments, $offsetX="-30", $offsetY="-65")
-UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="2")
-
-%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
-%% legend: Commerce company and Payment provider frames = organizational groups, not software systems. Person glyph = role. Rectangle = software system. Arrows = named interactions.
-%% legend: No system is decomposed in this portfolio view. Organizational grouping is explicitly distinct from logical scope.
-%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
-
-
-%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.
+Rel(operator, warehouse, "Manages stock using", "")
+Rel(customer, orders, "Places orders using", "")
+Rel(orders, payments, "Requests payment", "")
+%% drawio-layout: {"view":"landscape","nodes":{"operator":{"x":20,"y":190,"width":200,"height":180},"customer":{"x":480,"y":720,"width":200,"height":180},"company":{"x":420,"y":100,"width":340,"height":540},"warehouse":{"x":30,"y":90,"width":260,"height":180,"parent":"company"},"orders":{"x":30,"y":310,"width":260,"height":180,"parent":"company"},"provider":{"x":980,"y":320,"width":340,"height":310},"payments":{"x":30,"y":90,"width":260,"height":180,"parent":"provider"}},"edges":[{"id":"operator_warehouse","source":"operator","target":"warehouse","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"customer_orders","source":"customer","target":"orders","source_port":[0.5,0],"target_port":[0.5,1],"label_offset":[-100,0]},{"id":"orders_payments","source":"orders","target":"payments","source_port":[1,0.5],"target_port":[0,0.5]}],"expected_external_systems":["payments"]}
+%% legend: The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.

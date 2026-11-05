@@ -1,28 +1,9 @@
----
-config:
-  c4:
-    c4ShapeMargin: 45
-    c4ShapePadding: 10
-    diagramMarginX: 15
-    diagramMarginY: 15
----
-C4Context
+drawioC4 context
 title System Context - Orders (fictional example)
 Person(customer, "Customer", "Places orders")
-System(orders, "Orders", "Accepts and processes<br/>orders")
+System(orders, "Orders", "Accepts and processes orders")
 System_Ext(payments, "Payments", "Authorizes payments")
-Rel(customer, orders, "Places order")
-Rel(orders, payments, "Authorizes payments using")
-UpdateElementStyle(customer, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
-UpdateElementStyle(orders, $bgColor="#1061B0", $fontColor="#FFFFFF", $borderColor="#0D5091")
-UpdateElementStyle(payments, $bgColor="#8C8496", $fontColor="#000000", $borderColor="#736782")
-UpdateRelStyle(customer, orders, $offsetX="-3", $offsetY="-35")
-UpdateRelStyle(orders, payments, $offsetX="-75", $offsetY="-45")
-UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
-
-%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
-%% legend: Person glyph = actor. Rectangle = software system. Arrows = named, directed interactions. No internal applications are expanded.
-%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
-
-
-%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.
+Rel(customer, orders, "Places order", "")
+Rel(orders, payments, "Authorizes payments using", "")
+%% drawio-layout: {"view":"context","nodes":{"customer":{"x":20,"y":110,"width":200,"height":180},"orders":{"x":360,"y":110,"width":260,"height":180},"payments":{"x":860,"y":110,"width":260,"height":180}},"edges":[{"id":"customer_orders","source":"customer","target":"orders","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"orders_payments","source":"orders","target":"payments","source_port":[1,0.5],"target_port":[0,0.5]}],"expected_external_systems":["payments"]}
+%% legend: The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.

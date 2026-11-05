@@ -1,6 +1,6 @@
 # Editable draw.io delivery
 
-Read this reference for every C4 architecture delivery. The [canonical supplied assets](canonical-assets.md) are mandatory. Keep Mermaid as an editable companion when Mermaid is part of the request. Build both from the same evidence and identity registers. A picture pasted into a draw.io page, a renamed SVG, or one flattened image cell does not satisfy editable delivery.
+Read this reference when native draw.io is requested or when preparing the shared positioned model. The [canonical supplied assets](canonical-assets.md) are mandatory. Keep Mermaid as an editable companion when Mermaid is part of the request. Build both from the same evidence and identity registers. A picture pasted into a draw.io page, a renamed SVG, or one flattened image cell does not satisfy editable delivery.
 
 ## Native model and saving
 

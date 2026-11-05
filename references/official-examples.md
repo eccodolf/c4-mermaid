@@ -41,6 +41,6 @@ A dashed arrow in the main keys means a relationship, not necessarily async comm
 
 ## Mermaid adaptation boundary
 
-Mermaid can retain these abstractions and interactions but native C4 cannot reproduce every Structurizr glyph, frame, or line style. State shape adaptations. If precise vector artwork is requested, provide the parameterized SVG composition alongside editable Mermaid without claiming that SVG assets extend the native parser.
+For delivery, use the [exact Mermaid extension](exact-mermaid.md), which renders the supplied draw.io C4 geometry through the native engine. Historical example artwork does not authorize simplified substitute shapes.
 
 Attribution: C4 model and original visual references by Simon Brown, c4model.com, CC BY 4.0. The original banking images are not distributed in this bundle. Mermaid previews use Mermaid's renderer; the separate parametric graphics adapt local draw.io C4 assets under Apache-2.0. See [shape rules](shape-rules.md) and [provenance](sources.md).

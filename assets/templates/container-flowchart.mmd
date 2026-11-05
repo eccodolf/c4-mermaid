@@ -1,41 +1,19 @@
----
-title: Container - Orders (compact C4 flowchart adaptation)
-config:
-  flowchart:
-    nodeSpacing: 25
-    rankSpacing: 40
-    padding: 12
-    htmlLabels: false
----
-flowchart LR
-  customer(["Customer<br/>[Person]<br/>Places orders"])
-  payments["Payments<br/>[Software System - external]<br/>Authorizes payments"]
-  subgraph orders["Orders [Software System]"]
-    web["Web UI<br/>[Container: React SPA]<br/>Order form"]
-    api["Orders API<br/>[Container: Node.js]<br/>Accepts orders"]
-    db[("Orders store<br/>[Container: PostgreSQL]<br/>Stores orders")]
-    topic[("orders.created<br/>[Container: Kafka topic]<br/>Stores OrderCreated")]
-    worker["Order worker<br/>[Container: Node.js]<br/>Starts fulfillment"]
-  end
-  customer -->|"Places orders using"| web
-  web -->|"Submits order - JSON/HTTPS"| api
-  api -->|"Writes orders - PostgreSQL/TLS"| db
-  api -->|"Authorizes payment - JSON/HTTPS"| payments
-  api -->|"Publishes OrderCreated - Kafka/TLS"| topic
-  worker -->|"Subscribes to OrderCreated - Kafka/TLS"| topic
-  classDef person fill:#083F75,stroke:#06315C,color:#FFFFFF
-  classDef internal fill:#23A2D9,stroke:#0E7DAD,color:#152332
-  classDef external fill:#8C8496,stroke:#736782,color:#000000
-  class customer person
-  class web,api,db,topic,worker internal
-  class payments external
-  style orders fill:none,stroke:#666666,stroke-width:1px,stroke-dasharray:8 4,color:#333333
-  linkStyle default stroke:#666666,color:#333333
-
-%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
-%% legend: Capsule adapts the person glyph. Plain rectangles adapt application glyphs. Cylinders are typed logical stores, including a Kafka topic.
-%% legend: Gray dashed frame = software-system boundary. Arrows = named dependencies with protocols. The compact companion legend must remain visible with the diagram/export.
-%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
-
-
-%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.
+drawioC4 container
+title Container - Orders (compact exact vector example)
+System_Boundary(orders_scope, "Orders") {
+  Container(web, "Web UI", "React SPA", "Submits orders")
+  Container(api, "Orders API", "Node.js", "Accepts orders")
+  ContainerDb(db, "Orders store", "PostgreSQL schema", "Stores orders")
+  ContainerDb(bucket, "Attachments", "Object store", "Stores uploaded files")
+  ContainerQueue(topic, "orders.created", "Kafka topic", "Stores order events")
+}
+Person(customer, "Customer", "Places orders")
+System_Ext(payments, "Payments", "Authorizes payments")
+Rel(customer, web, "Uses", "HTTPS")
+Rel(web, api, "Submits order", "JSON/HTTPS")
+Rel(api, payments, "Authorizes payment", "JSON/HTTPS")
+Rel(api, db, "Writes orders", "PostgreSQL/TLS")
+Rel(web, bucket, "Uploads files", "HTTPS")
+Rel(api, topic, "Publishes events", "Kafka/TLS")
+%% drawio-layout: {"view":"container","nodes":{"orders_scope":{"x":320,"y":100,"width":1000,"height":520},"customer":{"x":20,"y":130,"width":200,"height":180},"web":{"x":30,"y":30,"width":240,"height":180,"parent":"orders_scope","subtype":"browser"},"api":{"x":390,"y":30,"width":240,"height":180,"parent":"orders_scope","subtype":"application"},"db":{"x":390,"y":270,"width":240,"height":180,"parent":"orders_scope","subtype":"database"},"bucket":{"x":30,"y":270,"width":240,"height":180,"parent":"orders_scope","subtype":"bucket"},"topic":{"x":710,"y":270,"width":260,"height":180,"parent":"orders_scope","subtype":"queue"},"payments":{"x":1380,"y":130,"width":260,"height":180}},"edges":[{"id":"customer_web","source":"customer","target":"web","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"web_api","source":"web","target":"api","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"api_payments","source":"api","target":"payments","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"api_db","source":"api","target":"db","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[100,0]},{"id":"web_bucket","source":"web","target":"bucket","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[100,0]},{"id":"api_topic","source":"api","target":"topic","source_port":[1,0.5],"target_port":[0,0.5],"points":[[1010,220],[1010,460]],"label_offset":[85,0]}],"expected_external_systems":["payments"]}
+%% legend: The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.

@@ -1,6 +1,6 @@
 ---
 name: c4-mermaid
-description: "Create evidence-based C4 diagrams in Mermaid from a local repository or description, with mandatory canonical draw.io C4 assets, editable native delivery, compact readable layouts, and air-gapped review."
+description: "Create evidence-based C4 diagrams in Mermaid from a local repository or description, with exact draw.io C4 geometry rendered by the bundled Mermaid extension, editable native delivery, compact readable layouts, and air-gapped review."
 ---
 
 # C4 Mermaid
@@ -32,11 +32,11 @@ Use the host's available file search, file reading, shell, browser, and image in
 
 Read [mermaid.md](references/mermaid.md) before rendering. Consult the relevant view and shape entries in [official-examples.md](references/official-examples.md).
 
-Apply [shape-rules.md](references/shape-rules.md) to every glyph: explicit C4 type and container subtype determine geometry. Visible type, metadata, and shape must agree. Always read [canonical-assets.md](references/canonical-assets.md) and use the supplied C4 assets. Deliver a native `.drawio` companion for each C4 architecture view; read [drawio.md](references/drawio.md), preserve actual native shapes, and render/round-trip the saved file. Mermaid remains the editable companion when requested; do not pretend that its approximations use native draw.io assets.
+Apply [shape-rules.md](references/shape-rules.md) to every glyph: explicit C4 type and container subtype determine geometry. Visible type, metadata, and shape must agree. Always read [canonical-assets.md](references/canonical-assets.md) and [exact-mermaid.md](references/exact-mermaid.md). Use the supplied native C4 assets in the bundled drawioC4 Mermaid renderer itself. Generate editable `.mmd` with `scripts/model_to_mermaid.py`, then render and inspect its exact SVG. For requested native `.drawio` delivery, also follow [drawio.md](references/drawio.md).
 
-Use native `C4Context`, `C4Container`, `C4Component`, `C4Dynamic`, or `C4Deployment` when the target supports them. A landscape can use `C4Context` with the correct scope and title. Use `classDiagram` or `erDiagram` for Code; there is no `C4Code` syntax. A sequence representation is suitable for a runtime scenario.
+Use `drawioC4 context`, `container`, `component`, `dynamic`, or `deployment` with the familiar C4 statements and validated layout metadata. Landscape uses the context grammar with landscape scope. The included extension parses Mermaid and renders the original draw.io paths without simplifying them. Use `classDiagram` or `erDiagram` for Code; there is no `C4Code` syntax. A sequence representation is suitable for a runtime scenario.
 
-When native C4 is unavailable or cannot satisfy the required readable, compact layout, use a styled `flowchart` preserving C4 semantics. Identify adapted shapes. Do not declare native C4 unsupported merely because the target renderer is unknown.
+Never substitute stock C4 glyphs, a generic flowchart, capsules, or approximate vectors for the required shapes. If a host does not load the extension, deliver the SVG rendered locally by the included viewer plus its editable source; report an unrendered draft if local rendering is unavailable.
 
 The supplied draw.io C4 palette is mandatory for this skill. Use native person2, rounded System/Container/Component blocks, cylinder3 stores/message buses, hexagonal microservices, WebBrowserContainer2, and gray dashed rounded logical scopes with bottom labels. External Person and external System have distinct colors. Use the bundled native color-key legend. Preserve readable font contrast and fit; C4 does not itself mandate this palette, but the user selected it. Distinguish logical, organizational, and deployment containment.
 
@@ -47,13 +47,13 @@ The supplied draw.io C4 palette is mandatory for this skill. Use native person2,
 ## Offline bundle
 
 - `assets/templates/*.mmd`: editable, fictional examples, paired with reviewed `.svg` previews containing their visible keys. Load only the required example and replace its facts with project evidence.
-- `assets/offline/viewer.html`: the included Mermaid engine, local file loading, layout checks, and SVG export without CDN or network fonts. File loading reads `%% legend:` comments into the visible export legend.
+- `assets/offline/viewer.html`: Mermaid 12.3.0 plus the exact drawioC4 extension and pinned native draw.io painter, local file loading, layout checks, and SVG export without CDN or network fonts. File loading reads `%% legend:` comments into the visible export legend.
 - `assets/c4-theme.json` and `assets/graphics/*.svg`: palette parameters and fourteen parameterized vector variants.
-- `python scripts/render_shape.py --help`: generate a parameterized shape or catalog using the standard library. Geometry is recalculated for size and labels; it is not a stretched bitmap or a substitute for a Mermaid diagram.
+- `python scripts/model_to_mermaid.py --help`: create exact-renderer Mermaid source from the positioned architecture model. Python glyph samples are layout aids and do not replace the native-engine SVG.
 - `assets/drawio-c4/`: the mandatory supplied XML, extracted native templates, importable `native-c4.mxlibrary`, pinned upstream source, and complete notices. Runtime styles come from the supplied templates. The `drawio-c4` profile is required.
 - `assets/drawio/`: positioned JSON examples, native editable `.drawio` files, and previews. `scripts/export_drawio.py` exports and checks them using only Python's standard library. A local draw.io application is a separately provisioned rendering capability.
 
-Native Mermaid cannot import these SVG symbols as custom C4 shapes. Preserve that distinction when offering a precise vector composition alongside editable Mermaid.
+The included Mermaid extension uses the actual draw.io native engine, not imported symbol pictures. Stock third-party Mermaid previews need the extension; use the exact exported SVG there rather than silently simplifying shapes.
 
 ## Mandatory acceptance and delivery
 
@@ -63,7 +63,7 @@ Render every source with the target version when available, otherwise the bundle
 
 Deliver editable Mermaid, previews/exports when available, a visible legend, significant assumptions, evidence, and a short checklist verdict for each view. Keep `.mmd` alongside saved SVG. If rendering was unavailable, explicitly report that the result is an unrendered draft. Do not claim exhaustive repository coverage after a partial inspection.
 
-Always deliver the native `.drawio` and positioned source model for C4 architecture views. Verify all pages after native save/re-export: counts, stable IDs, parents, text, geometry, arrow endpoints, and external-system coverage. Report actual renderer/version and any unperformed visual or round-trip checks. Do not describe embedded pictures as editable architecture.
+Deliver the exact Mermaid SVG, editable `.mmd`, and positioned source model. When native `.drawio` is requested or provided, preserve its separate editable graph and perform the native save checks. Verify all pages after native save/re-export: counts, stable IDs, parents, text, geometry, arrow endpoints, and external-system coverage. Report actual renderer/version and any unperformed visual or round-trip checks. Do not describe embedded pictures as editable architecture.
 
 For Landscape, System Context, and Container diagrams, include or reference the external-system coverage matrix and report missing systems and evidence limits explicitly. A system mentioned only in prose, a legend, an arrow label, or another diagram is not a represented system node.
 

@@ -1,31 +1,13 @@
----
-config:
-  c4:
-    c4ShapeMargin: 45
-    c4ShapePadding: 10
-    diagramMarginX: 15
-    diagramMarginY: 15
----
-C4Deployment
-title Deployment - Development
-Deployment_Node(dev, "Developer machine", "Development environment", "Local development") {
-  Deployment_Node(runtime, "Node process", "Node.js runtime", "Runs the API") {
-    Container(api_dev, "Orders API - instance 1", "Node.js", "Orders API<br/>instance")
+drawioC4 deployment
+title Deployment - Development (fictional example)
+Deployment_Node(dev, "Developer machine", "Development environment", "") {
+  Deployment_Node(runtime, "Node process", "Node.js", "") {
+    Container(api_dev, "Orders API - instance 1", "Node.js", "Orders API instance")
   }
-  Deployment_Node(postgres, "PostgreSQL server", "Database runtime", "Hosts the logical store") {
-    ContainerDb(db_dev, "Orders store - instance 1", "PostgreSQL schema", "Orders store<br/>instance")
+  Deployment_Node(postgres, "PostgreSQL server", "PostgreSQL", "") {
+    ContainerDb(db_dev, "Orders store - instance 1", "PostgreSQL schema", "Orders store instance")
   }
 }
 Rel(api_dev, db_dev, "Writes orders", "PostgreSQL protocol")
-UpdateElementStyle(api_dev, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateElementStyle(db_dev, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateRelStyle(api_dev, db_dev, $offsetX="-65", $offsetY="-80")
-UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="2")
-
-%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
-%% legend: Rectangle = application. Cylinder = logical store. Arrow = the API instance accessing the database instance.
-%% legend: This is a partial development deployment, not evidence of production topology.
-%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
-
-
-%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.
+%% drawio-layout: {"view":"deployment","nodes":{"dev":{"x":20,"y":100,"width":1040,"height":480},"runtime":{"x":30,"y":90,"width":380,"height":340,"parent":"dev"},"postgres":{"x":630,"y":90,"width":380,"height":340,"parent":"dev"},"api_dev":{"x":60,"y":110,"width":260,"height":180,"parent":"runtime","subtype":"application"},"db_dev":{"x":60,"y":110,"width":260,"height":180,"parent":"postgres","subtype":"database"}},"edges":[{"id":"api_db","source":"api_dev","target":"db_dev","source_port":[1,0.5],"target_port":[0,0.5]}],"expected_external_systems":[]}
+%% legend: The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.

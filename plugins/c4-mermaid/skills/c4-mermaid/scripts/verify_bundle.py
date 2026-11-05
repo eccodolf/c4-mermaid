@@ -117,13 +117,22 @@ def verify(root):
     for name in ("mermaid.min.js", "airgap-guard.js", "LICENSE.mermaid", "LICENSE.CC-BY-4.0"):
         if not (root / "assets/offline" / name).is_file():
             errors.append(f"Missing offline resource: {name}")
+    for name in ('c4-drawio.js','drawio-data.js'):
+        if not (root/'assets/offline'/name).is_file():
+            errors.append('Missing exact Mermaid runtime: '+name)
     templates = root / "assets/templates"
     if len(list(templates.glob("*.mmd"))) != 9:
         errors.append("Expected nine bundled Mermaid examples.")
     for source in templates.glob("*.mmd"):
         if not source.with_suffix(".svg").is_file():
             errors.append(f"Missing SVG preview: {source.name}")
-    for name in ("library.json", "native-templates.json", "reference-palette.drawio", "native-c4.mxlibrary", "mxC4.js", "Sidebar-C4.js", "Shapes.js", "provenance.json", "LICENSE.drawio", "NOTICE.txt"):
+        elif source.read_text(encoding='utf-8').lstrip().startswith('drawioC4'):
+            preview=ET.parse(source.with_suffix('.svg')).getroot()
+            if preview.get('data-c4-native-renderer')!='drawio-32.6.10':
+                errors.append('C4 preview did not use the exact native renderer: '+source.name)
+            if any(element.tag.rsplit('}',1)[-1] in ('image','foreignObject') for element in preview.iter()):
+                errors.append('Image/foreignObject substitution in exact C4 preview: '+source.name)
+    for name in ("library.json", "native-templates.json", "reference-palette.drawio", "native-c4.mxlibrary", "mxC4.js", "Sidebar-C4.js", "Shapes.js", "mxClient.js", "native-builtins.js", "native-fidelity.json", "provenance.json", "LICENSE.drawio", "NOTICE.txt"):
         if not (root / "assets/drawio-c4" / name).is_file():
             errors.append(f"Missing draw.io C4 resource: {name}")
     supplied = root / 'assets/drawio-c4/reference-palette.drawio'
@@ -131,9 +140,16 @@ def verify(root):
     if supplied.is_file() and snapshot.is_file():
         if hashlib.sha256(supplied.read_bytes()).hexdigest() != json.loads(snapshot.read_text(encoding='utf-8')).get('source_sha256'):
             errors.append('Canonical template snapshot does not match the supplied palette.')
+    provenance=root/'assets/drawio-c4/provenance.json'
+    if provenance.is_file():
+        pinned=json.loads(provenance.read_text(encoding='utf-8')).get('mermaid_native_runtime',{})
+        for name,digest in pinned.get('files',{}).items():
+            runtime=root/'assets/drawio-c4'/name
+            if not runtime.is_file() or hashlib.sha256(runtime.read_bytes()).hexdigest()!=digest:
+                errors.append('Pinned native Mermaid dependency differs: '+name)
     for name in ("container", "shapes"):
         directory = root / "assets/drawio"
-        for suffix in (".json", ".drawio", ".svg"):
+        for suffix in (".json", ".drawio", ".svg", ".mmd", "-mermaid.svg"):
             if not (directory / (name + suffix)).is_file():
                 errors.append(f"Missing draw.io fixture: {name}{suffix}")
         native = directory / (name + ".drawio")

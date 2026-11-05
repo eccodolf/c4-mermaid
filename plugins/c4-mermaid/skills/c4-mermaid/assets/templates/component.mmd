@@ -1,39 +1,15 @@
----
-config:
-  c4:
-    c4ShapeMargin: 45
-    c4ShapePadding: 10
-    diagramMarginX: 15
-    diagramMarginY: 15
----
-C4Component
+drawioC4 component
 title Component - Orders API: payment path (fictional example)
 Container(web, "Web UI", "React SPA", "Submits orders")
-System_Ext(payments, "Payments", "Authorizes payments")
 Container_Boundary(api, "Orders API - Node.js") {
   Component(endpoint, "Order endpoint", "Node.js/HTTP", "Validates requests")
   Component(service, "Order service", "Node.js module", "Coordinates order intake")
-  Component(adapter, "Payment adapter", "Node.js/HTTP", "Calls the payment<br/>provider")
+  Component(adapter, "Payment adapter", "Node.js/HTTP", "Calls the payment provider")
 }
+System_Ext(payments, "Payments", "Authorizes payments")
 Rel(web, endpoint, "Submits order", "JSON/HTTPS")
-Rel(endpoint, service, "Delegates order")
-Rel(service, adapter, "Requests payment")
+Rel(endpoint, service, "Delegates order", "")
+Rel(service, adapter, "Requests payment", "")
 Rel(adapter, payments, "Authorizes payment", "JSON/HTTPS")
-UpdateElementStyle(web, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateElementStyle(payments, $bgColor="#8C8496", $fontColor="#000000", $borderColor="#736782")
-UpdateElementStyle(endpoint, $bgColor="#63BEF2", $fontColor="#152332", $borderColor="#2086C9")
-UpdateElementStyle(service, $bgColor="#63BEF2", $fontColor="#152332", $borderColor="#2086C9")
-UpdateElementStyle(adapter, $bgColor="#63BEF2", $fontColor="#152332", $borderColor="#2086C9")
-UpdateRelStyle(web, endpoint, $offsetX="-65", $offsetY="-25")
-UpdateRelStyle(endpoint, service, $offsetX="-55", $offsetY="-55")
-UpdateRelStyle(service, adapter, $offsetX="-65", $offsetY="-55")
-UpdateRelStyle(adapter, payments, $offsetX="15", $offsetY="5")
-UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
-
-%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
-%% legend: Mermaid component blocks adapt the canonical rounded C4 Component block. Frame = the selected container. Unrelated persistence and event paths are outside this focused view.
-%% legend: Arrows = named dependencies. This focused payment-path view omits unrelated components, without asserting their absence.
-%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
-
-
-%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.
+%% drawio-layout: {"view":"component","nodes":{"web":{"x":20,"y":130,"width":200,"height":180,"subtype":"browser"},"api":{"x":400,"y":100,"width":720,"height":600},"endpoint":{"x":30,"y":30,"width":240,"height":180,"parent":"api"},"service":{"x":430,"y":30,"width":240,"height":180,"parent":"api"},"adapter":{"x":430,"y":320,"width":240,"height":180,"parent":"api"},"payments":{"x":1320,"y":420,"width":260,"height":180}},"edges":[{"id":"web_endpoint","source":"web","target":"endpoint","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"endpoint_service","source":"endpoint","target":"service","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"service_adapter","source":"service","target":"adapter","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[-100,0]},{"id":"adapter_payments","source":"adapter","target":"payments","source_port":[1,0.5],"target_port":[0,0.5]}],"expected_external_systems":["payments"]}
+%% legend: The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.

@@ -1,0 +1,88 @@
+{
+  "profile": "drawio-c4",
+  "pages": [
+    {
+      "view": "deployment",
+      "title": "Deployment - Development (fictional example)",
+      "legend": "The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.",
+      "elements": [
+        {
+          "id": "dev",
+          "name": "Developer machine",
+          "type": "deployment-node",
+          "x": 20,
+          "y": 100,
+          "width": 1040,
+          "height": 480,
+          "technology": "Development environment"
+        },
+        {
+          "id": "runtime",
+          "name": "Node process",
+          "type": "deployment-node",
+          "x": 30,
+          "y": 90,
+          "width": 380,
+          "height": 340,
+          "parent": "dev",
+          "technology": "Node.js"
+        },
+        {
+          "id": "postgres",
+          "name": "PostgreSQL server",
+          "type": "deployment-node",
+          "x": 630,
+          "y": 90,
+          "width": 380,
+          "height": 340,
+          "parent": "dev",
+          "technology": "PostgreSQL"
+        },
+        {
+          "id": "api_dev",
+          "name": "Orders API - instance 1",
+          "type": "container",
+          "x": 60,
+          "y": 110,
+          "width": 260,
+          "height": 180,
+          "parent": "runtime",
+          "subtype": "application",
+          "technology": "Node.js",
+          "description": "Orders API instance"
+        },
+        {
+          "id": "db_dev",
+          "name": "Orders store - instance 1",
+          "type": "container",
+          "x": 60,
+          "y": 110,
+          "width": 260,
+          "height": 180,
+          "parent": "postgres",
+          "subtype": "database",
+          "technology": "PostgreSQL schema",
+          "description": "Orders store instance"
+        }
+      ],
+      "relationships": [
+        {
+          "id": "api_db",
+          "source": "api_dev",
+          "target": "db_dev",
+          "action": "Writes orders",
+          "technology": "PostgreSQL protocol",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ]
+        }
+      ],
+      "expected_external_systems": []
+    }
+  ]
+}

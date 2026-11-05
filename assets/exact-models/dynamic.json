@@ -1,0 +1,126 @@
+{
+  "profile": "drawio-c4",
+  "pages": [
+    {
+      "view": "dynamic",
+      "title": "Dynamic - Publishing an accepted order (fictional example)",
+      "legend": "The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.",
+      "elements": [
+        {
+          "id": "web",
+          "name": "Web UI",
+          "type": "container",
+          "x": 20,
+          "y": 100,
+          "width": 240,
+          "height": 180,
+          "subtype": "browser",
+          "technology": "React SPA",
+          "description": "Submits orders"
+        },
+        {
+          "id": "api",
+          "name": "Orders API",
+          "type": "container",
+          "x": 420,
+          "y": 100,
+          "width": 240,
+          "height": 180,
+          "subtype": "application",
+          "technology": "Node.js",
+          "description": "Accepts orders"
+        },
+        {
+          "id": "db",
+          "name": "Orders store",
+          "type": "container",
+          "x": 420,
+          "y": 420,
+          "width": 240,
+          "height": 180,
+          "subtype": "database",
+          "technology": "PostgreSQL schema",
+          "description": "Stores orders"
+        },
+        {
+          "id": "topic",
+          "name": "orders.created",
+          "type": "container",
+          "x": 820,
+          "y": 420,
+          "width": 260,
+          "height": 180,
+          "subtype": "queue",
+          "technology": "Kafka topic",
+          "description": "Stores OrderCreated events"
+        }
+      ],
+      "relationships": [
+        {
+          "id": "web_api",
+          "source": "web",
+          "target": "api",
+          "action": "1: Submits order",
+          "technology": "JSON/HTTPS",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ]
+        },
+        {
+          "id": "api_db",
+          "source": "api",
+          "target": "db",
+          "action": "2: Saves order",
+          "technology": "PostgreSQL/TLS",
+          "source_port": [
+            0.5,
+            1
+          ],
+          "target_port": [
+            0.5,
+            0
+          ],
+          "label_offset": [
+            110,
+            0
+          ]
+        },
+        {
+          "id": "api_topic",
+          "source": "api",
+          "target": "topic",
+          "action": "3: Publishes OrderCreated",
+          "technology": "Kafka/TLS",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "points": [
+            [
+              730,
+              190
+            ],
+            [
+              730,
+              510
+            ]
+          ],
+          "label_offset": [
+            110,
+            0
+          ]
+        }
+      ],
+      "expected_external_systems": []
+    }
+  ]
+}

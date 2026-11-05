@@ -1,0 +1,137 @@
+{
+  "profile": "drawio-c4",
+  "pages": [
+    {
+      "view": "landscape",
+      "title": "System Landscape - Commerce portfolio (fictional example)",
+      "legend": "The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.",
+      "elements": [
+        {
+          "id": "operator",
+          "name": "Warehouse operator",
+          "type": "person",
+          "x": 20,
+          "y": 190,
+          "width": 200,
+          "height": 180,
+          "description": "Manages stock"
+        },
+        {
+          "id": "customer",
+          "name": "Customer",
+          "type": "person",
+          "x": 480,
+          "y": 720,
+          "width": 200,
+          "height": 180,
+          "description": "Places orders"
+        },
+        {
+          "id": "company",
+          "name": "Commerce company",
+          "type": "group",
+          "x": 420,
+          "y": 100,
+          "width": 340,
+          "height": 540
+        },
+        {
+          "id": "warehouse",
+          "name": "Inventory",
+          "type": "software-system",
+          "x": 30,
+          "y": 90,
+          "width": 260,
+          "height": 180,
+          "parent": "company",
+          "description": "Tracks stock movements"
+        },
+        {
+          "id": "orders",
+          "name": "Orders",
+          "type": "software-system",
+          "x": 30,
+          "y": 310,
+          "width": 260,
+          "height": 180,
+          "parent": "company",
+          "description": "Accepts and processes orders"
+        },
+        {
+          "id": "provider",
+          "name": "Payment provider",
+          "type": "group",
+          "x": 980,
+          "y": 320,
+          "width": 340,
+          "height": 310
+        },
+        {
+          "id": "payments",
+          "name": "Payments",
+          "type": "software-system",
+          "x": 30,
+          "y": 90,
+          "width": 260,
+          "height": 180,
+          "parent": "provider",
+          "external": true,
+          "description": "Authorizes payments"
+        }
+      ],
+      "relationships": [
+        {
+          "id": "operator_warehouse",
+          "source": "operator",
+          "target": "warehouse",
+          "action": "Manages stock using",
+          "technology": "",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ]
+        },
+        {
+          "id": "customer_orders",
+          "source": "customer",
+          "target": "orders",
+          "action": "Places orders using",
+          "source_port": [
+            0.5,
+            0
+          ],
+          "target_port": [
+            0.5,
+            1
+          ],
+          "label_offset": [
+            -100,
+            0
+          ]
+        },
+        {
+          "id": "orders_payments",
+          "source": "orders",
+          "target": "payments",
+          "action": "Requests payment",
+          "technology": "",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ]
+        }
+      ],
+      "expected_external_systems": [
+        "payments"
+      ]
+    }
+  ]
+}

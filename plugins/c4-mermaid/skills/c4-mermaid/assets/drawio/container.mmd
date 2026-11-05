@@ -1,0 +1,19 @@
+drawioC4 container
+title Container - Orders (fictional example)
+System_Boundary(orders_scope, "Orders") {
+  Container(web, "Web UI", "React SPA", "Submits orders")
+  Container(api, "Orders API", "Node.js", "Accepts orders")
+  ContainerDb(db, "Orders store", "PostgreSQL schema", "Stores orders")
+  ContainerDb(bucket, "Attachments", "Object store", "Stores uploaded files")
+  ContainerQueue(topic, "orders.created", "Kafka topic", "Stores order events")
+}
+Person(customer, "Customer", "Places orders")
+System_Ext(payments, "Payments", "Authorizes payments")
+Rel(customer, web, "Uses", "HTTPS")
+Rel(web, api, "Submits order", "JSON/HTTPS")
+Rel(api, payments, "Authorizes payment", "JSON/HTTPS")
+Rel(api, db, "Writes orders", "PostgreSQL/TLS")
+Rel(web, bucket, "Uploads files", "HTTPS")
+Rel(api, topic, "Publishes events", "Kafka/TLS")
+%% drawio-layout: {"view":"container","nodes":{"orders_scope":{"x":320,"y":100,"width":1000,"height":520},"customer":{"x":20,"y":130,"width":200,"height":180},"web":{"x":30,"y":30,"width":240,"height":180,"parent":"orders_scope","subtype":"browser"},"api":{"x":390,"y":30,"width":240,"height":180,"parent":"orders_scope","subtype":"application"},"db":{"x":390,"y":270,"width":240,"height":180,"parent":"orders_scope","subtype":"database"},"bucket":{"x":30,"y":270,"width":240,"height":180,"parent":"orders_scope","subtype":"bucket"},"topic":{"x":710,"y":270,"width":260,"height":180,"parent":"orders_scope","subtype":"queue"},"payments":{"x":1380,"y":130,"width":260,"height":180}},"edges":[{"id":"customer_web","source":"customer","target":"web","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"web_api","source":"web","target":"api","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"api_payments","source":"api","target":"payments","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"api_db","source":"api","target":"db","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[100,0]},{"id":"web_bucket","source":"web","target":"bucket","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[100,0]},{"id":"api_topic","source":"api","target":"topic","source_port":[1,0.5],"target_port":[0,0.5],"points":[[1010,220],[1010,460]],"label_offset":[85,0]}],"expected_external_systems":["payments"]}
+%% legend: Person and system colors are shown in the key. Data, object, and file stores use the C4 data cylinder; the horizontal cylinder is a message bus. Gray dashed rounded frames delimit logical scopes, with the scope label at the bottom. Solid thin arrows indicate the named directed interaction. Text colors are adapted for contrast; sizes fit text.

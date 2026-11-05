@@ -1,0 +1,20 @@
+drawioC4 container
+title Supplied draw.io C4 shapes - native catalog
+Person(sample_1, "Person", "Vector shape sample")
+Person_Ext(sample_external_person, "External Person", "Outside the organization")
+System(sample_2, "System", "Vector shape sample")
+System_Ext(sample_external_system, "External System", "Outside the focal system")
+Container(sample_3, "Application", "", "Vector shape sample")
+ContainerDb(sample_7, "Database", "", "Vector shape sample")
+Container(sample_microservice, "Microservice", "", "Independent runtime")
+ContainerQueue(sample_9, "Queue", "", "Vector shape sample")
+Container(sample_4, "Browser", "", "Vector shape sample")
+Component(sample_6, "Component", "", "Vector shape sample")
+System_Boundary(sample_10, "System boundary") {
+  UpdateLayoutConfig($c4ShapeInRow="3")
+}
+Container_Boundary(sample_container_scope, "Container scope") {
+  UpdateLayoutConfig($c4ShapeInRow="3")
+}
+%% drawio-layout: {"view":"shape-catalog","nodes":{"sample_1":{"x":40,"y":100,"width":320,"height":220},"sample_external_person":{"x":400,"y":100,"width":320,"height":220},"sample_2":{"x":760,"y":100,"width":320,"height":220},"sample_external_system":{"x":40,"y":370,"width":320,"height":220},"sample_3":{"x":400,"y":370,"width":320,"height":220,"subtype":"application"},"sample_7":{"x":760,"y":370,"width":320,"height":220,"subtype":"database"},"sample_microservice":{"x":40,"y":640,"width":320,"height":220,"subtype":"microservice"},"sample_9":{"x":400,"y":640,"width":320,"height":220,"subtype":"queue"},"sample_4":{"x":760,"y":640,"width":320,"height":220,"subtype":"browser"},"sample_6":{"x":40,"y":910,"width":320,"height":220},"sample_10":{"x":400,"y":910,"width":320,"height":220},"sample_container_scope":{"x":760,"y":910,"width":320,"height":220}},"edges":[],"expected_external_systems":[]}
+%% legend: The supplied C4 shapes and role colors are used. Person2 = internal/external person; rounded blocks = System, Container or Component as labeled; cylinder3 = Data Container; horizontal cylinder3 = Message Bus; hexagon = Microservice Container; C4 browser = browser container. Gray dashed rounded frames = System/Container logical scope, with bottom captions. Text contrast and dimensions are adapted for readability. Empty scopes are notation samples.

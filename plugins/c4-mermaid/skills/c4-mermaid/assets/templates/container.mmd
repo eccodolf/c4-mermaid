@@ -1,48 +1,19 @@
----
-config:
-  c4:
-    c4ShapeMargin: 45
-    c4ShapePadding: 10
-    diagramMarginX: 15
-    diagramMarginY: 15
----
-C4Container
+drawioC4 container
 title Container - Orders (fictional example)
+System_Boundary(orders_scope, "Orders") {
+  Container(web, "Web UI", "React SPA", "Submits orders")
+  Container(api, "Orders API", "Node.js", "Accepts orders")
+  ContainerDb(db, "Orders store", "PostgreSQL schema", "Stores orders")
+  ContainerDb(bucket, "Attachments", "Object store", "Stores uploaded files")
+  ContainerQueue(topic, "orders.created", "Kafka topic", "Stores order events")
+}
 Person(customer, "Customer", "Places orders")
 System_Ext(payments, "Payments", "Authorizes payments")
-System_Boundary(orders, "Orders") {
-  Container(worker, "Order worker", "Node.js", "Starts order fulfillment")
-  Container(web, "Web UI", "React SPA", "Order form in<br/>the browser")
-  Container(api, "Orders API", "Node.js", "Accepts orders<br/>and requests payment")
-  ContainerQueue(topic, "orders.created", "Kafka topic", "Stores OrderCreated<br/>events")
-  ContainerDb(db, "Orders store", "PostgreSQL schema", "Stores orders<br/>and payment status")
-}
-Rel(customer, web, "Places orders using")
-Rel(web, api, "Submits orders", "JSON/HTTPS")
+Rel(customer, web, "Uses", "HTTPS")
+Rel(web, api, "Submits order", "JSON/HTTPS")
+Rel(api, payments, "Authorizes payment", "JSON/HTTPS")
 Rel(api, db, "Writes orders", "PostgreSQL/TLS")
-Rel(api, payments, "Authorizes payments", "JSON/HTTPS")
-Rel(api, topic, "Publishes OrderCreated", "Kafka/TLS")
-Rel(worker, topic, "Subscribes to OrderCreated", "Kafka/TLS")
-UpdateElementStyle(customer, $bgColor="#083F75", $fontColor="#FFFFFF", $borderColor="#06315C")
-UpdateElementStyle(payments, $bgColor="#8C8496", $fontColor="#000000", $borderColor="#736782")
-UpdateElementStyle(web, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateElementStyle(api, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateElementStyle(worker, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateElementStyle(db, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateElementStyle(topic, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateRelStyle(customer, web, $offsetX="-50", $offsetY="-35")
-UpdateRelStyle(web, api, $offsetX="-60", $offsetY="-70")
-UpdateRelStyle(api, payments, $offsetX="-50", $offsetY="-20")
-UpdateRelStyle(api, db, $offsetX="-90", $offsetY="5")
-UpdateRelStyle(api, topic, $offsetX="-65", $offsetY="-30")
-UpdateRelStyle(worker, topic, $offsetX="15", $offsetY="5")
-UpdateLayoutConfig($c4ShapeInRow="3", $c4BoundaryInRow="1")
-
-%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
-%% legend: Person = actor. Rectangle = application/system with an explicit type. Vertical cylinder = database. Horizontal cylinder = named Kafka topic.
-%% legend: Frame = logical system boundary. Native Mermaid uses a neutral dashed scope frame; the exact native companion preserves the canonical rounded frame and bottom label.
-%% legend: Arrows describe dependencies through their action/protocol labels. A dashed line does not itself mean async.
-%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
-
-
-%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.
+Rel(web, bucket, "Uploads files", "HTTPS")
+Rel(api, topic, "Publishes events", "Kafka/TLS")
+%% drawio-layout: {"view":"container","nodes":{"orders_scope":{"x":320,"y":100,"width":1000,"height":520},"customer":{"x":20,"y":130,"width":200,"height":180},"web":{"x":30,"y":30,"width":240,"height":180,"parent":"orders_scope","subtype":"browser"},"api":{"x":390,"y":30,"width":240,"height":180,"parent":"orders_scope","subtype":"application"},"db":{"x":390,"y":270,"width":240,"height":180,"parent":"orders_scope","subtype":"database"},"bucket":{"x":30,"y":270,"width":240,"height":180,"parent":"orders_scope","subtype":"bucket"},"topic":{"x":710,"y":270,"width":260,"height":180,"parent":"orders_scope","subtype":"queue"},"payments":{"x":1380,"y":130,"width":260,"height":180}},"edges":[{"id":"customer_web","source":"customer","target":"web","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"web_api","source":"web","target":"api","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"api_payments","source":"api","target":"payments","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"api_db","source":"api","target":"db","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[100,0]},{"id":"web_bucket","source":"web","target":"bucket","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[100,0]},{"id":"api_topic","source":"api","target":"topic","source_port":[1,0.5],"target_port":[0,0.5],"points":[[1010,220],[1010,460]],"label_offset":[85,0]}],"expected_external_systems":["payments"]}
+%% legend: The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.

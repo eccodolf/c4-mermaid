@@ -29,7 +29,7 @@
     "Canonical native styles are read from the user-supplied reference-palette.drawio snapshot.",
     "Native C4 identifiers, rounded/dashed scope geometry and bottom captions are preserved.",
     "Text wrapping, dimensions, font contrast, editable graph hierarchy, real endpoints and compact native color-key legends are adapted for architecture output.",
-    "SVG glyph samples and Mermaid are disclosed approximations; exact native draw.io architecture is mandatory."
+    "Parameterized Python SVG samples remain layout aids. Exact Mermaid uses the original native engine and is checked against actual draw.io vector exports; simplified replacements are prohibited."
   ],
   "canonical_palette": {
     "file": "reference-palette.drawio",
@@ -38,5 +38,19 @@
     "templates": "native-templates.json",
     "importable_library": "native-c4.mxlibrary",
     "mandatory": true
+  },
+  "mermaid_native_runtime": {
+    "drawio_version": "32.6.10",
+    "repository": "jgraph/drawio",
+    "commit": "c72c9a98b7a6ce392556ed04c05e0ff19f43f5c3",
+    "core_source": "src/main/webapp/mxgraph/mxClient.js",
+    "license": "Apache-2.0",
+    "files": {
+      "mxClient.js": "8db464f5b92a073ea7b98d30a8f9a35ac7583c8e80a951fd5dfbaf39d616b5a6",
+      "mxC4.js": "b8c8a6fb3609d36612eb361608b5f1d94b77d67ab1f6380a0420805b41b284b9",
+      "native-builtins.js": "14a8d9a6afdfefb9ada548448bdf1be018cb5461d46d3601a6bf853914295b97"
+    },
+    "native_fidelity": "native-fidelity.json",
+    "execution": "Original native JavaScript runs locally; resource/style loading and editor controls are disabled."
   }
 }

@@ -1,32 +1,11 @@
----
-config:
-  c4:
-    c4ShapeMargin: 45
-    c4ShapePadding: 10
-    diagramMarginX: 15
-    diagramMarginY: 15
----
-C4Dynamic
+drawioC4 dynamic
 title Dynamic - Publishing an accepted order (fictional example)
 Container(web, "Web UI", "React SPA", "Submits orders")
 Container(api, "Orders API", "Node.js", "Accepts orders")
 ContainerDb(db, "Orders store", "PostgreSQL schema", "Stores orders")
-ContainerQueue(topic, "orders.created", "Kafka topic", "Stores OrderCreated<br/>events")
-Rel(web, api, "Submits order", "JSON/HTTPS")
-Rel(api, db, "Saves order", "PostgreSQL/TLS")
-Rel(api, topic, "Publishes OrderCreated", "Kafka/TLS")
-UpdateElementStyle(web, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateElementStyle(api, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateElementStyle(db, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateElementStyle(topic, $bgColor="#23A2D9", $fontColor="#152332", $borderColor="#0E7DAD")
-UpdateRelStyle(web, api, $offsetX="-65", $offsetY="-70")
-UpdateRelStyle(api, db, $offsetX="-90", $offsetY="-10")
-UpdateRelStyle(api, topic, $offsetX="40", $offsetY="5")
-UpdateLayoutConfig($c4ShapeInRow="2", $c4BoundaryInRow="1")
-
-%% legend: Canonical draw.io C4 roles: dark blue Person, blue System, cyan Container, light cyan Component, muted violet external System. Mermaid glyphs adapt the native assets.
-%% legend: Numbers identify interaction order in this scenario. Arrow wording and protocol identify each message. Replies are outside this focused fragment.
-%% legend: Sizes accommodate content and carry no extra architectural meaning. Neutral relationship colors add no extra meaning. Arrowheads indicate the labeled direction.
-
-
-%% legend: Exact C4 shapes require the native draw.io companion; Mermaid syntax cannot import the native assets.
+ContainerQueue(topic, "orders.created", "Kafka topic", "Stores OrderCreated events")
+Rel(web, api, "1: Submits order", "JSON/HTTPS")
+Rel(api, db, "2: Saves order", "PostgreSQL/TLS")
+Rel(api, topic, "3: Publishes OrderCreated", "Kafka/TLS")
+%% drawio-layout: {"view":"dynamic","nodes":{"web":{"x":20,"y":100,"width":240,"height":180,"subtype":"browser"},"api":{"x":420,"y":100,"width":240,"height":180,"subtype":"application"},"db":{"x":420,"y":420,"width":240,"height":180,"subtype":"database"},"topic":{"x":820,"y":420,"width":260,"height":180,"subtype":"queue"}},"edges":[{"id":"web_api","source":"web","target":"api","source_port":[1,0.5],"target_port":[0,0.5]},{"id":"api_db","source":"api","target":"db","source_port":[0.5,1],"target_port":[0.5,0],"label_offset":[110,0]},{"id":"api_topic","source":"api","target":"topic","source_port":[1,0.5],"target_port":[0,0.5],"points":[[730,190],[730,510]],"label_offset":[110,0]}],"expected_external_systems":[]}
+%% legend: The bundled Mermaid extension renders the original draw.io C4 vector geometry. Colors identify the roles in the key. Gray dashed rounded frames are logical scopes with bottom captions; dotted groups are organizational; solid placement frames are deployment nodes. Arrows show named directed interactions. Sizes fit text, not quantity.
