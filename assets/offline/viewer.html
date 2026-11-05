@@ -49,7 +49,7 @@ document.getElementById('file').addEventListener('change',async event=>{
  const file=event.target.files[0];if(!file)return;
  source.value=await file.text();
  const key=source.value.split('\n').filter(line=>line.trim().startsWith('%% legend:')).map(line=>line.slice(line.indexOf('%% legend:')+10).trim()).join('\n');
- if(key)legend.value=key;
+ legend.value=key;
  invalidate();status.textContent='Source loaded. Select Render.';
 });
 function invalidate(){download.disabled=true;}
@@ -85,6 +85,7 @@ document.getElementById('render').addEventListener('click',async()=>{
  const requestedSource=source.value,requestedLegend=legend.value;
  try{
   assertAirGapSource(requestedSource);
+  assertLegend(requestedLegend);
   const result=await mermaid.render('diagram_'+(++serial),requestedSource);preview.innerHTML=result.svg;preview.querySelector('svg').setAttributeNS('http://www.w3.org/XML/1998/namespace','xml:space','preserve');await document.fonts.ready;
   renderedSource=requestedSource;renderedLegend=requestedLegend;
   document.getElementById('legend-preview').textContent=requestedLegend;

@@ -123,6 +123,27 @@ def verify(root):
     for source in templates.glob("*.mmd"):
         if not source.with_suffix(".svg").is_file():
             errors.append(f"Missing SVG preview: {source.name}")
+    for name in ("library.json", "mxC4.js", "Sidebar-C4.js", "Shapes.js", "provenance.json", "LICENSE.drawio", "NOTICE.txt"):
+        if not (root / "assets/drawio-c4" / name).is_file():
+            errors.append(f"Missing draw.io C4 resource: {name}")
+    for name in ("container", "shapes"):
+        directory = root / "assets/drawio"
+        for suffix in (".json", ".drawio", ".svg"):
+            if not (directory / (name + suffix)).is_file():
+                errors.append(f"Missing draw.io fixture: {name}{suffix}")
+        native = directory / (name + ".drawio")
+        if native.is_file():
+            try:
+                document = ET.parse(native).getroot()
+                if document.tag != "mxfile" or not document.findall("./diagram/mxGraphModel/root/object"):
+                    errors.append(f"Not an uncompressed native editable fixture: {name}")
+                for cell in document.iter("mxCell"):
+                    style = cell.get("style", "")
+                    readable_style = re.sub(r"stencil\([A-Za-z0-9+/=]+\)", "stencil(embedded)", style)
+                    if "image=" in style or REMOTE.search(readable_style):
+                        errors.append(f"Image or remote dependency in draw.io fixture: {name}")
+            except ET.ParseError as error:
+                errors.append(f"Invalid draw.io fixture {name}: {error}")
     return errors
 
 

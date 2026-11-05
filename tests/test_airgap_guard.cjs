@@ -8,6 +8,8 @@ const root = path.resolve(__dirname, '..');
 const context = vm.createContext({});
 vm.runInContext(fs.readFileSync(path.join(root, 'assets/offline/airgap-guard.js'), 'utf8'), context);
 const guard = context.assertAirGapSource;
+for (const legend of ['', '   ', '\n\t', null]) assert.throws(() => context.assertLegend(legend));
+assert.doesNotThrow(() => context.assertLegend('Blue = system. Arrow = directed call.'));
 for (const name of fs.readdirSync(path.join(root, 'assets/templates')).filter(name => name.endsWith('.mmd'))) {
   assert.doesNotThrow(() => guard(fs.readFileSync(path.join(root, 'assets/templates', name), 'utf8')), name);
 }

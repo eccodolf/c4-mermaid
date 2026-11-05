@@ -22,7 +22,7 @@ claude plugin validate . --strict
 claude plugin validate plugins/c4-mermaid --strict
 ```
 
-The eleven repository tests cover offline operation, integrity failures, all eight native user/project installation destinations, marketplace sources, manifest consistency, and packaged-resource identity. They do not certify model reasoning or every renderer in every host. Local profiles used for native installation tests are isolated from the user's normal configuration.
+The repository tests cover offline operation, integrity failures, all eight native user/project installation destinations, marketplace sources, manifest consistency, and packaged-resource identity. They do not certify model reasoning or every renderer in every host. Local profiles used for native installation tests are isolated from the user's normal configuration.
 
 ## Primary requirements consulted
 

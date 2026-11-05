@@ -1,6 +1,6 @@
 ---
 name: c4-mermaid
-description: "Use when C4 architecture diagrams in Mermaid are needed from a local repository or application description, including air-gapped use, correct abstraction mapping, compact layouts, mandatory C4 review, and bundled SVG graphics."
+description: "Create evidence-based C4 diagrams in Mermaid from a local repository or description, with optional editable draw.io delivery, bundled draw.io C4 vectors, compact readable layouts, and air-gapped review."
 ---
 
 # C4 Mermaid
@@ -32,11 +32,15 @@ Use the host's available file search, file reading, shell, browser, and image in
 
 Read [mermaid.md](references/mermaid.md) before rendering. Consult the relevant view and shape entries in [official-examples.md](references/official-examples.md).
 
+Apply [shape-rules.md](references/shape-rules.md) to every glyph: explicit C4 type and container subtype determine geometry. Visible type, metadata, and shape must agree. For requested editable draw.io output, read [drawio.md](references/drawio.md); export separate native cells and edges from the same architecture register, then render and round-trip the actual saved file.
+
 Use native `C4Context`, `C4Container`, `C4Component`, `C4Dynamic`, or `C4Deployment` when the target supports them. A landscape can use `C4Context` with the correct scope and title. Use `classDiagram` or `erDiagram` for Code; there is no `C4Code` syntax. A sequence representation is suitable for a runtime scenario.
 
 When native C4 is unavailable or cannot satisfy the required readable, compact layout, use a styled `flowchart` preserving C4 semantics. Identify adapted shapes. Do not declare native C4 unsupported merely because the target renderer is unknown.
 
 The default `example-light` profile follows the official light examples: white fill with colored outlines and text. Identity colors persist across levels. `example-filled`, `example-dark`, and `classic` are explicit alternatives. C4 itself does not mandate a universal palette or shape set. Distinguish logical containment, organizational grouping, and deployment placement in the legend.
+
+**Every diagram must include its own visible legend.** Explain its actual shapes, colors, border styles, arrows, and notation adaptations inside the exported artifact. Prose elsewhere or source comments alone do not satisfy this requirement.
 
 **Compact block layout is mandatory.** Pack sibling blocks into a balanced grid or short dependency-oriented rows inside their boundary. Size the boundary around its contents and routing corridors. Remove avoidable empty rows, oversized gaps, stretched frames, and long disconnected legend strips. Preserve sufficient padding for all labels, arrowheads, and relationship routes. Compactness never permits overlapping text, an edge through an unrelated block, hidden labels, unreadably small fonts, or a label detached from its arrow. Render, inspect, and adjust; do not confuse smaller file dimensions with a better layout.
 
@@ -46,6 +50,8 @@ The default `example-light` profile follows the official light examples: white f
 - `assets/offline/viewer.html`: the included Mermaid engine, local file loading, layout checks, and SVG export without CDN or network fonts. File loading reads `%% legend:` comments into the visible export legend.
 - `assets/c4-theme.json` and `assets/graphics/*.svg`: palette parameters and thirteen vector shape samples.
 - `python scripts/render_shape.py --help`: generate a parameterized shape or catalog using the standard library. Geometry is recalculated for size and labels; it is not a stretched bitmap or a substitute for a Mermaid diagram.
+- `assets/drawio-c4/`: frozen draw.io C4 palette, original shape sources, provenance, and Apache-2.0 notices. Select `drawio-c4` for its adapted readable colors; SVG and native draw.io use the same actual asset definitions.
+- `assets/drawio/`: positioned JSON examples, native editable `.drawio` files, and previews. `scripts/export_drawio.py` exports and checks them using only Python's standard library. A local draw.io application is a separately provisioned rendering capability.
 
 Native Mermaid cannot import these SVG symbols as custom C4 shapes. Preserve that distinction when offering a precise vector composition alongside editable Mermaid.
 
@@ -56,6 +62,8 @@ Complete **every item** in [review-checklist.md](references/review-checklist.md)
 Render every source with the target version when available, otherwise the bundled version, and inspect the actual result. Parsing alone is insufficient. Text must fit its own block, must not overlap other text or foreign blocks, and must remain visibly associated with its arrow. Check titles, boundaries, legends, arrowheads, crossings, and compact use of interior space. The viewer's external-label detector supplements manual inspection; it does not prove the whole layout correct. Do not send private repository contents to an online editor for validation.
 
 Deliver editable Mermaid, previews/exports when available, a visible legend, significant assumptions, evidence, and a short checklist verdict for each view. Keep `.mmd` alongside saved SVG. If rendering was unavailable, explicitly report that the result is an unrendered draft. Do not claim exhaustive repository coverage after a partial inspection.
+
+When draw.io is requested, also deliver the native `.drawio` and positioned source model. Verify all pages after native save/re-export: counts, stable IDs, parents, text, geometry, arrow endpoints, and external-system coverage. Report actual renderer/version and any unperformed visual or round-trip checks. Do not describe embedded pictures as editable architecture.
 
 For Landscape, System Context, and Container diagrams, include or reference the external-system coverage matrix and report missing systems and evidence limits explicitly. A system mentioned only in prose, a legend, an arrow label, or another diagram is not a represented system node.
 

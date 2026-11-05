@@ -8,7 +8,17 @@ Original author: Simon Brown. Original publication: C4 model, source identifier 
 
 The original site and visual examples are licensed under Creative Commons Attribution 4.0 International. The [complete license text](../assets/offline/LICENSE.CC-BY-4.0) is included locally, including its warranty disclaimer. Preserve attribution and the indication of modifications when redistributing adaptations.
 
-The [mapping guide](c4-model.md) contains the classification rules. The [example analysis](official-examples.md) records observations from ten original diagrams and eight keys. The [review checklist](review-checklist.md) includes all 21 official criteria in condensed wording. Included graphics are independently drawn adaptations; application diagrams are fictional order-system examples. Optional alternate palettes and the user's compact-layout/no-overlap requirements are identified as adaptations. Original Structurizr viewer code, banking-model SVGs, and vendor icons are not included.
+The [mapping guide](c4-model.md) contains the classification rules. The [example analysis](official-examples.md) records observations from ten original diagrams and eight keys. The [review checklist](review-checklist.md) includes all 21 official criteria in condensed wording. Application diagrams are fictional order-system examples. Optional alternate palettes and the user's compact-layout/no-overlap requirements are identified as adaptations. Banking-model SVGs and vendor logos are not included.
+
+## draw.io C4 assets
+
+The bundle includes actual draw.io C4 palette assets from `jgraph/drawio`, tag `v32.6.10`, commit `c72c9a98b7a6ce392556ed04c05e0ff19f43f5c3`. Original source files [mxC4.js](../assets/drawio-c4/mxC4.js), [Sidebar-C4.js](../assets/drawio-c4/Sidebar-C4.js), and [Shapes.js](../assets/drawio-c4/Shapes.js) are retained unchanged. The [palette snapshot](../assets/drawio-c4/library.json) freezes actual C4 style entries and selected paint operations. Python adapters interpret local data; no vendor script is executed at runtime.
+
+Copyright notices remain in the sources. The complete [Apache-2.0 license](../assets/drawio-c4/LICENSE.drawio), [adaptation notice](../assets/drawio-c4/NOTICE.txt), and [pinned provenance/hashes](../assets/drawio-c4/provenance.json) are included. Modifications include parameterized browser geometry, safe text regions, darker text for contrast, and frame-header placement. Person2 retains its original circular-head formulas; data and message-bus containers follow cylinder3; general applications and components use the C4 rounded blocks. Mermaid-native examples use Mermaid's own glyphs. No third-party theme or alternate vendor asset collection is included.
+
+## draw.io verification
+
+Native editable XML uses inline vector stencils rather than remote libraries or image cells. The examples were rendered to SVG/PNG and native XML re-exported through locally provisioned draw.io desktop 32.6.10. The application itself is not redistributed here. [drawio.md](drawio.md) describes the supported model, saving procedure, offline requirements, and verification limits.
 
 ## Mermaid engine
 

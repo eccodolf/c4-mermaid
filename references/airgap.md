@@ -38,4 +38,6 @@ If rendering is unavailable, deliver an explicitly unrendered draft and mark V1/
 
 ## Attribution and inert identifiers
 
+For native editable draw.io output, follow [drawio.md](drawio.md). Provision the desktop editor before isolation; no editor runtime is included or downloaded by this skill. The exporter and frozen draw.io C4 geometry/styles use only bundled files and Python's standard library. The complete [Apache-2.0 license](../assets/drawio-c4/LICENSE.drawio) and adaptation notice travel with the assets. Missing native rendering capability must be disclosed as a verification limit.
+
 [Sources and provenance](sources.md) identifies the original authors and adaptations. Full [CC BY 4.0](../assets/offline/LICENSE.CC-BY-4.0) and [Mermaid MIT](../assets/offline/LICENSE.mermaid) texts are bundled. Third-party license text and the unchanged engine may contain source identifiers; XML namespace identifiers in SVG are format identifiers. None is an instruction to access a website or a runtime download dependency. Preserve legal notices when redistributing the bundle.

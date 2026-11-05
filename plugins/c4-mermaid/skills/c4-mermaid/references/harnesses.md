@@ -64,3 +64,7 @@ Run `python -m unittest discover -s tests` from the repository to check installa
 Compatibility documentation checked against the locally summarized source documentation on 2026-11-05. Runtime versions and configured discovery roots may differ.
 
 This revision passed the Codex skill validator and all eight isolated user/project installation cases. The installed DSH filesystem provider (`0.2.1-rc.2`) discovered and loaded the bundle with its resource directory intact. Full model-driven sessions in Claude Code, Kimi Code CLI, and DSH were not run; documentation compatibility and loader checks are not end-to-end behavioral certification.
+
+## Optional native draw.io capability
+
+All four harnesses use the same [local draw.io exporter and saving procedure](drawio.md). Python provides model export and structural checks; a separately provisioned local draw.io editor provides native rendering and save/re-export verification. The exporter has no harness-specific API or network dependency. Without the editor or image inspection, report the corresponding D3/D4 gates as `NOT VERIFIED`.

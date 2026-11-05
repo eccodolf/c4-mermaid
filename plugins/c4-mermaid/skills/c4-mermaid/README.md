@@ -9,6 +9,8 @@ A self-contained, air-gap-ready Agent Skill for **Codex, Claude Code, Kimi Code 
 - All 21 C4 review criteria plus evidence, layout, export, and air-gap gates.
 - Nine editable Mermaid examples with reviewed SVG previews.
 - Thirteen parametric vector shapes and a local SVG generator.
+- Bundled draw.io C4 palette and shape assets, with full Apache-2.0 attribution.
+- Native editable draw.io export, typed shape checks, layout preflight, and round-trip examples.
 - Mermaid 12.3.0 browser engine, local viewer, and complete license texts.
 - Offline installation, tests, and SHA-256 integrity verification.
 
@@ -50,6 +52,9 @@ Example request:
 - [Mandatory checklist](references/review-checklist.md)
 - [Mermaid syntax and layout](references/mermaid.md)
 - [C4 example analysis](references/official-examples.md)
+- [Semantic shape rules and draw.io C4 assets](references/shape-rules.md)
+- [Editable draw.io delivery and verification](references/drawio.md)
+- [Native shape catalog](assets/drawio/shapes.drawio) and [Container example](assets/drawio/container.drawio)
 - [Mermaid sources and SVG previews](assets/templates/)
 - [Vector catalog](assets/graphics/catalog-light.svg)
 - [Offline viewer](assets/offline/viewer.html)
@@ -61,6 +66,8 @@ Open `assets/offline/viewer.html` in a permitted local browser. Load a `.mmd`, r
 
 ```sh
 python scripts/render_shape.py --help
+python scripts/export_drawio.py --input assets/drawio/container.json --output orders.drawio
+python scripts/export_drawio.py --check orders.drawio
 python scripts/verify_bundle.py
 python -m unittest discover -s tests
 ```

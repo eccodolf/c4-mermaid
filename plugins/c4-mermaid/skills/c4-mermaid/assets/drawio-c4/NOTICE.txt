@@ -1,0 +1,8 @@
+draw.io C4 palette adaptations
+
+Copyright (c) 2006-2018, JGraph Holdings Ltd (mxC4.js).
+Copyright (c) 2020-2025, JGraph Holdings Ltd and draw.io AG (Sidebar-C4.js).
+Additional source copyright notices remain in the unchanged Shapes.js.
+Licensed under Apache-2.0; see LICENSE.drawio. Pinned sources and hashes: provenance.json.
+
+The local adapters freeze C4 styles and paint geometry as data, parameterize dimensions, keep the person head circular, reserve safe label areas, and adapt font contrast. File/object stores use the C4 data-container cylinder; general applications and components use the C4 rounded blocks. No optional external icon/theme asset is required. Preserve this notice and upstream source/license notices with redistributions.

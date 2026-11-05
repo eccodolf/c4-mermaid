@@ -1,0 +1,224 @@
+{
+  "profile": "drawio-c4",
+  "pages": [
+    {
+      "view": "container",
+      "title": "Container - Orders (fictional example)",
+      "legend": "draw.io C4 palette: dark blue = Person, blue = Software System, cyan = Container, light cyan = Component, muted violet = external system. General applications/components are rounded blocks; data, object, and file stores share the data-container cylinder; message buses use a horizontal cylinder; browser uses the C4 window. Solid blue/neutral frames = logical/placement scope; dotted frames = organization. Arrows show named directed interactions. Font contrast is adapted; sizes fit text, not quantity.",
+      "elements": [
+        {
+          "id": "orders_scope",
+          "name": "Orders",
+          "type": "system-boundary",
+          "x": 320,
+          "y": 110,
+          "width": 1000,
+          "height": 540
+        },
+        {
+          "id": "customer",
+          "name": "Customer",
+          "type": "person",
+          "x": 20,
+          "y": 200,
+          "width": 200,
+          "height": 180,
+          "description": "Places orders"
+        },
+        {
+          "id": "web",
+          "name": "Web UI",
+          "type": "container",
+          "x": 30,
+          "y": 90,
+          "width": 240,
+          "height": 180,
+          "parent": "orders_scope",
+          "subtype": "browser",
+          "technology": "React SPA",
+          "description": "Submits orders"
+        },
+        {
+          "id": "api",
+          "name": "Orders API",
+          "type": "container",
+          "x": 390,
+          "y": 90,
+          "width": 240,
+          "height": 180,
+          "parent": "orders_scope",
+          "subtype": "application",
+          "technology": "Node.js",
+          "description": "Accepts orders"
+        },
+        {
+          "id": "db",
+          "name": "Orders store",
+          "type": "container",
+          "x": 390,
+          "y": 330,
+          "width": 240,
+          "height": 180,
+          "parent": "orders_scope",
+          "subtype": "database",
+          "technology": "PostgreSQL schema",
+          "description": "Stores orders"
+        },
+        {
+          "id": "bucket",
+          "name": "Attachments",
+          "type": "container",
+          "x": 30,
+          "y": 330,
+          "width": 240,
+          "height": 180,
+          "parent": "orders_scope",
+          "subtype": "bucket",
+          "technology": "Object store",
+          "description": "Stores uploaded files"
+        },
+        {
+          "id": "topic",
+          "name": "orders.created",
+          "type": "container",
+          "x": 710,
+          "y": 330,
+          "width": 260,
+          "height": 180,
+          "parent": "orders_scope",
+          "subtype": "queue",
+          "technology": "Kafka topic",
+          "description": "Stores order events"
+        },
+        {
+          "id": "payments",
+          "name": "Payments",
+          "type": "software-system",
+          "x": 1380,
+          "y": 200,
+          "width": 260,
+          "height": 180,
+          "external": true,
+          "description": "Authorizes payments"
+        }
+      ],
+      "relationships": [
+        {
+          "id": "customer_web",
+          "source": "customer",
+          "target": "web",
+          "action": "Uses",
+          "technology": "HTTPS",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ]
+        },
+        {
+          "id": "web_api",
+          "source": "web",
+          "target": "api",
+          "action": "Submits order",
+          "technology": "JSON/HTTPS",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ]
+        },
+        {
+          "id": "api_payments",
+          "source": "api",
+          "target": "payments",
+          "action": "Authorizes payment",
+          "technology": "JSON/HTTPS",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ]
+        },
+        {
+          "id": "api_db",
+          "source": "api",
+          "target": "db",
+          "action": "Writes orders",
+          "technology": "PostgreSQL/TLS",
+          "source_port": [
+            0.5,
+            1
+          ],
+          "target_port": [
+            0.5,
+            0
+          ],
+          "label_offset": [
+            100,
+            0
+          ]
+        },
+        {
+          "id": "web_bucket",
+          "source": "web",
+          "target": "bucket",
+          "action": "Uploads files",
+          "technology": "HTTPS",
+          "source_port": [
+            0.5,
+            1
+          ],
+          "target_port": [
+            0.5,
+            0
+          ],
+          "label_offset": [
+            100,
+            0
+          ]
+        },
+        {
+          "id": "api_topic",
+          "source": "api",
+          "target": "topic",
+          "action": "Publishes events",
+          "technology": "Kafka/TLS",
+          "source_port": [
+            1,
+            0.5
+          ],
+          "target_port": [
+            0,
+            0.5
+          ],
+          "points": [
+            [
+              1010,
+              290
+            ],
+            [
+              1010,
+              530
+            ]
+          ],
+          "label_offset": [
+            85,
+            0
+          ]
+        }
+      ],
+      "expected_external_systems": [
+        "payments"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "repository": "jgraph/drawio",
+  "commit": "c72c9a98b7a6ce392556ed04c05e0ff19f43f5c3",
+  "tag": "v32.6.10",
+  "license": "Apache-2.0",
+  "sources": [
+    {
+      "path": "src/main/webapp/shapes/mxC4.js",
+      "bundled_file": "mxC4.js",
+      "sha256": "b8c8a6fb3609d36612eb361608b5f1d94b77d67ab1f6380a0420805b41b284b9"
+    },
+    {
+      "path": "src/main/webapp/js/diagramly/sidebar/Sidebar-C4.js",
+      "bundled_file": "Sidebar-C4.js",
+      "sha256": "35517780257b044a5e31f38bef01caec730f282d580047899548e160dc9c7ff5"
+    },
+    {
+      "path": "src/main/webapp/js/grapheditor/Shapes.js",
+      "bundled_file": "Shapes.js",
+      "sha256": "d09a4408c2475bdef3456cbe763dc3d09793d296409fd979c94e5a52e8635983"
+    },
+    {
+      "path": "LICENSE",
+      "bundled_file": "LICENSE.drawio",
+      "sha256": "43070e2d4e532684de521b885f385d0841030efa2b1a20bafb76133a5e1379c1"
+    }
+  ],
+  "modifications": [
+    "C4 palette entries and paint operations frozen as library.json; original JS retained unchanged for provenance, never executed by the Python runtime.",
+    "Browser geometry parameterized; person2 head/body formulas preserve a circular head.",
+    "Data-store roles use C4 cylinder3, message bus uses its horizontal orientation.",
+    "Container/component/external text darkened for contrast; frame labels moved to reserved header; legend mandatory."
+  ]
+}

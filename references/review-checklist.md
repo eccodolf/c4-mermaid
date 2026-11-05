@@ -11,7 +11,7 @@ Adapted, in condensed wording, from Simon Brown's software architecture diagram 
 - [ ] G1. A meaningful title is present.
 - [ ] G2. The diagram type is clear.
 - [ ] G3. Its scope is clear.
-- [ ] G4. A visible notation key is provided.
+- [ ] G4. This diagram contains its own visible notation key in the exported artifact; source comments, another diagram, or accompanying prose alone do not count.
 
 ### Elements
 
@@ -54,6 +54,17 @@ These extend the official checklist with the user's requirements; they are not c
 - [ ] V2. The final exported artifact was checked at its intended size, including title, legend, fonts, bounds, and notation adaptations.
 - [ ] O1. All evidence, tools, inference, rendering, and review remained inside the air gap; no external resource was fetched.
 - [ ] O2. The transferred bundle passed its local integrity and resource checks, or the verification limit is explicitly reported.
+- [ ] S1. Evidence-based abstraction and explicit container subtype agree with the visible type, metadata, and selected glyph; technology or external status has not silently changed the abstraction.
+- [ ] S2. Person heads, storage caps/orientation, rounded component/container blocks, and browser headers render correctly; text fits their safe interior regions after resizing. Mermaid shape adaptations are disclosed.
+- [ ] S3. Text, including transparent-frame headers, has at least 4.5:1 contrast against its actual background; decorations do not obscure text.
+- [ ] S4. Used draw.io C4 geometry/style assets are local, with provenance, adaptation notice, and Apache-2.0 license preserved.
+- [ ] D1. If draw.io is requested, every architecture element and relationship is a separate native editable cell; no flattened image substitutes for the graph.
+- [ ] D2. Saved pages retain stable unique IDs, correct native parents and relative coordinates, typed geometry, named labels, valid endpoints, and intended edge directions.
+- [ ] D3. The actual saved file was rendered and inspected in a named local draw.io version; no text overlaps/clips, unrelated-block crossings, hidden captions, or unreadable frame titles remain.
+- [ ] D4. Native editor save/re-export and recheck preserve page/element/edge counts, IDs, parents, labels, types, endpoints, and the required external-system set; changed layouts receive another visual review.
+- [ ] D5. The `.drawio`, positioned source, preview, requested Mermaid companion, evidence, coverage matrix, and per-view verdict are delivered together without remote resources.
+
+Apply D1-D5 only when native draw.io delivery is requested; otherwise mark them `N/A`. Apply S4 to actual draw.io C4 adaptations, not unrelated Mermaid-native symbols. Read [shape-rules.md](shape-rules.md) and [drawio.md](drawio.md) for the checks and exporter limits.
 
 For missing technologies, assess whether the unknown is stated honestly and report the coverage limit. Do not substitute a guessed technology to satisfy E4/R3. Use `N/A` only when a criterion truly does not apply, not when it was skipped.
 
